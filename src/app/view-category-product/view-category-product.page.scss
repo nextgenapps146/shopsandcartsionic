@@ -1,0 +1,70 @@
+/**
+ * Ionic 4  Grocery Complete Platform(https://store.enappd.com/product/ionic-4-grocery-app-and-admin-dashboard)
+ *
+ * Copyright © 2019-present Enappd. All rights reserved.
+ *
+ * This source code is licensed as per the terms found in the
+ * LICENSE.md file in the root directory of this source .
+ *
+ */
+
+
+.discountSection {
+    background: #15bf15;
+    color: #fff;
+    position: absolute;
+    padding: 4px 8px;
+    border-radius: 5px;
+    font-weight: bold;
+    margin-top: -5px;
+    left: 10px;
+
+    ion-label{
+        font-size: 14px;
+    }
+}
+.productSection{
+    display: flex;
+    align-items: center;
+    padding-bottom: 16px;
+    padding-top: 16px;
+    width: 100%;
+}
+.imageSection{
+    // width: 40%;
+    img{
+        // width: 65%;
+    }
+}
+
+.productTitle{
+    // width: 40%;
+
+}
+.productCartSection{
+    // width: 20%;
+}
+ion-segment{
+    height: 36px;
+}
+
+.segmentBtn{
+    min-width: 30px;
+    max-width: 40px;
+}
+
+.footerRowSection{
+    display: flex;
+    align-items: flex-end;
+}
+ion-segment{
+    align-items: center;
+    ion-text{
+        margin-top: 10px;
+    }
+}
+
+ion-list{
+    background:#eaeaea;
+}
+ 
