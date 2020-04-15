@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-title class="title-ios" text-capitalize>Delivery Address</ion-title>
+    <ion-title class="title-ios" ion-text-capitalize>Delivery Address</ion-title>
   </ion-toolbar>
 </ion-header>
 <ion-content>
@@ -12,18 +12,18 @@
     <ion-item *ngFor="let add of addressArray|async; let i = index;">
       <ion-label>
         <ion-row align-items-center>
-          <p no-margin>
+          <p ion-no-ion-margin>
             <strong>{{add.title}} {{add.name}}</strong>
           </p>
         </ion-row>
         <ion-row>
-          <p no-margin>{{add.flatNumbers}}</p>
+          <p ion-no-ion-margin>{{add.flatNumbers}}</p>
         </ion-row>
         <ion-row>
-          <p no-margin>{{add.street}}</p>
+          <p ion-no-ion-margin>{{add.street}}</p>
         </ion-row>
         <ion-row>
-          <p no-margin>{{add.locality}}</p>
+          <p ion-no-ion-margin>{{add.locality}}</p>
         </ion-row>
       </ion-label>
       <ion-radio slot="start" value={{add.id}} checked></ion-radio>
@@ -33,7 +33,7 @@
       <ion-card-content>
         <div class="dFlexAlignItemCenter">
           <ion-icon name="add-circle-outline" class="iconSize fontSize"></ion-icon>
-          <h5 padding-start class="fontSize">Add New Address</h5>
+          <h5 ion-padding-start class="fontSize">Add New Address</h5>
         </div>
       </ion-card-content>
     </ion-card>
@@ -54,7 +54,7 @@
             <ion-list class="check-list bgTransparent">
               <ion-item *ngFor="let t of Time" class="list-items bgTransparent" lines="none">
                 <ion-radio checked="false" value={{t}}></ion-radio>
-                <ion-label padding-start>
+                <ion-label ion-padding-start>
                   <span class="check-label">{{t}}</span>
                 </ion-label>
               </ion-item>

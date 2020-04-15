@@ -3,15 +3,15 @@
         class="pRelative">
         <div>
             <div class="discountSection">
-                <ion-label text-uppercase>{{label}}</ion-label>
+                <ion-label ion-text-uppercase>{{label}}</ion-label>
             </div>
             <img class="sideImg" src="{{image}}" alt="">
         </div>
         <div class="pRelative">
             <ion-buttons class="iconBtn">
-                <ion-icon *ngIf="!accordianExpandable" name="arrow-down" mode="ios" class="icons" color="primary" style="    margin-top: 5px;"></ion-icon>
+                <ion-icon *ngIf="!accordianExpandable" name="arrow-down" mode="ios" class="icons" color="primary" style="    ion-ion-margin-top: 5px;"></ion-icon>
                 <ion-icon *ngIf="accordianExpandable" name="arrow-up" mode="ios" class="icons whiteColor" color="light"
-                    style="    margin-top: 5px;"></ion-icon>
+                    style="    ion-ion-margin-top: 5px;"></ion-icon>
             </ion-buttons>
         </div>
         <div class="titleSection">
@@ -20,7 +20,7 @@
             <span class="des">{{desc}}</span>
         </div>
     </ion-card-header>
-    <ion-card-content #cardContent *ngIf="cardContentToggle" margin-bottom no-margin no-padding>
+    <ion-card-content #cardContent *ngIf="cardContentToggle" ion-ion-margin-bottom ion-no-ion-margin ion-no-padding>
         <ng-content></ng-content>
     </ion-card-content>
 </ion-card>

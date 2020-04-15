@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title class="title-ios" text-capitalize>My Order</ion-title>
+    <ion-title class="title-ios" ion-text-capitalize>My Order</ion-title>
   </ion-toolbar>
 </ion-header>
 <ion-content>
@@ -48,11 +48,11 @@
     </div>
 
   </div>
-  <ion-list margin-top *ngIf="orders">
-    <ion-card *ngFor="let order of orders | async;let i=index" no-padding class="cardSection">
+  <ion-list ion-ion-margin-top *ngIf="orders">
+    <ion-card *ngFor="let order of orders | async;let i=index" ion-no-padding class="cardSection">
       <div class="productSection">
         <div class="productTitle pRelative order-summary">
-          <div margin-top padding-top>
+          <div ion-ion-margin-top ion-padding-top>
             <h6>Grand Total :₹{{order.grandTotal}}</h6>
             <h6>Number of products : ₹{{order.products.length}}</h6>
           </div>
@@ -74,9 +74,9 @@
           </div>
           <div class="productTitle pRelative">
             <div class="discountSection">
-              <ion-label text-uppercase>{{product.offer}} % off</ion-label>
+              <ion-label ion-text-uppercase>{{product.offer}} % off</ion-label>
             </div>
-            <div margin-top padding-top>
+            <div ion-ion-margin-top ion-padding-top>
               <h4 class="title">{{product.name}}</h4>
               <h6>₹ {{product.regularPrice}}</h6>
               <h6>Quanity : {{product.units}}</h6>

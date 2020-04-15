@@ -2,19 +2,19 @@
   <ion-item *ngFor="let add of address|async; let i = index;">
     <ion-label>
       <ion-row align-items-center>
-        <p no-margin>
+        <p ion-no-ion-margin>
           <strong>{{add.title}} {{add.name}}</strong>
         </p>
-        <h6 class="small mycolor" *ngIf="i==0" padding-start>PRIMARY</h6>
+        <h6 class="small mycolor" *ngIf="i==0" ion-padding-start>PRIMARY</h6>
       </ion-row>
       <ion-row>
-        <p no-margin>{{add.flatNumbers}}</p>
+        <p ion-no-ion-margin>{{add.flatNumbers}}</p>
       </ion-row>
       <ion-row>
-        <p no-margin>{{add.street}}</p>
+        <p ion-no-ion-margin>{{add.street}}</p>
       </ion-row>
       <ion-row>
-        <p no-margin>{{add.locality}}</p>
+        <p ion-no-ion-margin>{{add.locality}}</p>
       </ion-row>
     </ion-label>
 
@@ -27,7 +27,7 @@
   <ion-card-content>
     <div class="dFlexAlignItemCenter">
       <ion-icon name="add-circle-outline" class="iconSize fontSize"></ion-icon>
-      <h5 padding-start class="fontSize">Add New Address</h5>
+      <h5 ion-padding-start class="fontSize">Add New Address</h5>
     </div>
   </ion-card-content>
 </ion-card>

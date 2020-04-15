@@ -1,12 +1,12 @@
 <ion-app>
-  <ion-split-pane>
-    <ion-menu>
+  <ion-split-pane contentId="menu-content">
+    <ion-menu contentId="menu-content">
       <ion-content>
-        <div *ngIf="userDetails" class="userSection" padding-top padding-start (click)="userProfile()">
+        <div *ngIf="userDetails" class="userSection" ion-padding-top ion-padding-start (click)="userProfile()">
           <ion-avatar slot="start">
             <img [src]="userDetails.profileUrl">
           </ion-avatar>
-          <div padding-start>
+          <div ion-padding-start>
             <ion-label>
               {{util.userInfo.username}}
             </ion-label>
@@ -14,26 +14,26 @@
           <div  class="arrowSection">
               <ion-icon name="arrow-forward" slot="end" color="dark" mode="ios"></ion-icon>
           </div>
-         
+
         </div>
-        <div class="locationSection" padding-start padding-bottom (click)="locationPage()">
+        <div class="locationSection" ion-padding-start ion-padding-bottom (click)="locationPage()">
           <div class="pinSection">
               <ion-icon name="pin" color="primary" ></ion-icon>
           </div>
           <div class="locationDetails">
             <ion-note class="font18">Your Location</ion-note>
-            <h3 text-capitalize>{{util.userCity}}</h3>
+            <h3 ion-text-capitalize>{{util.userCity}}</h3>
           </div>
-            
+
         </div>
 
-        <div *ngIf="userPersonalDetails" class="userParentSection" padding-vertical>
+        <div *ngIf="userPersonalDetails" class="userParentSection" ion-padding-vertical>
           <div *ngFor=" let personalDetails of userPersonalDetails" class="userChildSection" (click)="navigatePage(personalDetails.url,personalDetails.value)" >
             <img [src] ="personalDetails.icons">
             <ion-label color="light" class="titleSection">{{personalDetails.title}}</ion-label>
           </div>
         </div>
-      
+
         <ion-list class="appPageSection">
           <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages">
             <ion-item [routerDirection]="'root'" [routerLink]="[p.url]" lines="none">
@@ -45,9 +45,9 @@
           </ion-menu-toggle>
         </ion-list>
 
-        
+
         <ion-list>
-          <ion-label padding-start><b>Others</b></ion-label>
+          <ion-label ion-padding-start><b>Others</b></ion-label>
             <ion-menu-toggle auto-hide="false" *ngFor="let p of otherPages">
               <ion-item (click) ="redirectPage(p.url)" lines="none">
                 <ion-icon slot="start" [name]="p.icon" color="primary" [mode]="p.mode"></ion-icon>
@@ -59,6 +59,6 @@
           </ion-list>
       </ion-content>
     </ion-menu>
-    <ion-router-outlet main></ion-router-outlet>
+    <ion-router-outlet id="menu-content"></ion-router-outlet>
   </ion-split-pane>
 </ion-app>

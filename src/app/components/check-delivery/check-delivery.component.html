@@ -1,4 +1,4 @@
-<div padding class="contentSection" margin-bottom>
+<div padding class="contentSection" ion-ion-margin-bottom>
   <ion-row>
     <ion-col>
       <ion-label>
@@ -16,21 +16,21 @@
     </ion-col>
   </ion-row>
 
-  <ion-row class="dFlexJustifyContentSpaceBetween deliverytype" padding-top>
+  <ion-row class="dFlexJustifyContentSpaceBetween deliverytype" ion-padding-top>
     <ion-text>Cash on Delivery</ion-text>
     <ion-text>Free Shipping</ion-text>
     <ion-text> Delivery in</ion-text>
   </ion-row>
-  <ion-row class="dFlexJustifyContentSpaceBetween deliverytype" padding-top>
-    <ion-text> 
+  <ion-row class="dFlexJustifyContentSpaceBetween deliverytype" ion-padding-top>
+    <ion-text>
         <ion-icon name="checkmark" *ngIf="product.cod"></ion-icon>
         <ion-icon name="close" *ngIf="!product.cod"></ion-icon>
     </ion-text>
-    <ion-text> 
+    <ion-text>
         <ion-icon name="checkmark" *ngIf="product.free_shipping"></ion-icon>
         <ion-icon name="close" *ngIf="!product.free_shipping"></ion-icon>
     </ion-text>
     <ion-text> {{product.delivery_in}} Days</ion-text>
-    
+
   </ion-row>
 </div>

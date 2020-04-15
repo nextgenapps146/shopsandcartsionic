@@ -3,17 +3,17 @@
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-title class="title-ios" text-capitalize>Payment</ion-title>
+    <ion-title class="title-ios" ion-text-capitalize>Payment</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
 
-  <ion-list no-margin color="light">
+  <ion-list ion-no-ion-margin color="light">
     <ion-row>
       <ion-col>
         <ion-text color="medium">
-          <ion-input clearInput type="text" placeholder="Enter your promo code here" [(ngModel)]="promoCode" class="input" padding-horizontal
+          <ion-input clearInput type="text" placeholder="Enter your promo code here" [(ngModel)]="promoCode" class="input" ion-padding-horizontal
             clear-input="true" [disabled]="!!appliedPromoCode"></ion-input>
         </ion-text>
       </ion-col>
@@ -42,17 +42,17 @@
         <ion-card-content>
           <div class="cardContentSection">
             <ion-radio slot="start" value="{{i}}" checked></ion-radio>
-            <ion-label padding-start>
+            <ion-label ion-padding-start>
               <ion-row class="full" align-items-center>
                 <ion-col size="10">
                   <ion-row align-items-center>
-                    <p no-margin>
+                    <p ion-no-ion-margin>
                       <strong>XXXX-XXXX-XXXX-{{add.card_number}}</strong>
                     </p>
                   </ion-row>
                   <ion-row align-items-center>
-                    <p class="small" no-margin>Expiry date: {{add.expiry_date}}</p>
-                    <h6 class="small mycolor" *ngIf="i==0" padding-start no-margin>PRIMARY</h6>
+                    <p class="small" ion-no-ion-margin>Expiry date: {{add.expiry_date}}</p>
+                    <h6 class="small mycolor" *ngIf="i==0" ion-padding-start ion-no-ion-margin>PRIMARY</h6>
                   </ion-row>
                 </ion-col>
               </ion-row>
@@ -66,7 +66,7 @@
 
 
   </ion-list>
-  <ion-row justify-content-center padding-top padding-bottom>
+  <ion-row justify-content-center ion-padding-top ion-padding-bottom>
     <ion-text color="primary" (click)="addPayment()">
       {{addNewPayment ? 'Cancel' : 'Add new payment method'}}
     </ion-text>
@@ -85,7 +85,7 @@
         <ion-text>
           <span class="label">Credit/Debit Number</span>
         </ion-text>
-        <ion-input class="input" padding-horizontal type="number" placeholder="Credit/Debit Number"></ion-input>
+        <ion-input class="input" ion-padding-horizontal type="number" placeholder="Credit/Debit Number"></ion-input>
       </ion-col>
     </ion-row>
     <ion-row>
@@ -104,22 +104,22 @@
         <ion-text>
           <span class="label">Security Code(CVV)</span>
         </ion-text>
-        <ion-input class="input" padding-horizontal type="number" placeholder="CVV"></ion-input>
+        <ion-input class="input" ion-padding-horizontal type="number" placeholder="CVV"></ion-input>
       </ion-col>
       <ion-col>
         <ion-text>
           <span class="label">Expiry Date</span>
         </ion-text>
-        <ion-input class="input" placeholder="MM/YY" padding-horizontal></ion-input>
+        <ion-input class="input" placeholder="MM/YY" ion-padding-horizontal></ion-input>
       </ion-col>
     </ion-row>
     <ion-row>
       <ion-col>
-        <h5 no-margin class="label">Billing Zip/Postal Code</h5>
+        <h5 ion-no-ion-margin class="label">Billing Zip/Postal Code</h5>
         <h6 class="small">The zip or postal code from the address registered for this card</h6>
       </ion-col>
       <ion-col>
-        <ion-input class="input" placeholder="Zip/Postal Code" padding-horizontal></ion-input>
+        <ion-input class="input" placeholder="Zip/Postal Code" ion-padding-horizontal></ion-input>
       </ion-col>
     </ion-row>
     <ion-row>
@@ -128,8 +128,8 @@
           <ion-icon name="lock" class="icon" class="lockIcon"></ion-icon>
         </div>
         <div class="secureTextSection">
-          <h5 no-margin class="label">Secure Payment</h5>
-          <h6 class="small" no-margin>Trusted by over 500 million shoppers in 50 countries</h6>
+          <h5 ion-no-ion-margin class="label">Secure Payment</h5>
+          <h6 class="small" ion-no-ion-margin>Trusted by over 500 million shoppers in 50 countries</h6>
         </div>
 
       </ion-col>

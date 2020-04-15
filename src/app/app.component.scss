@@ -27,7 +27,7 @@ ion-content{
     align-items: center;
     position: relative;
     margin-top: 16px;
-    margin-bottom: 16px;
+    ion-margin-bottom: 16px;
     padding-bottom: 16px;
 
     ion-avatar{
@@ -63,7 +63,7 @@ ion-content{
             margin-top: 5px;
         }
     }
-    
+
 }
 
 .userParentSection{

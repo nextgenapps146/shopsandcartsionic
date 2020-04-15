@@ -3,7 +3,7 @@
     <ion-buttons slot="start" color="light">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title class="title-ios" text-capitalize>need help</ion-title>
+    <ion-title class="title-ios" ion-text-capitalize>need help</ion-title>
     <ion-button slot="end" mode="ios" class="pRelative" (click)="cartPage()">
       <ion-icon slot="icon-only" name="cart"></ion-icon>
       <span class="cartQuantity">{{cart.productQty}}</span>
@@ -15,7 +15,7 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-card margin-bottom no-padding color="light" *ngFor="let question of questions; let i = index" class="cardSection"
+  <ion-card ion-ion-margin-bottom ion-no-padding color="light" *ngFor="let question of questions; let i = index" class="cardSection"
     (click)="openIssue(i, question)">
     <ion-card-header>
       <ion-card-subtitle class="font18">{{question}}</ion-card-subtitle>

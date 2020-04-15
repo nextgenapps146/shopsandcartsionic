@@ -1,4 +1,4 @@
-<ion-card class="contentSection" no-margin *ngIf="topSavers">
+<ion-card class="contentSection" ion-no-ion-margin *ngIf="topSavers">
   <div class="topSection">
     <div>
       <ion-label class="leftHeading">Top Savers Today</ion-label>
@@ -10,11 +10,11 @@
 
   <div class="productCardSection">
     <ion-card class="productCard cardBorderRadius" *ngFor="let product of topSavers | async;let i = index">
-      <div padding-horizontal class="productImage" (click)="viewProduct(product)">
+      <div ion-padding-horizontal class="productImage" (click)="viewProduct(product)">
         <div class="discountSection">
-          <ion-label text-uppercase>{{product.offer}} %Off</ion-label>
+          <ion-label ion-text-uppercase>{{product.offer}} %Off</ion-label>
         </div>
-        <ion-img [src]="product.images[0]" margin-top></ion-img>
+        <ion-img [src]="product.images[0]" ion-ion-margin-top></ion-img>
       </div>
 
       <ion-card-header>
@@ -22,7 +22,7 @@
           <ion-card-title>₹ {{product.salePrice}}</ion-card-title>
           <span class="subTitle">₹ {{product.regularPrice}}</span>
         </div>
-        <!-- <h5 no-padding no-margin class="textBold productName">Apple</h5> -->
+        <!-- <h5 ion-no-padding ion-no-ion-margin class="textBold productName">Apple</h5> -->
       </ion-card-header>
       <ion-card-content>
         <p class="textBold font18 productDesc">{{product.name}}</p>
@@ -33,12 +33,12 @@
           </ion-button>
 
           <ion-segment *ngIf="product.units > 0" mode="md">
-            <ion-segment-button mode="md" no-padding color="undefined" (click)="updateCart(product.id,'remove', product)"
+            <ion-segment-button mode="md" ion-no-padding color="undefined" (click)="updateCart(product.id,'remove', product)"
               class="segmentBtn">
               <ion-icon name="remove-circle-outline"></ion-icon>
             </ion-segment-button>
-            <ion-text padding-horizontal class="textUnits">{{product.units}}</ion-text>
-            <ion-segment-button mode="md" no-padding color="undefined" (click)="updateCart(product.id,'add', product)"
+            <ion-text ion-padding-horizontal class="textUnits">{{product.units}}</ion-text>
+            <ion-segment-button mode="md" ion-no-padding color="undefined" (click)="updateCart(product.id,'add', product)"
               class="segmentBtn">
               <ion-icon name="add-circle-outline"></ion-icon>
             </ion-segment-button>
