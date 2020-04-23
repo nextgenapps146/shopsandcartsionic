@@ -7,7 +7,7 @@
  * LICENSE.md file in the root directory of this source .
  *
  */
- 
+
 /** Ionic CSS Variables **/
 :root {
   /** primary **/
@@ -90,7 +90,7 @@
   --ion-color-light-shade: #d7d8da;
   --ion-color-light-tint: #f5f6f9;
 
-  --ion-font-family: 'Abel', sans-serif;
+  --ion-font-family: 'Nunito', sans-serif;
 }
 // @import url('../assets/fonts/Abel-Regular.ttf');
 $font-path: "../assets/fonts";
@@ -206,4 +206,32 @@ ion-content{
 .cardBorderRadius{
   --border-radius: 8px;
   border-radius: 8px;
+}
+.card_height
+{
+  height: 50vh;
+}
+.product_name
+{
+  height: 15vh;
+}
+.product_price
+{
+  height: 3vh;
+}
+.image_height
+{
+  height:15vh;
+}
+.button_div
+{
+  background:#f25454;
+  padding: 25%;
+  border-radius: 5px;
+}
+.all_icons
+{
+  color: white;
+  font-size: 18px;
+  font-weight: 800;
 }

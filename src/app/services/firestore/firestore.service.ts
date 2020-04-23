@@ -13,6 +13,7 @@ export class FirestoreService {
   offersCollectionReference: AngularFirestoreCollection<Offer>;
   userCollectionRefrence: AngularFirestoreCollection<User>;
   addressCollectionRefrence: AngularFirestoreCollection;
+  storesCollectionRefrence: AngularFirestoreCollection;
   ordersCollectionRefrence: AngularFirestoreCollection;
   categories: any = [];
   promoCodes: any = [];
@@ -181,7 +182,12 @@ export class FirestoreService {
     await this.utils.closeLoading();
   }
 
-
+  public async addStore(result) {
+    this.storesCollectionRefrence = this.Afs.collection('stores');
+    await this.utils.openLoader();
+    await this.storesCollectionRefrence.add({ ...result, sellerId: this.utils.userInfo.userId });
+    await this.utils.closeLoading();
+  }
 
 }
 export interface Products {

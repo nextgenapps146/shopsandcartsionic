@@ -42,6 +42,11 @@ export class AppComponent {
       title: 'Offer Zone',
       url: '/offers',
       icon: 'card'
+    },
+    {
+      title: 'Create Store',
+      url: '/create-store',
+      icon: 'cube'
     }
   ];
 

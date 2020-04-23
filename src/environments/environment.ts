@@ -4,14 +4,15 @@
 
 export const environment = {
   production: false,
-  firebase: {
-    apiKey: 'AIzaSyDdE_XbVoylJIftRDnaISuP9mOaDQPj5Ik',
-    authDomain: 'grocerydashboard.firebaseapp.com',
-    databaseURL: 'https://grocerydashboard.firebaseio.com',
-    projectId: 'grocerydashboard',
-    storageBucket: 'grocerydashboard.appspot.com',
-    messagingSenderId: '505315430722',
-    appId: '1:505315430722:web:a013ba40d8f0bbd2'
+  firebase:  {
+    apiKey: 'AIzaSyCoCPtMhJhMzqpMZesTFQ4IHivVPupVzos',
+    authDomain: 'gretello-dev.firebaseapp.com',
+    databaseURL: 'https://gretello-dev.firebaseio.com',
+    projectId: 'gretello-dev',
+    storageBucket: 'gretello-dev.appspot.com',
+    messagingSenderId: '811864497792',
+    appId: '1:811864497792:web:94d12b558e06003a331065',
+    measurementId: 'G-SZ48FEC0T9'
   }
 };
 

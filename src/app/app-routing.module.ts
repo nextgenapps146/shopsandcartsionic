@@ -35,6 +35,7 @@ const routes: Routes = [
   { path: 'order', loadChildren: () => import('./order/order.module').then(m => m.OrderPageModule) },
   { path: 'cart', loadChildren: () => import('./cart/cart.module').then(m => m.CartPageModule) },
   { path: 'add-address', loadChildren: () => import('./add-address/add-address.module').then(m => m.AddAddressPageModule) },
+  { path: 'create-store', loadChildren: () => import('./create-store/create-store.module').then(m => m.CreateStorePageModule) },
   { path: 'delivery', loadChildren: () => import('./delivery/delivery.module').then(m => m.DeliveryPageModule) },
   { path: 'location', loadChildren: () => import('./location/location.module').then(m => m.LocationPageModule) },
   { path: 'payment', loadChildren: () => import('./payment/payment.module').then(m => m.PaymentPageModule) },

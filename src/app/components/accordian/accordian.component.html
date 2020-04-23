@@ -3,7 +3,7 @@
     <ion-card-header (click)="toggleAccordian()"
         [ngClass]="{'textColorWhite': cardContentToggle, 'textColorBlack': !cardContentToggle}" class="pRelative">
         <div>
-            <div class="discountSection">
+            <div class="discountSection" *ngIf="label">
                 <ion-label ion-text-uppercase>{{label}}</ion-label>
             </div>
             <img class="sideImg" src="{{image}}" alt="">

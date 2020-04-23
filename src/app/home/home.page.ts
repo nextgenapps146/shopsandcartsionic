@@ -65,7 +65,8 @@ export class HomePage implements OnInit {
   ionViewDidEnter() {
     this.menuCtrl.enable(true, 'start');
     this.geolocation.getCurrentPosition().then((resp) => {
-      this.getGeoLocation(resp.coords.latitude, resp.coords.longitude);
+        // we dont need this here
+      // this.getGeoLocation(resp.coords.latitude, resp.coords.longitude);
     }).catch((error) => {
     });
   }

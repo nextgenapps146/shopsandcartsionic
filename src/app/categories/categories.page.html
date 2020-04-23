@@ -3,7 +3,7 @@
     <ion-buttons slot="start" color="light">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title class="title-ios" ion-text-capitalize>categories</ion-title>
+    <ion-title class="title-ios" ion-text-capitalize>Categories</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -20,8 +20,8 @@
               <img class="child" src="{{child.images[0]}}" alt="">
               <ion-card-content>
                 <span class="under">{{child.name}}</span>
-                <ion-row class="bottom-text text-center green center-xs">
-                  <span class="h-off"> {{child.offer}} %off</span>
+                <ion-row class="bottom-text text-center green center-xs" *ngIf="child.offer">
+                  <span class="h-off"> {{child.offer}}% <span style="margin-left:4px">off</span> </span>
                 </ion-row>
               </ion-card-content>
             </ion-card>

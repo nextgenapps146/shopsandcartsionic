@@ -36,6 +36,7 @@
   
     .productImage{
       position: relative;
+      padding-top: 8px;
   
       .discountSection {
         background: #15bf15;
@@ -112,12 +113,12 @@
   }
 
 .segmentBtn{
-      min-width: 45px;
-      max-width: 60px;
+      // min-width: 45px;
+      // max-width: 60px;
   }
 
   .textUnits{
-      font-size: 24px;
+      font-size: 18px;
   }  
 
   .cardContentSection{
