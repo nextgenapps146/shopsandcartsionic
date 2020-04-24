@@ -12,8 +12,10 @@
   <meta name="msapplication-tap-highlight" content="no" />
 
   <link rel="icon" type="image/png" href="assets/icon/favicon.png" />
+  <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Nunito">
   <script
-  src="https://maps.google.com/maps/api/js?v=3.exp&libraries=places,geometry&key=AIzaSyCnNMBSipK7BYeGXfAg-j_EeU3jWcUsDPs"></script>
+  src="https://maps.google.com/maps/api/js?v=3.exp&libraries=places,geometry&key=AIzaSyCoCPtMhJhMzqpMZesTFQ4IHivVPupVzos"></script>
   <!-- add to homescreen for ios -->
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
@@ -21,6 +23,17 @@
 
 <body>
   <app-root></app-root>
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <!-- <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase.js"></script> -->
+    <script src="/__/firebase/7.14.0/firebase-app.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+        https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="/__/firebase/7.14.0/firebase-analytics.js"></script>
+    <!-- <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-analytics.js"></script> -->
+
+    <!-- Initialize Firebase -->
+    <script src="/__/firebase/init.js"></script>
 </body>
 
 </html>

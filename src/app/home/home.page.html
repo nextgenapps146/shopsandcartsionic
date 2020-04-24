@@ -1,69 +1,123 @@
 <ion-header>
-  <ion-toolbar color="primary">
-    <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
-    </ion-buttons>
-    <div class="dFlexRow deliverySection">
-      <ion-note class="whiteColor">Delivery Location</ion-note>
-      <div class="flex">
-        <ion-label class="locationAddress">{{locationAddress}}</ion-label>
-        <ion-icon name="create" mode="md" (click)="addLocation()"></ion-icon>
-      </div>
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <div class="dFlexRow deliverySection">
+            <ion-note class="whiteColor">Delivery Location</ion-note>
+            <div class="flex">
+                <ion-label class="locationAddress">{{locationAddress}}</ion-label>
+                <ion-icon name="create" mode="md" (click)="addLocation()" class="create_icon"></ion-icon>
+            </div>
+        </div>
 
-    </div>
-
-    <ion-button slot="end" mode="ios" class="pRelative" (click)="cartPage()">
-      <ion-icon slot="icon-only" name="cart"></ion-icon>
-      <span class="cartQuantity">{{cart.productQty}}</span>
-    </ion-button>
-  </ion-toolbar>
-  <ion-toolbar color="primary">
-    <ion-searchbar color="light" md="ios" (click)="searchPage()"></ion-searchbar>
-  </ion-toolbar>
+        <ion-button slot="end" mode="ios" class="pRelative" (click)="cartPage()">
+            <ion-icon slot="icon-only" name="cart"></ion-icon>
+            <span class="cartQuantity">{{cart.productQty}}</span>
+        </ion-button>
+    </ion-toolbar>
+    <ion-toolbar color="primary">
+        <ion-searchbar color="light" md="ios" (click)="searchPage()"></ion-searchbar>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <!--Top Saver Component location:- components/top-saver-->
-  <top-savers></top-savers>
 
-  <!--Best Offer Component location:- components/best-offers-->
-  <best-offers></best-offers>
+    <!-- Make this as a component -->
+    <ion-list>
+        <ion-list-header>
+            Stores in your area
+        </ion-list-header>
+        <ion-item>
+            <ion-label>
+                <p><ion-icon style="color:#15bf15" name="checkmark" slot="start"></ion-icon>Pay on Pickup</p>
+                <h2>Southern Spices</h2>
+                <h4>2420 Angela Lane, Aurora IL 60502</h4>
+            </ion-label>
+            <ion-button slot="end" mode="ios" class="pRelative" (click)="goToStorePage()">
+                <ion-icon slot="icon-only" name="cart"></ion-icon>
+                <span class="cartQuantity">{{cart.productQty}}</span>
+            </ion-button>
+        </ion-item>
+    </ion-list>
 
-  <!--Popular Deals Component location:- components/popular-deals-->
-  <popular-deals></popular-deals>
+    <!-- <ion-card>
+        <ion-item>
+            <ion-icon name="pin" slot="start"></ion-icon>
+            <ion-label>ion-item in a card, icon left, button right</ion-label>
+            <ion-button fill="outline" slot="end">View</ion-button>
+        </ion-item>
 
-  <!--Short Offers Component location:- components/short-offers-->
-  <short-offers></short-offers>
+        <ion-card-content>
+            This is content, without any paragraph or header tags,
+            within an ion-card-content element.
+        </ion-card-content>
+    </ion-card> -->
 
-  <div class="slideSection">
-    <ion-slides pager="true" [options]="slideOpts" #ionSlides (ionSlidesDidLoad)="slidesDidLoad()">
-      <ion-slide *ngFor="let slide of prodoctSlides">
-        <img [src]="slide">
-      </ion-slide>
-    </ion-slides>
-  </div>
+    <!-- <ion-card>
+        <ion-item href="#" class="ion-activated">
+            <ion-icon name="wifi" slot="start"></ion-icon>
+            <ion-label>Card Link Item 1 activated</ion-label>
+        </ion-item>
+
+        <ion-item href="">
+            <ion-icon name="wine" slot="start"></ion-icon>
+            <ion-label>Card Link Item 2</ion-label>
+        </ion-item>
+
+        <ion-item class="ion-activated">
+            <ion-icon name="warning" slot="start"></ion-icon>
+            <ion-label>Card Button Item 1 activated</ion-label>
+        </ion-item>
+
+        <ion-item>
+            <ion-icon name="walk" slot="start"></ion-icon>
+            <ion-label>Card Button Item 2</ion-label>
+        </ion-item>
+    </ion-card> -->
 
 
-  <!--Accordian Component location:- components/accordian-->
-  <std-accordian *ngFor="let item of categoryItems | async" [title]="item.name" [image]="item.images[0]"
-    [label]="item.discount" [desc]="item.description" [id]="item.id">
-    <div *ngFor="let category of fsServices.categories">
-      <ion-card class="childCard" ion-no-ion-margin ion-padding-top *ngIf="category.id === item.id">
-        <ion-row class="CardrowSection" ion-ion-margin-bottom>
-          <ion-col ion-no-padding (click)="goToProducts(category,category.child)" class="cardCol" mdWavesEffect size="6"
-            *ngFor="let child of category.child">
-            <ion-card class="childCardSection">
-              <img class="child" src="{{child.images[0]}}" alt="">
-              <ion-card-content>
-                <span class="under">{{child.name}}</span>
-                <ion-row class="bottom-text text-center green center-xs">
-                  <span class="h-off"> {{child.offer}} %off</span>
-                </ion-row>
-              </ion-card-content>
-            </ion-card>
-          </ion-col>
-        </ion-row>
-      </ion-card>
+    <!--Top Saver Component location:- components/top-saver-->
+    <top-savers></top-savers>
+
+    <!--Best Offer Component location:- components/best-offers-->
+    <best-offers></best-offers>
+
+    <!--Popular Deals Component location:- components/popular-deals-->
+    <popular-deals></popular-deals>
+
+    <!--Short Offers Component location:- components/short-offers-->
+    <short-offers></short-offers>
+
+    <div class="slideSection">
+        <ion-slides pager="true" [options]="slideOpts" #ionSlides (ionSlidesDidLoad)="slidesDidLoad()">
+            <ion-slide *ngFor="let slide of prodoctSlides">
+                <img [src]="slide">
+            </ion-slide>
+        </ion-slides>
     </div>
-  </std-accordian>
+
+
+    <!--Accordian Component location:- components/accordian-->
+    <std-accordian *ngFor="let item of categoryItems | async" [title]="item.name" [image]="item.images[0]"
+        [label]="item.discount" [desc]="item.description" [id]="item.id">
+        <div *ngFor="let category of fsServices.categories">
+            <ion-card class="childCard" ion-no-ion-margin ion-padding-top *ngIf="category.id === item.id">
+                <ion-row class="CardrowSection" ion-ion-margin-bottom>
+                    <ion-col ion-no-padding (click)="goToProducts(category,category.child)" class="cardCol"
+                        mdWavesEffect size="6" *ngFor="let child of category.child">
+                        <ion-card class="childCardSection">
+                            <img class="child" src="{{child.images[0]}}" alt="">
+                            <ion-card-content>
+                                <span class="under">{{child.name}}</span>
+                                <ion-row class="bottom-text text-center green center-xs">
+                                    <span class="h-off"> {{child.offer}} %off</span>
+                                </ion-row>
+                            </ion-card-content>
+                        </ion-card>
+                    </ion-col>
+                </ion-row>
+            </ion-card>
+        </div>
+    </std-accordian>
 </ion-content>

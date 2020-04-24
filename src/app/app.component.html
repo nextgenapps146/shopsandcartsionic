@@ -6,7 +6,7 @@
           <ion-avatar slot="start">
             <img [src]="userDetails.profileUrl">
           </ion-avatar>
-          <div ion-padding-start>
+          <div ion-padding-start class="user_name">
             <ion-label>
               {{util.userInfo.username}}
             </ion-label>
@@ -47,7 +47,9 @@
 
 
         <ion-list>
-          <ion-label ion-padding-start><b>Others</b></ion-label>
+          <div style="margin-bottom: 8px;">
+          <ion-label ion-padding-start><b style="margin-left: 6%;">Others</b></ion-label>
+          </div>
             <ion-menu-toggle auto-hide="false" *ngFor="let p of otherPages">
               <ion-item (click) ="redirectPage(p.url)" lines="none">
                 <ion-icon slot="start" [name]="p.icon" color="primary" [mode]="p.mode"></ion-icon>

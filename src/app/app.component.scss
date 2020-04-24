@@ -29,11 +29,16 @@ ion-content{
     margin-top: 16px;
     ion-margin-bottom: 16px;
     padding-bottom: 16px;
+    margin-left: 5%;
 
     ion-avatar{
         width: 70px;
         height: 70px;
 
+    }
+    .user_name
+    {
+        margin-left: 3%;
     }
 
     ion-label{
@@ -75,13 +80,14 @@ ion-content{
         align-items: center;
         flex-direction: column;
         justify-content: center;
-
+        padding-top: 5%;
+        padding-bottom: 5%;
         img{
             width: 36px;
         }
 
         .titleSection{
-            padding-top:8px;
+            padding-top:3px;
         }
     }
 }
