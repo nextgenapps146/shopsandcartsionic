@@ -13,13 +13,14 @@ export class FirestoreService {
   offersCollectionReference: AngularFirestoreCollection<Offer>;
   userCollectionRefrence: AngularFirestoreCollection<User>;
   addressCollectionRefrence: AngularFirestoreCollection;
-  storesCollectionRefrence: AngularFirestoreCollection;
+  storesCollectionRefrence: AngularFirestoreCollection<Store>;
   ordersCollectionRefrence: AngularFirestoreCollection;
   categories: any = [];
   promoCodes: any = [];
   UserAddress: any = [];
   UserOrders: any = [];
   recentSearches: any = [];
+  storesNearBy: any = [];
   constructor(private utils: UtilsServiceService, public Afs: AngularFirestore) { }
   public async getProducts() {
     this.productsCollectionReference = this.Afs.collection<Products>('products', ref => ref.orderBy('name'));
@@ -100,6 +101,7 @@ export class FirestoreService {
         }))
       );
   }
+
   public async getCurrentUserInfo(userId) {
     this.userCollectionRefrence = this.Afs.collection<User>('users', ref => ref.where('userId', '==', userId).orderBy('username'));
     return this.userCollectionRefrence
@@ -183,10 +185,23 @@ export class FirestoreService {
   }
 
   public async addStore(result) {
-    this.storesCollectionRefrence = this.Afs.collection('stores');
+    this.storesCollectionRefrence = this.Afs.collection<Store>('stores');
     await this.utils.openLoader();
     await this.storesCollectionRefrence.add({ ...result, sellerId: this.utils.userInfo.userId });
     await this.utils.closeLoading();
+  }
+
+  public async getUserLocalStores(city) {
+    this.storesCollectionRefrence = this.Afs.collection('stores', ref => ref.where('name', '==', city));
+    return this.storesCollectionRefrence
+      .snapshotChanges().pipe(
+        map(res => res.map(dataItems => {
+          const data: any = dataItems.payload.doc.data();
+          const id = dataItems.payload.doc.id;
+          this.storesNearBy.push({ id, ...data });
+          return { id, ...data };
+        }))
+      );
   }
 
 }
@@ -219,4 +234,17 @@ export interface User {
   email: string;
   id: string;
   username: string;
+}
+
+export interface Store {
+    city: string;
+    iscredit: boolean;
+    iscurbsidepickup: boolean;
+    isdelivery: boolean;
+    ispayonpickup: boolean;
+    name: string;
+    sellerId?: string;
+    state: string;
+    streetaddress: string;
+    zipcode: number;
 }

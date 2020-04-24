@@ -61,6 +61,10 @@ margin-right: 10px;
     }
 }
 
+ion-icon[name=checkmark] {
+    color: #15bf15;
+}
+
   ion-card-header{
     padding: 0 16px;
   }
@@ -75,9 +79,9 @@ margin-right: 10px;
 .addBtnSection{
   .addBtn{
     border-radius:5px;
-  --border-radius:5px; 
+  --border-radius:5px;
   }
-  
+
 }
 
 .slideSection{
@@ -96,7 +100,7 @@ margin-right: 10px;
 
 ion-row.CardrowSection {
   text-align:center;
-  
+
 }
 
 ion-col.cardCol {

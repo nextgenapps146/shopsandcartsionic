@@ -41,7 +41,11 @@ const routes: Routes = [
   { path: 'payment', loadChildren: () => import('./payment/payment.module').then(m => m.PaymentPageModule) },
   { path: 'my-account', loadChildren: () => import('./my-account/my-account.module').then(m => m.MyAccountPageModule) },
   { path: 'my-card', loadChildren: () => import('./my-card/my-card.module').then(m => m.MyCardPageModule) },
-  { path: 'signup', loadChildren: () => import('./signup/signup.module').then(m => m.SignupPageModule) }
+  { path: 'signup', loadChildren: () => import('./signup/signup.module').then(m => m.SignupPageModule) },  {
+    path: 'store',
+    loadChildren: () => import('./store/store.module').then( m => m.StorePageModule)
+  }
+
 
 ];
 
