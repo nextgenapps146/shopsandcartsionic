@@ -57,7 +57,6 @@ export class LocationPage implements OnInit {
     //         const request = { latLng: latlng };
 
     //         // use Ionic Native geocode if cordova is available
-    //         // TO DO ---
     //         this.geocoder.geocode(request, (results, status) => {
     //             if (status === google.maps.GeocoderStatus.OK) {
     //                 _instance.preparePossibleAdressesList(results);

@@ -22,6 +22,32 @@ export class FirestoreService {
     recentSearches: any = [];
     storesNearBy: any = [];
     constructor(private utils: UtilsServiceService, public Afs: AngularFirestore) { }
+
+
+    // *****************************************************************************************************************************
+    // --------------------------------------------------------------------------------------
+    // GET CALLS  --------------------------------------------------------------------------------------
+    // --------------------------------------------------------------------------------------
+    // *****************************************************************************************************************************
+
+
+    public async getCurrentUserInfo(userId) {
+        // TO DO --
+        // when you dont find any record create a record --
+        this.userCollectionRefrence = this.Afs.collection<User>('users', ref => ref.where('id', '==', userId).orderBy('username'));
+        return this.userCollectionRefrence
+            .snapshotChanges().pipe(
+                map((res: any) => {
+                    res.map(dataItems => {
+                        const data = dataItems.payload.doc.data() as User;
+                        // const id = dataItems.payload.doc.id;
+                        this.utils.userInfo = { ...data };
+                        return { ...data };
+                    });
+                })
+            );
+    }
+
     public async getProducts() {
         this.productsCollectionReference = this.Afs.collection<Products>('products', ref => ref.orderBy('name'));
         return this.productsCollectionReference
@@ -34,6 +60,7 @@ export class FirestoreService {
                 }))
             );
     }
+
     public async getCategoriesHomePage() {
         this.categories = [];
         this.categoriesCollectionReference = this.Afs.collection<Category>('categories', ref => ref.where('home_page', '==', true).orderBy('name'));
@@ -47,6 +74,7 @@ export class FirestoreService {
                 }))
             );
     }
+
     public async getProductsAccordingToCategory(category) {
         this.productsCollectionReference = this.Afs.collection<Products>('products', ref => ref.where('categories', 'array-contains', category).orderBy('name'));
         return this.productsCollectionReference
@@ -63,6 +91,7 @@ export class FirestoreService {
                 }))
             );
     }
+
     public async getProductsAccordingToTags(tag) {
         this.productsCollectionReference = this.Afs.collection<Products>('products', ref => ref.where('tags', '==', tag).orderBy('name'));
         return this.productsCollectionReference
@@ -75,6 +104,7 @@ export class FirestoreService {
                 }))
             );
     }
+
     public async getCategories() {
         this.categories = [];
         this.categoriesCollectionReference = this.Afs.collection<Category>('categories', ref => ref.orderBy('name'));
@@ -102,23 +132,8 @@ export class FirestoreService {
             );
     }
 
-    public async getCurrentUserInfo(userId) {
-        this.userCollectionRefrence = this.Afs.collection<User>('users', ref => ref.where('userId', '==', userId).orderBy('username'));
-        return this.userCollectionRefrence
-            .snapshotChanges().pipe(
-                map((res: any) => {
-                    res.map(dataItems => {
-                        const data = dataItems.payload.doc.data() as User;
-                        const id = dataItems.payload.doc.id;
-                        this.utils.userInfo = { id, ...data };
-                        return { id, ...data };
-                    });
-                })
-            );
-    }
-
     public async getUserAddress() {
-        this.addressCollectionRefrence = this.Afs.collection<Products>('Address', ref => ref.where('userId', '==', this.utils.userInfo.userId).orderBy('locality'));
+        this.addressCollectionRefrence = this.Afs.collection<Products>('Address', ref => ref.where('userid', '==', this.utils.userInfo.id).orderBy('locality'));
         return this.addressCollectionRefrence
             .snapshotChanges().pipe(
                 map(res => res.map(dataItems => {
@@ -130,7 +145,7 @@ export class FirestoreService {
             );
     }
     public async getUserOrders() {
-        this.ordersCollectionRefrence = this.Afs.collection<Products>('Orders', ref => ref.where('userId', '==', this.utils.userInfo.userId).orderBy('selectedTime'));
+        this.ordersCollectionRefrence = this.Afs.collection<Products>('Orders', ref => ref.where('userid', '==', this.utils.userInfo.id).orderBy('selectedTime'));
         return this.ordersCollectionRefrence
             .snapshotChanges().pipe(
                 map(res => res.map(dataItems => {
@@ -140,59 +155,6 @@ export class FirestoreService {
                     return { id, ...data };
                 }))
             );
-    }
-    public async searchProducts(value) {
-        this.ordersCollectionRefrence = this.Afs.collection<Products>('products', ref => ref.orderBy('name').startAt(value).endAt(value + '\uf8ff'));
-        return this.ordersCollectionRefrence
-            .snapshotChanges().pipe(
-                map(res => res.map(dataItems => {
-                    const data: any = dataItems.payload.doc.data() as Products;
-                    const id = dataItems.payload.doc.id;
-                    const salePrice = data.regularPrice - ((data.regularPrice * data.offer) / 100);
-                    this.UserOrders.push({ id, ...data });
-                    return { id, ...data };
-                }))
-            );
-    }
-    public async createUser(result) {
-        this.userCollectionRefrence = this.Afs.collection<User>('users');
-        await this.utils.openLoader();
-        await this.userCollectionRefrence.add({ ...result });
-        await this.utils.closeLoading();
-    }
-    public async createUserOrder(grandTotal, addCart, promoCode, selectedDay, selectedTime, address) {
-        this.ordersCollectionRefrence = this.Afs.collection('Orders');
-        await this.utils.openLoader();
-        if (Object.keys(promoCode).length) {
-
-            await this.ordersCollectionRefrence.add({ created_at: new Date(), grandTotal: grandTotal, products: addCart, promoCode, selectedDay, selectedTime, address, userId: this.utils.userInfo.userId });
-        } else {
-            await this.ordersCollectionRefrence.add({ created_at: new Date(), grandTotal: grandTotal, products: addCart, selectedDay, selectedTime, address, userId: this.utils.userInfo.userId });
-        }
-        await this.utils.closeLoading();
-    }
-    public async addUserAddress(result) {
-        this.addressCollectionRefrence = this.Afs.collection('Address');
-        await this.utils.openLoader();
-        await this.addressCollectionRefrence.add({ ...result, userId: this.utils.userInfo.userId });
-        await this.utils.closeLoading();
-    }
-    public async updateUser(dataId, result) {
-        this.userCollectionRefrence = this.Afs.collection<User>('users');
-        await this.utils.openLoader();
-        delete result.id;
-        await this.userCollectionRefrence.doc(dataId).update({ ...result });
-        await this.utils.closeLoading();
-    }
-
-    public async createStore(result) {
-        this.storesCollectionRefrence = this.Afs.collection<Store>('stores');
-        await this.utils.openLoader();
-        // await this.storesCollectionRefrence.add({ ...result, sellerId: this.utils.userInfo.userId });
-        await this.storesCollectionRefrence.doc(this.utils.userInfo.userId).set({ ...result }).then(snapshot => {
-            console.log(snapshot);
-        });
-        await this.utils.closeLoading();
     }
 
     public async getUserLocalStores(city) {
@@ -208,7 +170,77 @@ export class FirestoreService {
             );
     }
 
+    public async searchProducts(value) {
+        this.ordersCollectionRefrence = this.Afs.collection<Products>('products', ref => ref.orderBy('name').startAt(value).endAt(value + '\uf8ff'));
+        return this.ordersCollectionRefrence
+            .snapshotChanges().pipe(
+                map(res => res.map(dataItems => {
+                    const data: any = dataItems.payload.doc.data() as Products;
+                    const id = dataItems.payload.doc.id;
+                    const salePrice = data.regularPrice - ((data.regularPrice * data.offer) / 100);
+                    this.UserOrders.push({ id, ...data });
+                    return { id, ...data };
+                }))
+            );
+    }
+
+    // *****************************************************************************************************************************
+    // --------------------------------------------------------------------------------------
+    // CREATE CALLS  --------------------------------------------------------------------------------------
+    // --------------------------------------------------------------------------------------
+    // *****************************************************************************************************************************
+
+
+    public async createUser(uniqueId, result) {
+        this.userCollectionRefrence = this.Afs.collection<User>('users');
+        await this.utils.openLoader();
+        await this.userCollectionRefrence.add({ ...result });
+        await this.storesCollectionRefrence.doc(uniqueId).set({ ...result }).then(snapshot => {
+            this.utils.userInfo = { id: uniqueId, ...result };
+            console.log(snapshot);
+        });
+        await this.utils.closeLoading();
+    }
+
+    public async createUserOrder(grandTotal, addCart, promoCode, selectedDay, selectedTime, address) {
+        this.ordersCollectionRefrence = this.Afs.collection('Orders');
+        await this.utils.openLoader();
+        if (Object.keys(promoCode).length) {
+
+            await this.ordersCollectionRefrence.add({ created_at: new Date(), grandTotal: grandTotal, products: addCart, promoCode, selectedDay, selectedTime, address, userid: this.utils.userInfo.id });
+        } else {
+            await this.ordersCollectionRefrence.add({ created_at: new Date(), grandTotal: grandTotal, products: addCart, selectedDay, selectedTime, address, userid: this.utils.userInfo.id });
+        }
+        await this.utils.closeLoading();
+    }
+
+    public async createStore(result) {
+        this.storesCollectionRefrence = this.Afs.collection<Store>('stores');
+        await this.utils.openLoader();
+        await this.storesCollectionRefrence.doc(this.utils.userInfo.id).set({ ...result }).then(snapshot => {
+            console.log(snapshot);
+        });
+        await this.utils.closeLoading();
+        // TODO -- database trigger to update the user field isSeller: false to true in the user collections
+    }
+
+    public async addUserAddress(result) {
+        this.addressCollectionRefrence = this.Afs.collection('Address');
+        await this.utils.openLoader();
+        await this.addressCollectionRefrence.add({ ...result, userid: this.utils.userInfo.id });
+        await this.utils.closeLoading();
+    }
+
+    public async updateUser(dataId, result) {
+        this.userCollectionRefrence = this.Afs.collection<User>('users');
+        await this.utils.openLoader();
+        delete result.id;
+        await this.userCollectionRefrence.doc(dataId).update({ ...result });
+        await this.utils.closeLoading();
+    }
+
 }
+
 export interface Products {
     name: string;
     rate: string;

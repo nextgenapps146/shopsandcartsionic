@@ -135,8 +135,7 @@ export class CreateStorePage implements OnInit {
             const latlng = await new google.maps.LatLng(lat, lng);
             const request = { latLng: latlng };
 
-            // use Ionic Native geocode if cordova is available
-            // TO DO ---
+            // use Ionic Native geocode if cordova is available -- fix this later
             this.geocoder.geocode(request, (results, status) => {
                 if (status === google.maps.GeocoderStatus.OK) {
                     _instance.preparePossibleAdressesList(results);

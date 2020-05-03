@@ -101,7 +101,7 @@ export class AppComponent {
     public util: UtilsServiceService
   ) {
     this.initializeApp();
-    this.authService.userID.subscribe(filter => {
+    this.authService.userId.subscribe(filter => {
       this.fireStore.getCurrentUserInfo(filter.$uid).then((data) => {
         data.subscribe(todos => {});
       });
