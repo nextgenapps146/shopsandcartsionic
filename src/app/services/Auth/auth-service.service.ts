@@ -23,7 +23,7 @@ export class AuthServiceService {
 
     static UNKNOWN_USER = new AuthInfo(null);
     public authInfo$: BehaviorSubject<AuthInfo> = new BehaviorSubject<AuthInfo>(AuthServiceService.UNKNOWN_USER);
-    userID = this.authInfo$.asObservable();
+    userId = this.authInfo$.asObservable();
     constructor(private fireStore: FirestoreService, private fireAuth: AngularFireAuth, private util: UtilsServiceService) {
 
         this.fireAuth.authState.pipe(
@@ -48,9 +48,8 @@ export class AuthServiceService {
                     if (res.user) {
                         this.authInfo$.next(new AuthInfo(res.user.uid));
                         this.util.closeLoading();
-                        this.fireStore.createUser({
+                        this.fireStore.createUser(res.user.uid, {
                             email: email,
-                            userId: res.user.uid,
                             username: username
                         });
                         resolve(res.user);

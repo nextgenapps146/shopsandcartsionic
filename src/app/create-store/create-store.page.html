@@ -1,16 +1,4 @@
-<!-- <ion-header>
-  <ion-toolbar color="primary">
-    <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
-    </ion-buttons>
-    <ion-title class="title-ios" ion-text-capitalize>Create Your Store</ion-title>
-  </ion-toolbar>
-  <ion-toolbar class="padding-tool">
-    <ion-searchbar #q placeholder="Search Location" ion-no-padding (keyup.enter)="searchAddress(q.value)"></ion-searchbar>
-    <p ion-no-ion-margin padding style="font-size:16px;text-align:center;">Or</p>
-    <button class="btn" ion-button full color="primary" (click)="getUserLocation()">Use my Current Location</button>
-  </ion-toolbar>
-</ion-header> -->
+
 <ion-header>
     <ion-toolbar color="primary">
         <ion-buttons slot="start">
@@ -56,6 +44,16 @@
                 <ion-item class="f-item" lines="full">
                     <ion-label position="floating">City</ion-label>
                     <ion-input type="text" [(ngModel)]="city" name="city"></ion-input>
+                </ion-item>
+
+                <ion-item class="f-item" lines="full">
+                    <ion-label position="floating">City</ion-label>
+                    <ion-input type="text" [(ngModel)]="city" name="city"></ion-input>
+                </ion-item>
+
+                <ion-item class="f-item" lines="full">
+                    <ion-label position="floating">Zip Code</ion-label>
+                    <ion-input type="text" [(ngModel)]="zipcode" name="zipcode"></ion-input>
                 </ion-item>
 
                 <ion-item class="f-item" lines="full">
