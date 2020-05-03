@@ -75,7 +75,7 @@ export class CreateStorePage implements OnInit {
 
     async Continue() {
         if (this.storeName && this.streetAddress && this.city && this.state) {
-            this.fireStore.addStore({
+            this.fireStore.createStore({
                 name: this.storeName,
                 streetaddress: this.streetAddress,
                 city: this.city,
@@ -84,7 +84,8 @@ export class CreateStorePage implements OnInit {
                 iscurbsidepickup: this.isCurbSidePickup,
                 isdelivery: this.isDelivery,
                 ispayonpickup: this.isPayOnPickup,
-                iscredit: this.isCredit
+                iscredit: this.isCredit,
+                categories: []
             }).then(async () => {
                 const toast = await this.toastCtrl.create({
                     message: 'Add new Address Successfully',
