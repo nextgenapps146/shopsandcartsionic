@@ -64,7 +64,9 @@ export class HomePage implements OnInit {
         });
 
         this.fsServices.getUserLocalStores('Naperville').then((data) => {
-            data.subscribe(todos => {}); // this was the prob
+            data.subscribe(list => {
+                this.storesList = list;
+            });
         }).catch((error) => {
             console.log(error);
         });

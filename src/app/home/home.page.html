@@ -28,13 +28,13 @@
         <ion-list-header>
             Stores in your area
         </ion-list-header>
-        <ion-item>
+        <ion-item *ngFor="let store of storesList">
             <ion-label>
                 <p><ion-icon style="color:#15bf15" name="checkmark" slot="start"></ion-icon>Pay on Pickup</p>
-                <h2>Southern Spices</h2>
-                <h4>2420 Angela Lane, Aurora IL 60502</h4>
+                <h2>{{ store.name }}</h2>
+                <h4>{{ store.streetaddress }}, {{ store.city }} {{ store.state }} {{ store.zipcode }}</h4>
             </ion-label>
-            <ion-button slot="end" mode="ios" class="pRelative" (click)="goToStorePage()">
+            <ion-button slot="end" mode="ios" class="pRelative" (click)="goToStorePage(store)">
                 <ion-icon slot="icon-only" name="cart"></ion-icon>
                 <span class="cartQuantity">{{cart.productQty}}</span>
             </ion-button>
