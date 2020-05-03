@@ -93,6 +93,7 @@ export class CreateStorePage implements OnInit {
                     position: 'top'
                 });
                 toast.present();
+                // TO DO -------------------
                 // this.route.navigate([this.utils.AddAdressBackUrl, { title: 'MyAddress' }]);
             }).catch(err => console.log(err));
         } else {
