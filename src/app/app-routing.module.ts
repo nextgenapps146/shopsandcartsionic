@@ -44,6 +44,14 @@ const routes: Routes = [
   { path: 'signup', loadChildren: () => import('./signup/signup.module').then(m => m.SignupPageModule) },  {
     path: 'store',
     loadChildren: () => import('./store/store.module').then( m => m.StorePageModule)
+  },
+  {
+    path: 'chat',
+    loadChildren: () => import('./chat/chat.module').then( m => m.ChatPageModule)
+  },
+  {
+    path: 'chatroom',
+    loadChildren: () => import('./chatroom/chatroom.module').then( m => m.ChatroomPageModule)
   }
 
 

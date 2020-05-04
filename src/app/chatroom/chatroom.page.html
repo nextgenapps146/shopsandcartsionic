@@ -1,0 +1,146 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title style="text-align: center;">Test User</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <!-- <div slot="end" class="image_div">
+    <img  src="assets/images/user.png" alt="" class="image">
+    </div> -->
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+ 
+  <ion-row style="margin-top: 5%;">
+  <ion-col size="2">
+    <img  src="assets/images/user.png" alt="" class="image">
+  </ion-col>
+  <ion-col size="10">
+    <div style="width:50%;">
+        <ion-item (click)="onChatroom()" lines=none style="border-radius: 20px;">
+          <ion-label>
+            <h2>I'm a big deal</h2>
+          </ion-label>
+      
+        </ion-item>
+      </div>
+      <div style="margin-top: 3%;margin-left: 3%;">
+        <span class="time">12:15</span>
+        </div>
+    </ion-col>
+  </ion-row>
+  <ion-row style="justify-content: right;">
+    <ion-col size="5">
+      </ion-col>
+    <ion-col size="5">
+      <div>
+          <ion-item (click)="onChatroom()" lines=none  style="border-radius: 20px;--background: #f53d3d;color: white;">
+            <ion-label>
+              <h2>I'm a big deal</h2>
+            </ion-label>
+        
+          </ion-item>
+        </div>
+        <div style="margin-top: 3%;text-align: right;">
+          <span class="time">12:15</span>
+          </div>
+      </ion-col>
+    <ion-col size="2">
+      <img  src="assets/images/profile_img.png" alt="" class="image">
+    </ion-col>
+ 
+    </ion-row>
+
+    <ion-row style="margin-top: 5%;">
+      <ion-col size="2">
+        <img  src="assets/images/user.png" alt="" class="image">
+      </ion-col>
+      <ion-col size="10">
+        <div style="width:50%;">
+            <ion-item (click)="onChatroom()" lines=none style="border-radius: 20px;">
+              <ion-label>
+                <h2>I'm a big deal</h2>
+              </ion-label>
+          
+            </ion-item>
+          </div>
+          <div style="margin-top: 3%;margin-left: 3%;">
+            <span class="time">12:15</span>
+            </div>
+        </ion-col>
+      </ion-row>
+      <ion-row style="justify-content: right;">
+        <ion-col size="5">
+          </ion-col>
+        <ion-col size="5">
+          <div>
+              <ion-item (click)="onChatroom()" lines=none  style="border-radius: 20px;--background: #f53d3d;color: white;">
+                <ion-label>
+                  <h2>I'm a big deal</h2>
+                </ion-label>
+            
+              </ion-item>
+            </div>
+            <div style="margin-top: 3%;text-align: right;">
+              <span class="time">12:15</span>
+              </div>
+          </ion-col>
+        <ion-col size="2">
+          <img  src="assets/images/profile_img.png" alt="" class="image">
+        </ion-col>
+     
+        </ion-row>
+        <ion-row style="margin-top: 5%;">
+          <ion-col size="2">
+            <img  src="assets/images/user.png" alt="" class="image">
+          </ion-col>
+          <ion-col size="10">
+            <div style="width:50%;">
+                <ion-item (click)="onChatroom()" lines=none style="border-radius: 20px;">
+                  <ion-label>
+                    <h2>I'm a big deal</h2>
+                  </ion-label>
+              
+                </ion-item>
+              </div>
+              <div style="margin-top: 3%;margin-left: 3%;">
+                <span class="time">12:15</span>
+                </div>
+            </ion-col>
+          </ion-row>
+          <ion-row style="justify-content: right;">
+            <ion-col size="5">
+              </ion-col>
+            <ion-col size="5">
+              <div>
+                  <ion-item (click)="onChatroom()" lines=none  style="border-radius: 20px;--background: #f53d3d;color: white;">
+                    <ion-label>
+                      <h2>I'm a big deal</h2>
+                    </ion-label>
+                
+                  </ion-item>
+                </div>
+                <div style="margin-top: 3%;text-align: right;">
+                  <span class="time">12:15</span>
+                  </div>
+              </ion-col>
+            <ion-col size="2">
+              <img  src="assets/images/profile_img.png" alt="" class="image">
+            </ion-col>
+         
+            </ion-row>
+
+</ion-content>
+<ion-footer>
+  <ion-grid>
+    <ion-row>
+      <ion-col col-10>
+        <ion-input type="text" placeholder="Type a message" [(ngModel)]="message" name="message"></ion-input>
+      </ion-col>
+      <ion-col col-2 (click)="sendMessage()" class="send">
+        <ion-icon name="paper-plane"></ion-icon>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>
