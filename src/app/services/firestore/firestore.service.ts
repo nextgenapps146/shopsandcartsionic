@@ -33,7 +33,7 @@ export class FirestoreService {
     // *****************************************************************************************************************************
 
 
-    public async getCurrentUserInfo(userId) {
+   public async getCurrentUserInfo(userId) {
         // TO DO --
         // when you dont find any record create a record --
         const _self = this;
@@ -197,8 +197,7 @@ export class FirestoreService {
     public async createUser(uniqueId, result) {
         this.userCollectionRefrence = this.Afs.collection<User>('users');
         await this.utils.openLoader();
-        await this.userCollectionRefrence.add({ ...result });
-        await this.storesCollectionRefrence.doc(uniqueId).set({ ...result }).then(snapshot => {
+        await this.userCollectionRefrence.doc(uniqueId).set({ ...result }).then(snapshot => {
             this.utils.userInfo = { id: uniqueId, ...result };
             console.log(snapshot);
         });
