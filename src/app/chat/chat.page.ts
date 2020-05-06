@@ -23,8 +23,7 @@ export class ChatPage implements OnInit {
     });
 
     this.fsServices.getChatUsers(this.userId).then((users) => {
-      debugger
-      users.subscribe(list => {
+    users.subscribe(list => {
         this.users = list;
       });
     });

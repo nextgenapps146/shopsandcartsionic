@@ -18,7 +18,6 @@ export class ChatroomPage implements OnInit {
   
   loadMessage() {
     this.route.queryParams.subscribe(params => {
-      debugger;
       if (params && params.chatcontactid) {
         this.chatcontactid =params.chatcontactid;
         this.loadChatMessage();
@@ -29,7 +28,6 @@ export class ChatroomPage implements OnInit {
   loadChatMessage() {
     this.fsServices.getChatMessages(this.chatcontactid).then((messages) => {
       messages.subscribe(list => {
-        list.reverse()
         this.messages = list;
       });
     });
@@ -47,10 +45,10 @@ export class ChatroomPage implements OnInit {
     return message.senderid == this.userid;
   }
 
-  sendMessage() {
+    sendMessage() {
     var data = {
       chatcontactid: this.chatcontactid,   // this is id from the above user list
-      message:this.message
+      message: this.message
     }
     this.fsServices.addChatMessage(data, this.userid)
   }

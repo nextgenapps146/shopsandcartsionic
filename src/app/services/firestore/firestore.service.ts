@@ -44,7 +44,6 @@ export class FirestoreService {
                     res.map(dataItems => {
                         const data = dataItems.payload.doc.data() as User;
                         // const id = dataItems.payload.doc.id;
-                        debugger;
                         _self.utils.userInfo = { ...data };
                         return { ...data };
                     });
@@ -278,7 +277,6 @@ export class FirestoreService {
     }
 
     public async addTextMessage(record) {
-        debugger
         this.addressCollectionRefrence = this.Afs.collection('chatmessages');
         //await this.utils.openLoader();
         await this.addressCollectionRefrence.add(record);
