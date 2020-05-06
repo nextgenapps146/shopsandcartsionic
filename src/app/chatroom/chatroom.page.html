@@ -4,132 +4,56 @@
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <!-- <div slot="end" class="image_div">
-    <img  src="assets/images/user.png" alt="" class="image">
-    </div> -->
+    <div slot="end" class="image_div">
+      <img src="assets/images/user.png" alt="" class="image">
+    </div>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
- 
-  <ion-row class="top_row">
-  <ion-col size="2">
+
+
+  <ng-container *ngFor="let message of messages">
+    
+    <ion-row class="top_row"  *ngIf="message.senderid == userid">
+      <!-- <ion-col size="2">
     <img  src="assets/images/user.png" alt="" class="image">
-  </ion-col>
-  <ion-col size="10">
-    <div style="width:50%;">
-        <ion-item (click)="onChatroom()" lines=none  class="itemm">
-          <ion-label>
-            <h2>I'm a big deal</h2>
-          </ion-label>
-      
-        </ion-item>
-      </div>
-      <div cass="time_div">
-        <span class="time">12:15</span>
-        </div>
-    </ion-col>
-  </ion-row>
-  <ion-row>
-    <ion-col size="5">
-      </ion-col>
-    <ion-col size="5">
-      <div>
-          <ion-item (click)="onChatroom()" lines=none  style="border-radius: 20px;--background: #f53d3d;color: white;">
+  </ion-col> -->
+      <ion-col size="12">
+        <div style="width:50%;margin-left: 5%;">
+          <ion-item (click)="onChatroom()" lines=none class="itemm">
             <ion-label>
-              <h2>I'm a big deal</h2>
+              <h2>{{message.message}}</h2>
             </ion-label>
-        
+
           </ion-item>
         </div>
-        <div  cass="time_div">
-          <span class="time">12:15</span>
-          </div>
+        <div>
+          <span class="time">{{getTime(message.messagetime)}}</span>
+        </div>
       </ion-col>
-    <ion-col size="2">
-      <img  src="assets/images/profile_img.png" alt="" class="image">
-    </ion-col>
- 
     </ion-row>
-
-    <ion-row style="margin-top: 5%;">
-      <ion-col size="2">
-        <img  src="assets/images/user.png" alt="" class="image">
+    
+    <ion-row *ngIf="message.senderid != userid">
+      <ion-col size="5">
       </ion-col>
-      <ion-col size="10">
-        <div style="width:50%;">
-            <ion-item (click)="onChatroom()" lines=none class="itemm">
-              <ion-label>
-                <h2>I'm a big deal</h2>
-              </ion-label>
-          
-            </ion-item>
-          </div>
-          <div cass="time_div">
-            <span class="time">12:15</span>
-            </div>
-        </ion-col>
-      </ion-row>
-      <ion-row >
-        <ion-col size="5">
-          </ion-col>
-        <ion-col size="5">
-          <div>
-              <ion-item (click)="onChatroom()" lines=none  style="border-radius: 20px;--background: #f53d3d;color: white;">
-                <ion-label>
-                  <h2>I'm a big deal</h2>
-                </ion-label>
-            
-              </ion-item>
-            </div>
-            <div class="time_div">
-              <span class="time">12:15</span>
-              </div>
-          </ion-col>
-        <ion-col size="2">
-          <img  src="assets/images/profile_img.png" alt="" class="image">
-        </ion-col>
-     
-        </ion-row>
-        <ion-row style="margin-top: 5%;">
-          <ion-col size="2">
-            <img  src="assets/images/user.png" alt="" class="image">
-          </ion-col>
-          <ion-col size="10">
-            <div style="width:50%;">
-                <ion-item (click)="onChatroom()" lines=none class="itemm">
-                  <ion-label>
-                    <h2>I'm a big deal</h2>
-                  </ion-label>
-              
-                </ion-item>
-              </div>
-              <div class="time_div">
-                <span class="time">12:15</span>
-                </div>
-            </ion-col>
-          </ion-row>
-          <ion-row >
-            <ion-col size="5">
-              </ion-col>
-            <ion-col size="5">
-              <div>
-                  <ion-item (click)="onChatroom()" lines=none  style="border-radius: 20px;--background: #f53d3d;color: white;">
-                    <ion-label>
-                      <h2>I'm a big deal</h2>
-                    </ion-label>
-                
-                  </ion-item>
-                </div>
-                <div class="time_div">
-                  <span class="time">12:15</span>
-                  </div>
-              </ion-col>
-            <ion-col size="2">
-              <img  src="assets/images/profile_img.png" alt="" class="image">
-            </ion-col>
-         
-            </ion-row>
+      <ion-col size="7">
+        <div>
+          <ion-item (click)="onChatroom()" lines=none class="msg">
+            <ion-label>
+              <h2>{{message.message}}</h2>
+            </ion-label>
+
+          </ion-item>
+        </div>
+        <div cass="time_div">
+          <span class="time">{{getTime(message.messagetime)}}</span>
+        </div>
+      </ion-col>
+    
+    </ion-row>
+  </ng-container>
+
 
 </ion-content>
 <ion-footer>
@@ -138,8 +62,8 @@
       <ion-col col-10>
         <ion-input type="text" placeholder="Type a message" [(ngModel)]="message" name="message"></ion-input>
       </ion-col>
-      <ion-col col-2 (click)="sendMessage()" class="send">
-        <ion-icon name="paper-plane"></ion-icon>
+      <ion-col col-2  class="send">
+        <ion-icon (click)="sendMessage()" name="paper-plane"></ion-icon>
       </ion-col>
     </ion-row>
   </ion-grid>

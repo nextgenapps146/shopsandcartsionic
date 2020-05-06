@@ -8,6 +8,8 @@ import { UtilsServiceService } from '../Utils/utils-service.service';
     providedIn: 'root'
 })
 export class FirestoreService {
+    chatMessagesCollectionReference: AngularFirestoreCollection<ChatMessages>;
+    chatContactsCollectionReference: AngularFirestoreCollection<ChatContacts>;
     productsCollectionReference: AngularFirestoreCollection<Products>;
     categoriesCollectionReference: AngularFirestoreCollection<Category>;
     offersCollectionReference: AngularFirestoreCollection<Offer>;
@@ -34,6 +36,7 @@ export class FirestoreService {
     public async getCurrentUserInfo(userId) {
         // TO DO --
         // when you dont find any record create a record --
+        const _self = this;
         this.userCollectionRefrence = this.Afs.collection<User>('users', ref => ref.where('id', '==', userId).orderBy('username'));
         return this.userCollectionRefrence
             .snapshotChanges().pipe(
@@ -41,7 +44,7 @@ export class FirestoreService {
                     res.map(dataItems => {
                         const data = dataItems.payload.doc.data() as User;
                         // const id = dataItems.payload.doc.id;
-                        this.utils.userInfo = { ...data };
+                        _self.utils.userInfo = { ...data };
                         return { ...data };
                     });
                 })
@@ -239,6 +242,58 @@ export class FirestoreService {
         await this.utils.closeLoading();
     }
 
+    public async getChatUsers(userId) {
+        this.chatContactsCollectionReference = this.Afs.collection<ChatContacts>('chatcontacts',
+         ref => ref.where('customerid', '==', userId));
+        return this.chatContactsCollectionReference
+            .snapshotChanges().pipe(
+                map(res => res.map(dataItems => {
+                    const data: any = dataItems.payload.doc.data() as ChatContacts;
+                    const id = dataItems.payload.doc.id;
+                    return {...data , chatcontactid: id};
+                }))
+            );
+    }
+
+    public async addChatUsers(record) {
+        this.addressCollectionRefrence = this.Afs.collection('chatcontacts');
+        //await this.utils.openLoader();
+        await this.addressCollectionRefrence.add(record);
+        //await this.utils.closeLoading();
+    }
+
+    
+    public async getChatMessages(chatcontactid) {
+        this.chatContactsCollectionReference = this.Afs.collection<ChatContacts>('chatmessages',
+         ref => ref.where('chatcontactid', '==', chatcontactid));
+        return this.chatContactsCollectionReference
+            .snapshotChanges().pipe(
+                map(res => res.map(dataItems => {
+                    const data: any = dataItems.payload.doc.data() as ChatContacts;
+                    // const id = dataItems.payload.doc.id;
+                    return {...data };
+                }))
+            );
+    }
+
+    public async addTextMessage(record) {
+        this.addressCollectionRefrence = this.Afs.collection('chatmessages');
+        //await this.utils.openLoader();
+        await this.addressCollectionRefrence.add(record);
+        //await this.utils.closeLoading();
+    }
+    public async addChatMessage(record, userId) {
+        record.senderid = userId;
+        record.messagetime = new Date().getTime();
+        record.readby  = [userId];
+
+        this.addressCollectionRefrence = this.Afs.collection('chatmessages');
+        //await this.utils.openLoader();
+        await this.addressCollectionRefrence.add(record);
+        //await this.utils.closeLoading();
+        this.chatContactsCollectionReference = this.Afs.collection<ChatContacts>('chatcontacts');
+        await this.chatContactsCollectionReference.doc(record.chatcontactid).update({lastmessage: record.message,lastmessagetime:record.messagetime});
+    }
 }
 
 export interface Products {
@@ -285,4 +340,23 @@ export interface Store {
     categories: any;
     categoriescount: number;
     productscount: number;
+}
+
+
+export interface ChatContacts {
+    sellerid: string;
+    sellerame: string;
+    sellerimage: string;
+    customerid: string;
+    custoemername: string;
+    custoemerimage: string;
+    lastmessage: string;
+}
+
+export interface ChatMessages {
+    chatcontactid: string;
+    senderid: string;
+    message: string;
+    messagetime: string;
+    readby: any;
 }
