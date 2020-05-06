@@ -34,8 +34,8 @@ export class FirestoreService {
     public async getCurrentUserInfo(userId) {
         // TO DO --
         // when you dont find any record create a record --
-        this.userCollectionRefrence = this.Afs.collection<User>('users', ref => ref.where('id', '==', userId).orderBy('username'));
-        return this.userCollectionRefrence
+        this.userCollectionRefrence = this.Afs.collection<User>('users');
+        return this.userCollectionRefrence.doc(userId)
             .snapshotChanges().pipe(
                 map((res: any) => {
                     res.map(dataItems => {
@@ -194,8 +194,7 @@ export class FirestoreService {
     public async createUser(uniqueId, result) {
         this.userCollectionRefrence = this.Afs.collection<User>('users');
         await this.utils.openLoader();
-        await this.userCollectionRefrence.add({ ...result });
-        await this.storesCollectionRefrence.doc(uniqueId).set({ ...result }).then(snapshot => {
+        await this.userCollectionRefrence.doc(uniqueId).set({ ...result }).then(snapshot => {
             this.utils.userInfo = { id: uniqueId, ...result };
             console.log(snapshot);
         });
