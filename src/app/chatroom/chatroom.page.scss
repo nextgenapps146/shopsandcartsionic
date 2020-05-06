@@ -136,6 +136,7 @@ page-home {
   {
     font-size: 12px;
     color: gray;
+    margin-left: 8%;
   }
   .title
   {
@@ -152,4 +153,10 @@ page-home {
   {
    margin-top: 3%;
    text-align: right;
+  }
+  .msg{
+    border-radius: 
+    20px;--background: #f53d3d;
+    color: white;
+    margin-right: 5%;
   }
