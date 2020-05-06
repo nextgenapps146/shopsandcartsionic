@@ -277,8 +277,14 @@ export class FirestoreService {
             );
     }
 
+    public async addTextMessage(record) {
+        debugger
+        this.addressCollectionRefrence = this.Afs.collection('chatmessages');
+        //await this.utils.openLoader();
+        await this.addressCollectionRefrence.add(record);
+        //await this.utils.closeLoading();
+    }
     public async addChatMessage(record, userId) {
-
         record.senderid = userId;
         record.messagetime = new Date().getTime();
         record.readby  = [userId];
@@ -287,6 +293,8 @@ export class FirestoreService {
         //await this.utils.openLoader();
         await this.addressCollectionRefrence.add(record);
         //await this.utils.closeLoading();
+        this.chatContactsCollectionReference = this.Afs.collection<ChatContacts>('chatcontacts');
+        await this.chatContactsCollectionReference.doc(record.chatcontactid).update({lastmessage: record.message,lastmessagetime:record.messagetime});
     }
 }
 
