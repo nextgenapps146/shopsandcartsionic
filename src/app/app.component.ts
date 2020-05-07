@@ -63,12 +63,7 @@ export class AppComponent {
             icon: 'share',
             mode: 'md'
         },
-        {
-            title: 'Chat',
-            url: '/chat',
-            icon: 'chatboxes',
-            mode: 'md'
-        },
+     
         {
             title: 'Need Help',
             url: '/need-help',

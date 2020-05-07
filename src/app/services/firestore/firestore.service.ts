@@ -347,8 +347,8 @@ export interface ChatContacts {
     sellerame: string;
     sellerimage: string;
     customerid: string;
-    custoemername: string;
-    custoemerimage: string;
+    customername: string;
+    customerimage: string;
     lastmessage: string;
 }
 

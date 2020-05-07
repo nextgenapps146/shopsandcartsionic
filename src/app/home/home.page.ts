@@ -139,6 +139,10 @@ export class HomePage implements OnInit {
             });
         }
     }
+    onChat()
+    {
+        this.route.navigate(['chat']);
+    }
 }
 
 

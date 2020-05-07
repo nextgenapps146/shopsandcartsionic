@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar color="primary">
-    <ion-title class="title">Test User</ion-title>
+    <ion-title class="title">{{custoemername}}</ion-title>
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
@@ -29,7 +29,7 @@
           </ion-item>
         </div>
         <div>
-          <span class="time">{{getTime(message.messagetime)}}</span>
+          <span class="time">{{messagetime}}</span>
         </div>
       </ion-col>
     </ion-row>
@@ -47,7 +47,7 @@
           </ion-item>
         </div>
         <div cass="time_div">
-          <span class="time">{{getTime(message.messagetime)}}</span>
+          <span class="time">{{messagetime}}</span>
         </div>
       </ion-col>
     

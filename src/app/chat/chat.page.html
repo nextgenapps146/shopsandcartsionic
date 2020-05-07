@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar color="primary">
-    <ion-title>chat</ion-title>
+    <ion-title>Chat</ion-title>
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
@@ -14,7 +14,7 @@
 
 <ion-row *ngFor="let user of users">  
   <ion-col size=9>
-    <ion-item (click)="onChatroom(user.chatcontactid)">
+    <ion-item (click)="onChatroom(user.chatcontactid , user.custoemername)">
       <ion-avatar slot="start">
         <img  src="assets/images/user.png" alt="" class="image">
       </ion-avatar>
@@ -27,7 +27,7 @@
     </ion-col>
     <ion-col sixe="3">
       <div class="time_div">
-        <span class="time">{{getTime(user.lastmessagetime)}}</span>
+        <span class="time">{{messagetime}}</span>
         <div class="count"> <span>1</span></div>
         </div>
       </ion-col>
