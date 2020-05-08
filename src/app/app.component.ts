@@ -20,6 +20,7 @@ import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 import { AuthServiceService } from './services/Auth/auth-service.service';
 import { FirestoreService } from './services/firestore/firestore.service';
 import { UtilsServiceService } from './services/Utils/utils-service.service';
+import { FirebaseX } from "@ionic-native/firebase-x/ngx";
 
 @Component({
     selector: 'app-root',
@@ -63,12 +64,7 @@ export class AppComponent {
             icon: 'share',
             mode: 'md'
         },
-        {
-            title: 'Chat',
-            url: '/chat',
-            icon: 'chatboxes',
-            mode: 'md'
-        },
+     
         {
             title: 'Need Help',
             url: '/need-help',
@@ -104,7 +100,8 @@ export class AppComponent {
         private socialSharing: SocialSharing,
         public authService: AuthServiceService,
         public fireStore: FirestoreService,
-        public util: UtilsServiceService
+        public util: UtilsServiceService,
+        private firebase: FirebaseX
     ) {
         this.initializeApp();
         this.authService.userId.subscribe(filter => {
@@ -141,6 +138,18 @@ export class AppComponent {
         this.platform.ready().then(() => {
             this.statusBar.styleDefault();
             this.splashScreen.hide();
+            this.initPush();
+        });
+    }
+
+    initPush(){
+        this.firebase.getToken().then(token => {
+            console.log(`The token is ${token}`)
+            alert(token);
+        })
+        this.firebase.onMessageReceived().subscribe(data => {
+            alert(data);
+            console.log(`FCM message: ${data}`)
         });
     }
 
