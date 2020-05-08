@@ -27,8 +27,8 @@ export class ChatPage implements OnInit {
     users.subscribe(list => {
         this.users = list;
         for (let i = 0; i < this.users.length; i++) {
-          var date = new Date(this.users[i].lastmessagetime)
-          this.messagetime=date.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
+          const date = new Date(this.users[i].lastmessagetime)
+          this.users[i].lastmessagetime=date.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
             }
       });
     });

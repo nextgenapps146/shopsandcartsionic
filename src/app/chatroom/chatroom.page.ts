@@ -32,8 +32,8 @@ export class ChatroomPage implements OnInit {
       messages.subscribe(list => {
         this.messages = list;
       for (let i = 0; i < this.messages.length; i++) {
-      var date = new Date(this.messages[i].messagetime)
-      this.messagetime=date.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
+      const date = new Date(this.messages[i].messagetime)
+      this.messages[i].messagetime=date.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
         }
       });
     });
