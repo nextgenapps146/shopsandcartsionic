@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FirestoreService } from '../services/firestore/firestore.service';
+import { UtilsServiceService } from '../services/Utils/utils-service.service';
 import { constants } from 'buffer';
 @Component({
   selector: 'app-store',
@@ -10,12 +11,13 @@ import { constants } from 'buffer';
 export class StorePage implements OnInit {
   storeid: any
   storename: any
-  constructor(private router: Router, private route: ActivatedRoute, private fireStore: FirestoreService) {
+  constructor(private router: Router, private route: ActivatedRoute,
+    private utils:UtilsServiceService, private fireStore: FirestoreService) {
     this.route.queryParams.subscribe(params => {
       if (params && params.storeid && params.storename) {
         this.storeid = params.storeid;
         this.storename = params.storename;
-
+       localStorage.setItem("sellerid",this.storeid)
       }
     });
 
@@ -35,13 +37,10 @@ export class StorePage implements OnInit {
         if (this.users && this.users.length == 0) {
           var record = {
             sellerid: this.storeid,
-            customerid: this.userId , // this.utils.userinfo.id
-            //
-
-    // sellerame: string;
-    sellerimage: 's.png',
-    // customername: string;
-     customerimage: 'c.png'
+            customerid: this.utils.userInfo.id,
+            sellerimage: 's.png',
+            customerimage: 'c.png',
+            customername: this.utils.userInfo.username
 
           }
           this.fireStore.addChatContacts(record)

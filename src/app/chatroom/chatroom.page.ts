@@ -11,10 +11,19 @@ export class ChatroomPage implements OnInit {
   userid = "iu63d2eRkx5epcnKnKsr";
   chatcontactid: any;
   custoemername:any;
+  sellerid:any;
+  users=[]
   messages = [];
   constructor(private route: ActivatedRoute, private router: Router, public authService: AuthServiceService,
     public fsServices: FirestoreService) {
     this.loadMessage()
+    this.sellerid=localStorage.getItem("sellerid")
+    this.fsServices.getChatUsers(this.sellerid).then((users) => {
+      users.subscribe(list => {
+          this.users = list;
+      });
+  });
+
   }
   
   loadMessage() {
@@ -54,13 +63,13 @@ export class ChatroomPage implements OnInit {
     this.fsServices.addChatMessage(data, this.userid);  
 
     var dataPush = {
-      title :"User has sent you a new message"
-      body: this.message
-      token:"" // oppenet token id 
-      targetid:"" // opponene userid 
+      title :"User has sent you a new message",
+      body: this.message,
+      token:this.users[0].token,
+      targetid:this.userid 
     }
 
-    this.fsServices.addChatPushMessage(data);
+    this.fsServices.addChatPushMessage(dataPush);
   }
 
 }
