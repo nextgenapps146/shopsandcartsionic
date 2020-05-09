@@ -54,9 +54,9 @@ export class ChatroomPage implements OnInit {
     this.fsServices.addChatMessage(data, this.userid);  
 
     var dataPush = {
-      title :"User has sent you a new message"
-      body: this.message
-      token:"" // oppenet token id 
+      title :"User has sent you a new message",
+      body: this.message,
+      token:"", // oppenet token id 
       targetid:"" // opponene userid 
     }
 
