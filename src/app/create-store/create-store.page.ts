@@ -53,6 +53,10 @@ export class CreateStorePage implements OnInit {
     ) { }
 
     ngOnInit() {
+        this.getSellerStoreInformation();
+        if (this.utils.storeInfo && this.utils.storeInfo.id) {
+            this.utils.presentToast('You Already have  a store Created!');
+        }
         this.homeTrue = false;
         this.officeTrue = false;
         this.btnColor = 'undefined';
@@ -72,6 +76,22 @@ export class CreateStorePage implements OnInit {
     //     }
     //     this.addresstype = item;
     // }
+
+
+    getSellerStoreInformation() {
+        if (this.utils.userInfo.id) {
+            this.fireStore.getUserStore(this.utils.userInfo.id).then((data) => {
+                data.subscribe(todos => {
+                    // this.utils.storeInfo = todos[0];
+                    console.log(this.utils.storeInfo);
+                    this.utils.presentToast('You Already have  a store Created!', false, 'top', 6000);
+                });
+            });
+        } else {
+            // this.utils.presentToast('Store Not Found!');
+            // logout -------
+        }
+    }
 
     async Continue() {
         if (this.storeName && this.streetAddress && this.city && this.state) {
@@ -129,6 +149,7 @@ export class CreateStorePage implements OnInit {
         }).catch((error) => {
         });
     }
+
     async getGeoLocation(lat: number, lng: number) {
         const _instance = this;
         if (navigator.geolocation) {

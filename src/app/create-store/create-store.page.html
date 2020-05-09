@@ -12,7 +12,7 @@
     </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content *ngIf="!utils.storeInfo && !utils.storeInfo.id">
     <div class="contentSection" padding>
         <ion-list *ngIf="showAddressSearchList && possibleAddresses && possibleAddresses.length > 0">
             <ion-radio-group>

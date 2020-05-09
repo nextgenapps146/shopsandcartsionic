@@ -36,17 +36,27 @@ export class FirestoreService {
    public async getCurrentUserInfo(userId) {
         // TO DO --
         // when you dont find any record create a record --
-        const _self = this;
-        this.userCollectionRefrence = this.Afs.collection<User>('users', ref => ref.where('id', '==', userId).orderBy('username'));
-        return this.userCollectionRefrence
+        this.userCollectionRefrence = this.Afs.collection<User>('users');
+        return this.userCollectionRefrence.doc(userId)
             .snapshotChanges().pipe(
                 map((res: any) => {
-                    res.map(dataItems => {
-                        const data = dataItems.payload.doc.data() as User;
-                        // const id = dataItems.payload.doc.id;
-                        _self.utils.userInfo = { ...data };
-                        return { ...data };
-                    });
+                    // Since this is a single object only one value will come here
+                    this.utils.userInfo = res.payload.data() as User;
+                    this.utils.userInfo.id = res.payload.id;
+                    return this.utils.storeInfo;
+                })
+            );
+    }
+
+    public async getUserStore(userId) {
+        this.storesCollectionRefrence = this.Afs.collection<Store>('stores');
+        return this.storesCollectionRefrence.doc(userId)
+            .snapshotChanges().pipe(
+                map((res: any) => {
+                    // Since this is a single object only one value will come here
+                    this.utils.storeInfo = res.payload.data() as Store;
+                    this.utils.storeInfo.id = res.payload.id;
+                    return this.utils.storeInfo;
                 })
             );
     }
@@ -261,7 +271,7 @@ export class FirestoreService {
         //await this.utils.closeLoading();
     }
 
-    
+
     public async getChatMessages(chatcontactid) {
         this.chatContactsCollectionReference = this.Afs.collection<ChatContacts>('chatmessages',
          ref => ref.where('chatcontactid', '==', chatcontactid));

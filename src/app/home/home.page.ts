@@ -15,7 +15,7 @@ import { CartService } from '../services/CartServices/cart.service';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
-import { ModalController, IonSlides, MenuController } from '@ionic/angular';
+import { ModalController, IonSlides, MenuController, IonSelect } from '@ionic/angular';
 import { SearchPage } from '../search/search.page';
 import { FirestoreService } from '../services/firestore/firestore.service';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
@@ -30,6 +30,8 @@ declare var google;
 })
 export class HomePage implements OnInit {
     @ViewChild('ionSlides', { static: true }) ionSlides: IonSlides;
+    @ViewChild('myCitySelect', { static: true }) selectRef: IonSelect;
+
     public locationAddress;
     public prodoctSlides: Array<any>;
     public categoryItems;
@@ -72,18 +74,29 @@ export class HomePage implements OnInit {
         });
 
     }
+
     ionViewDidEnter() {
         this.menuCtrl.enable(true, 'start');
-        this.geolocation.getCurrentPosition().then((resp) => {
-            // we dont need this here
-            // this.getGeoLocation(resp.coords.latitude, resp.coords.longitude);
-        }).catch((error) => {
-        });
-
+        // this.geolocation.getCurrentPosition().then((resp) => {
+        //     // we dont need this here
+        //     // this.getGeoLocation(resp.coords.latitude, resp.coords.longitude);
+        // }).catch((error) => {
+        // });
+        if (!this.util.userSearchingCity) {
+            this.selectRef.open();
+        }
     }
+
+    setUserSearchCity(city) {
+        if (this.util.userSearchingCity) {
+            localStorage.setItem('usersearchingcity', this.util.userSearchingCity);
+        }
+    }
+
     ngOnInit() {
         this.ionSlides.startAutoplay();
     }
+
     goToStorePage() {
         // this.route.navigate(['store', { product: JSON.stringify(product) }]); later
         this.route.navigate(['store']);
@@ -139,8 +152,7 @@ export class HomePage implements OnInit {
             });
         }
     }
-    onChat()
-    {
+    onChat() {
         this.route.navigate(['chat']);
     }
 }

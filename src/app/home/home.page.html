@@ -4,10 +4,14 @@
             <ion-menu-button></ion-menu-button>
         </ion-buttons>
         <div class="dFlexRow deliverySection">
-            <ion-note class="whiteColor">Delivery Location</ion-note>
+            <ion-note class="whiteColor">In & Around</ion-note>
             <div class="flex">
-                <ion-label class="locationAddress">{{locationAddress}}</ion-label>
-                <ion-icon name="create" mode="md" (click)="addLocation()" class="create_icon"></ion-icon>
+                <ion-select #myCitySelect interface="popover" [(ngModel)]="util.userSearchingCity" (ionChange)="setUserSearchCity($event)">
+                    <ion-select-option value="Naperville">Naperville, IL</ion-select-option>
+                    <ion-select-option value="Aurora">Aurora, IL</ion-select-option>
+                </ion-select>
+                <!-- <ion-label class="locationAddress">{{locationAddress}}</ion-label>
+                <ion-icon name="create" mode="md" (click)="addLocation()" class="create_icon"></ion-icon> -->
             </div>
         </div>
 
@@ -25,7 +29,7 @@
 <ion-content>
 
     <!-- Make this as a component -->
-    <ion-list>
+    <!-- <ion-list>
         <ion-list-header>
             Stores in your area
         </ion-list-header>
@@ -39,6 +43,22 @@
                 <ion-icon slot="icon-only" name="cart"></ion-icon>
                 <span class="cartQuantity">{{cart.productQty}}</span>
             </ion-button>
+        </ion-item>
+    </ion-list> -->
+
+    <ion-list>
+        <br>
+        <ion-item class="product-item" *ngFor="let store of storesList" (click)="goToStorePage(store)">
+            <!-- <ion-thumbnail slot="start">
+                <img [src]="item.images[0]">
+            </ion-thumbnail> -->
+            <ion-label>
+                <h2><strong>{{ store.name }}</strong></h2>
+                <p>{{ store.streetaddress }}, {{ store.city }} {{ store.state }} {{ store.zipcode }}</p>
+                <!-- <p>Price: {{ item.regularPrice }}</p> -->
+            </ion-label>
+            <ion-icon slot="end" name="arrow-dropright-circle"></ion-icon>
+
         </ion-item>
     </ion-list>
 
@@ -98,6 +118,24 @@
         </ion-slides>
     </div>
 
+    <ion-list>
+        <br>
+        <ion-item class="product-item" *ngFor="let item of categoryItems | async">
+            <ion-thumbnail slot="start">
+                <img [src]="item.images[0]">
+            </ion-thumbnail>
+            <ion-label>
+                <h2><strong>{{ item.name }}</strong></h2>
+                <p>Category: {{ item.categories? item.categories : '--' }}</p>
+                <!-- <p>Price: {{ item.regularPrice }}</p> -->
+            </ion-label>
+
+            <ion-button (click)="addStoreProducts(ListByRows)">
+                <ion-icon slot="start" name="md-add"></ion-icon>
+                Add
+            </ion-button>
+        </ion-item>
+    </ion-list>
 
     <!--Accordian Component location:- components/accordian-->
     <std-accordian *ngFor="let item of categoryItems | async" [title]="item.name" [image]="item.images[0]"

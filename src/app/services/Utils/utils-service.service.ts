@@ -11,9 +11,10 @@ import { LoadingController } from '@ionic/angular';
 export class UtilsServiceService {
 
   userid: BehaviorSubject<string> = new BehaviorSubject<string>('');
-  userCity = '';
+  userSearchingCity = '';
   userInfo: any = {};
   AddAdressBackUrl = '';
+  storeInfo = null;
   constructor(public loadingController: LoadingController, private fireAuth: AngularFireAuth, private router: Router, private toastController: ToastController, private nav: NavController, public alertController: AlertController) {
     this.getUserId();
   }
@@ -39,15 +40,15 @@ export class UtilsServiceService {
   }
 
 
-  async presentToast(message, show_button, position, duration) {
+  async presentToast(messages?, showButton?, positions?, durations?) {
     const toast = await this.toastController.create({
-      message: message,
-      showCloseButton: show_button,
-      position: position,
-      duration: duration
+        message: messages || 'Something is wrong!',
+        showCloseButton: showButton || false,
+        position: positions || 'top',
+        duration: durations || 2000
     });
     toast.present();
-  }
+}
 
 
   removeConform(): Promise<any> {

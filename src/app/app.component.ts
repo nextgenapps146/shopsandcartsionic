@@ -64,7 +64,6 @@ export class AppComponent {
             icon: 'share',
             mode: 'md'
         },
-     
         {
             title: 'Need Help',
             url: '/need-help',
@@ -100,7 +99,7 @@ export class AppComponent {
         private socialSharing: SocialSharing,
         public authService: AuthServiceService,
         public fireStore: FirestoreService,
-        public util: UtilsServiceService,
+        public utils: UtilsServiceService,
         private firebase: FirebaseX
     ) {
         this.initializeApp();
@@ -111,6 +110,7 @@ export class AppComponent {
                 });
             }
         });
+        this.getUserInAndAround();
         this.userDetails = { profileUrl: 'assets/images/user.png', name: ' Hey John Smith', phoneNo: '+91-000-0000-0000', location: 'jaipur' };
         this.userPersonalDetails = [
             {
@@ -142,14 +142,14 @@ export class AppComponent {
         });
     }
 
-    initPush(){
+    initPush() {
         this.firebase.getToken().then(token => {
-            console.log(`The token is ${token}`)
+            console.log(`The token is ${token}`);
             alert(token);
-        })
+        });
         this.firebase.onMessageReceived().subscribe(data => {
             alert(data);
-            console.log(`FCM message: ${data}`)
+            console.log(`FCM message: ${data}`);
         });
     }
 
@@ -182,6 +182,10 @@ export class AppComponent {
 
         }
 
+    }
+
+    getUserInAndAround() {
+        this.utils.userSearchingCity = localStorage.getItem('usersearchingcity');
     }
 
     locationPage() {
