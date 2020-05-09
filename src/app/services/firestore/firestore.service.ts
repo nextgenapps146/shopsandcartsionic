@@ -281,26 +281,19 @@ export class FirestoreService {
     }
 
     public async updateUserDeviceToken() {
-
-        // we need to call thismethod from 
-        //1  - login 
-        //2 - register
-        //3 - app component 
-        //4 - token refresh in init push
-        
-
-        //get the id from localstorage 
-        // userid from this.utils.userinfo.id 
-
-        //if both value exist then update database record only 
-
-    }
+      const deviceId=localStorage.getItem("deviceid")
+      const userId=this.utils.userInfo.id 
+      if(deviceId && userId)
+      {
+        this.userCollectionRefrence = this.Afs.collection<User>('users');
+        await this.userCollectionRefrence.doc(userId).update({token:deviceId});
+      }
+    
+      }
 
     public async addChatUsers(record) {
         this.addressCollectionRefrence = this.Afs.collection('chatcontacts');
-        //await this.utils.openLoader();
         await this.addressCollectionRefrence.add(record);
-        //await this.utils.closeLoading();
     }
 
 
@@ -319,9 +312,7 @@ export class FirestoreService {
 
     public async addTextMessage(record) {
         this.addressCollectionRefrence = this.Afs.collection('chatmessages');
-        //await this.utils.openLoader();
         await this.addressCollectionRefrence.add(record);
-        //await this.utils.closeLoading();
     }
     public async addChatMessage(record, userId) {
         record.senderid = userId;

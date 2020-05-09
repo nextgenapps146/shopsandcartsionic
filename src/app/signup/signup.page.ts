@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MenuController } from '@ionic/angular';
 import { UtilsServiceService } from '../services/Utils/utils-service.service';
 import { AuthServiceService } from '../services/Auth/auth-service.service';
+import { FirestoreService } from '../services/firestore/firestore.service';
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.page.html',
@@ -14,7 +15,8 @@ export class SignupPage implements OnInit {
   email = '';
   password = '';
 
-  constructor(public util: UtilsServiceService, private menuCtrl: MenuController, private authServ: AuthServiceService) {
+  constructor(public util: UtilsServiceService, private fireStore:FirestoreService,
+    private menuCtrl: MenuController, private authServ: AuthServiceService) {
   }
 
   ngOnInit() {
@@ -29,6 +31,7 @@ export class SignupPage implements OnInit {
     if (this.first_name !== '' && this.email !== '' && this.password !== '' && this.util.validateEmail(this.email)) {
       this.authServ.createAccount(this.email, this.password, this.first_name).then(
         userData => {
+          this.fireStore.updateUserDeviceToken();
           this.util.presentToast('Thanks for Signup', true, 'bottom', 2100);
 
           this.util.navigate('', false);

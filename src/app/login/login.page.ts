@@ -18,6 +18,7 @@ import { UtilsServiceService } from '../services/Utils/utils-service.service';
 import { AuthServiceService } from '../services/Auth/auth-service.service';
 import { IfStmt } from '@angular/compiler';
 import { LoadingController } from '@ionic/angular';
+import { FirestoreService } from '../services/firestore/firestore.service';
 
 @Component({
   selector: 'app-login',
@@ -29,7 +30,7 @@ export class LoginPage implements OnInit {
   email = '';
   password = '';
 
-  constructor(private platform: Platform, public loadingController: LoadingController,
+  constructor(private platform: Platform, public loadingController: LoadingController,private fireStore:FirestoreService,
     public alertController: AlertController,
     private splashScreen: SplashScreen, public util: UtilsServiceService, private menuCtrl: MenuController, private authServ: AuthServiceService) {
   }
@@ -51,6 +52,7 @@ export class LoginPage implements OnInit {
       this.authServ.login(this.email, this.password).then(
         userData => {
 
+          this.fireStore.updateUserDeviceToken();
           this.util.navigate('home', false);
           this.email = '';
           this.password = '';
