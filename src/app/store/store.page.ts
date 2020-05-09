@@ -27,19 +27,29 @@ export class StorePage implements OnInit {
     this.fireStore.checkChatContacts(this.storeid).then((messages) => {
       messages.subscribe(list => {
         this.users = list;
-        for (let i = 0; i < this.users.length; i++) {
-          const date = new Date(this.users[i].lastmessagetime);
-          this.users[i].lastmessagetime = date.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
+        // for (let i = 0; i < this.users.length; i++) {
+        //   const date = new Date(this.users[i].lastmessagetime);
+        //   this.users[i].lastmessagetime = date.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
+        // }
+
+        if (this.users && this.users.length == 0) {
+          var record = {
+            sellerid: this.storeid,
+            customerid: this.userId , // this.utils.userinfo.id
+            //
+
+    // sellerame: string;
+    sellerimage: 's.png',
+    // customername: string;
+     customerimage: 'c.png'
+
+          }
+          this.fireStore.addChatContacts(record)
         }
+
       });
     });
-    if (this.users && this.users.length == 0) {
-      var record = {
-        sellerid: this.storeid,
-        customerid: this.userId
-      }
-      this.fireStore.addChatContacts(record)
-    }
+
   }
   ngOnInit() {
   }

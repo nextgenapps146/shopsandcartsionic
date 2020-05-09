@@ -58,10 +58,9 @@ export class ChatroomPage implements OnInit {
       body: this.message
       token:"" // oppenet token id 
       targetid:"" // opponene userid 
-
     }
 
-    this.fsServices.addChatPushMessage(data);  
+    this.fsServices.addChatPushMessage(data);
   }
 
 }
