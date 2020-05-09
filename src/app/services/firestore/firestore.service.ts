@@ -266,6 +266,36 @@ export class FirestoreService {
             );
     }
 
+    public async checkChatContacts(userId) {
+        //need to change code here 
+        this.chatContactsCollectionReference = this.Afs.collection<ChatContacts>('chatcontacts',
+         ref => ref.where('customerid', '==', userId).where('selllerid' ,'==' ,''));
+        return this.chatContactsCollectionReference
+            .snapshotChanges().pipe(
+                map(res => res.map(dataItems => {
+                    const data: any = dataItems.payload.doc.data() as ChatContacts;
+                    const id = dataItems.payload.doc.id;
+                    return {...data , chatcontactid: id};
+                }))
+            );
+    }
+
+    public async updateUserDeviceToken() {
+
+        // we need to call thismethod from 
+        //1  - login 
+        //2 - register
+        //3 - app component 
+        //4 - token refresh in init push
+        
+
+        //get the id from localstorage 
+        // userid from this.utils.userinfo.id 
+
+        //if both value exist then update database record only 
+
+    }
+
     public async addChatUsers(record) {
         this.addressCollectionRefrence = this.Afs.collection('chatcontacts');
         //await this.utils.openLoader();
