@@ -65,14 +65,18 @@ export class HomePage implements OnInit {
             this.categoryItems = data;
         });
 
-        this.fsServices.getUserLocalStores('Naperville').then((data) => {
+        this.getUserSearchingStores();
+
+    }
+
+    getUserSearchingStores() {
+        this.fsServices.getUserLocalStores().then((data) => {
             data.subscribe(list => {
                 this.storesList = list;
             });
         }).catch((error) => {
             console.log(error);
         });
-
     }
 
     ionViewDidEnter() {
@@ -90,6 +94,7 @@ export class HomePage implements OnInit {
     setUserSearchCity(city) {
         if (this.util.userSearchingCity) {
             localStorage.setItem('usersearchingcity', this.util.userSearchingCity);
+            this.getUserSearchingStores();
         }
     }
 

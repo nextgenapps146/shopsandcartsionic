@@ -55,7 +55,9 @@ export class FirestoreService {
                 map((res: any) => {
                     // Since this is a single object only one value will come here
                     this.utils.storeInfo = res.payload.data() as Store;
-                    this.utils.storeInfo.id = res.payload.id;
+                    if (this.utils.storeInfo) {
+                        this.utils.storeInfo.id = res.payload.id;
+                    }
                     return this.utils.storeInfo;
                 })
             );
@@ -170,8 +172,8 @@ export class FirestoreService {
             );
     }
 
-    public async getUserLocalStores(city) {
-        this.storesCollectionRefrence = this.Afs.collection('stores', ref => ref.where('city', '==', city));
+    public async getUserLocalStores() {
+        this.storesCollectionRefrence = this.Afs.collection('stores', ref => ref.where('city', '==', this.utils.userSearchingCity));
         return this.storesCollectionRefrence
             .snapshotChanges().pipe(
                 map(res => res.map(dataItems => {

@@ -83,8 +83,8 @@ export class CreateStorePage implements OnInit {
             this.fireStore.getUserStore(this.utils.userInfo.id).then((data) => {
                 data.subscribe(todos => {
                     // this.utils.storeInfo = todos[0];
-                    console.log(this.utils.storeInfo);
-                    this.utils.presentToast('You Already have  a store Created!', false, 'top', 6000);
+                    // console.log(this.utils.storeInfo);
+                    // this.utils.presentToast('You Already have  a store Created!', false, 'top', 6000);
                 });
             });
         } else {
