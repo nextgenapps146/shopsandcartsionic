@@ -142,7 +142,7 @@ export class HomePage implements OnInit {
                         }
                         for (let i = 0; i < rsltAdrComponent.length; i++) {
                             if (rsltAdrComponent[i].types && rsltAdrComponent[i].types.includes('locality')) {
-                                this.util.userCity = rsltAdrComponent[i].short_name;
+                                // this.util.userCity = rsltAdrComponent[i].short_name;
                             }
                         }
                     } else {
