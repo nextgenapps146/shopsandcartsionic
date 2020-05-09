@@ -33,7 +33,7 @@ export class FirestoreService {
     // *****************************************************************************************************************************
 
 
-   public async getCurrentUserInfo(userId) {
+    public async getCurrentUserInfo(userId) {
         // TO DO --
         // when you dont find any record create a record --
         this.userCollectionRefrence = this.Afs.collection<User>('users');
@@ -255,41 +255,64 @@ export class FirestoreService {
 
     public async getChatUsers(userId) {
         this.chatContactsCollectionReference = this.Afs.collection<ChatContacts>('chatcontacts',
-         ref => ref.where('customerid', '==', userId));
+            ref => ref.where('customerid', '==', userId));
         return this.chatContactsCollectionReference
             .snapshotChanges().pipe(
                 map(res => res.map(dataItems => {
                     const data: any = dataItems.payload.doc.data() as ChatContacts;
                     const id = dataItems.payload.doc.id;
-                    return {...data , chatcontactid: id};
+                    return { ...data, chatcontactid: id };
                 }))
             );
     }
-
-    public async checkChatContacts(userId) {
-        //need to change code here 
+    public async  addChatContacts(record) {
+        this.chatContactsCollectionReference = this.Afs.collection('ChatContacts');
+        await this.chatContactsCollectionReference.add(record);
+    }
+    public async checkChatContacts(storeid) {
+        debugger
+        const userId = this.utils.userInfo.id
         this.chatContactsCollectionReference = this.Afs.collection<ChatContacts>('chatcontacts',
-         ref => ref.where('customerid', '==', userId).where('selllerid' ,'==' ,''));
+            ref => ref.where('customerid', '==', userId).where('selllerid', '==', storeid));
         return this.chatContactsCollectionReference
             .snapshotChanges().pipe(
                 map(res => res.map(dataItems => {
                     const data: any = dataItems.payload.doc.data() as ChatContacts;
                     const id = dataItems.payload.doc.id;
-                    return {...data , chatcontactid: id};
+                    return { ...data, chatcontactid: id };
                 }))
             );
+
+
+        //      const userId=this.utils.userInfo.id 
+        //      this.chatContactsCollectionReference = this.Afs.collection<ChatContacts>('chatcontacts',
+        //          ref => ref.where('customerid', '==', userId).where('selllerid' ,'==' ,storeid));
+        //         const rec =  this.chatContactsCollectionReference.snapshotChanges().toPromise();
+        // debugger;
+        //         rec.then((res) => {
+        //             console.log(res);
+        //         }).catch((err) => {
+        //             console.log(err);
+        //         });
+
+        //   .snapshotChanges().pipe(
+        //        map(res => res.map(dataItems => {
+        //          const data: any = dataItems.payload.doc.data() as ChatContacts;
+        //           const id = dataItems.payload.doc.id;
+        //           return {chatcontactid: id};
+        //      }))
+        //    );
     }
 
     public async updateUserDeviceToken() {
-      const deviceId=localStorage.getItem("deviceid")
-      const userId=this.utils.userInfo.id 
-      if(deviceId && userId)
-      {
-        this.userCollectionRefrence = this.Afs.collection<User>('users');
-        await this.userCollectionRefrence.doc(userId).update({token:deviceId});
-      }
-    
-      }
+        const deviceId = localStorage.getItem("deviceid")
+        const userId = this.utils.userInfo.id
+        if (deviceId && userId) {
+            this.userCollectionRefrence = this.Afs.collection<User>('users');
+            await this.userCollectionRefrence.doc(userId).update({ token: deviceId });
+        }
+
+    }
 
     public async addChatUsers(record) {
         this.addressCollectionRefrence = this.Afs.collection('chatcontacts');
@@ -299,13 +322,13 @@ export class FirestoreService {
 
     public async getChatMessages(chatcontactid) {
         this.chatContactsCollectionReference = this.Afs.collection<ChatContacts>('chatmessages',
-         ref => ref.where('chatcontactid', '==', chatcontactid));
+            ref => ref.where('chatcontactid', '==', chatcontactid));
         return this.chatContactsCollectionReference
             .snapshotChanges().pipe(
                 map(res => res.map(dataItems => {
                     const data: any = dataItems.payload.doc.data() as ChatContacts;
                     // const id = dataItems.payload.doc.id;
-                    return {...data };
+                    return { ...data };
                 }))
             );
     }
@@ -317,14 +340,14 @@ export class FirestoreService {
     public async addChatMessage(record, userId) {
         record.senderid = userId;
         record.messagetime = new Date().getTime();
-        record.readby  = [userId];
+        record.readby = [userId];
 
         this.addressCollectionRefrence = this.Afs.collection('chatmessages');
         //await this.utils.openLoader();
         await this.addressCollectionRefrence.add(record);
         //await this.utils.closeLoading();
         this.chatContactsCollectionReference = this.Afs.collection<ChatContacts>('chatcontacts');
-        await this.chatContactsCollectionReference.doc(record.chatcontactid).update({lastmessage: record.message,lastmessagetime:record.messagetime});
+        await this.chatContactsCollectionReference.doc(record.chatcontactid).update({ lastmessage: record.message, lastmessagetime: record.messagetime });
     }
 }
 
