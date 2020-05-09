@@ -51,7 +51,17 @@ export class ChatroomPage implements OnInit {
       chatcontactid: this.chatcontactid,   // this is id from the above user list
       message: this.message
     }
-    this.fsServices.addChatMessage(data, this.userid)
+    this.fsServices.addChatMessage(data, this.userid);  
+
+    var dataPush = {
+      title :"User has sent you a new message"
+      body: this.message
+      token:"" // oppenet token id 
+      targetid:"" // opponene userid 
+
+    }
+
+    this.fsServices.addChatPushMessage(data);  
   }
 
 }

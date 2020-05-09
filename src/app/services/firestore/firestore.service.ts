@@ -266,11 +266,10 @@ export class FirestoreService {
             );
     }
     public async  addChatContacts(record) {
-        this.chatContactsCollectionReference = this.Afs.collection('ChatContacts');
+        this.chatContactsCollectionReference = this.Afs.collection('chatcontacts');
         await this.chatContactsCollectionReference.add(record);
     }
     public async checkChatContacts(storeid) {
-        debugger
         const userId = this.utils.userInfo.id
         this.chatContactsCollectionReference = this.Afs.collection<ChatContacts>('chatcontacts',
             ref => ref.where('customerid', '==', userId).where('selllerid', '==', storeid));
@@ -349,6 +348,11 @@ export class FirestoreService {
         this.chatContactsCollectionReference = this.Afs.collection<ChatContacts>('chatcontacts');
         await this.chatContactsCollectionReference.doc(record.chatcontactid).update({ lastmessage: record.message, lastmessagetime: record.messagetime });
     }
+
+    public async addChatPushMessage(record) {
+        this.addressCollectionRefrence = this.Afs.collection('chatnotificaions');
+        await this.addressCollectionRefrence.add(record);
+    }
 }
 
 export interface Products {
@@ -414,4 +418,12 @@ export interface ChatMessages {
     message: string;
     messagetime: string;
     readby: any;
+}
+
+
+export interface ChatNotificaions {
+    title: string;
+    body: string;
+    token: string;
+    targetid: string;
 }
