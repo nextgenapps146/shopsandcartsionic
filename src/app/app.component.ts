@@ -105,8 +105,7 @@ export class AppComponent {
         localStorage.setItem("deviceid","12345"); // need to remove after actual implmentation
         this.initializeApp();
         this.authService.userId.subscribe(filter => {
-            if (filter.$uid) {
-                this.fireStore.updateUserDeviceToken();
+            if (filter.$uid) {                
                 this.fireStore.getCurrentUserInfo(filter.$uid).then((data) => {
                     data.subscribe(todos => { });
                 });

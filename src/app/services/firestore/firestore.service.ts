@@ -40,9 +40,11 @@ export class FirestoreService {
         return this.userCollectionRefrence.doc(userId)
             .snapshotChanges().pipe(
                 map((res: any) => {
+
                     // Since this is a single object only one value will come here
                     this.utils.userInfo = res.payload.data() as User;
                     this.utils.userInfo.id = res.payload.id;
+                    this.updateUserDeviceToken();
                     return this.utils.storeInfo;
                 })
             );
@@ -288,7 +290,7 @@ export class FirestoreService {
 
     public async updateUserDeviceToken() {
         const deviceId = localStorage.getItem("deviceid")
-        const userId = this.utils.userInfo.id
+        const userId = this.utils.userInfo.id;
         if (deviceId && userId) {
             this.userCollectionRefrence = this.Afs.collection<User>('users');
             await this.userCollectionRefrence.doc(userId).update({ token: deviceId });
