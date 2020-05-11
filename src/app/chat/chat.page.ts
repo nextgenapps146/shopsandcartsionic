@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FirestoreService } from '../services/firestore/firestore.service';
 import { AuthServiceService } from '../services/Auth/auth-service.service';
+import { UtilsServiceService } from '../services/Utils/utils-service.service';
 
 @Component({
     selector: 'app-chat',
@@ -9,18 +10,16 @@ import { AuthServiceService } from '../services/Auth/auth-service.service';
     styleUrls: ['./chat.page.scss'],
 })
 export class ChatPage implements OnInit {
-    userId = 'iu63d2eRkx5epcnKnKsr';
+    userId = this.utils.userInfo.id; 
     users: any = [];
     messages: any = [];
     messagetime: any;
     constructor(public router: Router, public authService: AuthServiceService,
-        public fsServices: FirestoreService) {
+        public fsServices: FirestoreService,
+        private utils: UtilsServiceService) {
 
         this.authService.userId.subscribe(filter => {
             console.log(filter);
-            // this.fsServices.getCurrentUserInfo(filter.$uid).then((data) => {
-            //   data.subscribe(todos => {});
-            // });
         });
 
         this.fsServices.getChatUsers(this.userId).then((users) => {
@@ -37,11 +36,11 @@ export class ChatPage implements OnInit {
     ngOnInit() {
     }
 
-    onChatroom(chatcontactid, custoemername) {
+    onChatroom(chatcontactid, sellerid) {
         let navigationExtras = {
             queryParams: {
                 chatcontactid: chatcontactid,
-                custoemername: custoemername
+                sellerid: sellerid
             }
         };
         this.router.navigate(['chatroom'], navigationExtras);

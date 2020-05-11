@@ -24,28 +24,34 @@ export class StorePage implements OnInit {
   }
   users = [];
   result: any;
-  userId = 'EbGeKxxrcvdlzsBnzuV87Ii9I6h1';
+  userId = this.utils.userInfo.id;
   getChatUsers() {
     this.fireStore.checkChatContacts(this.storeid).then((messages) => {
-      messages.subscribe(list => {
-        this.users = list;
-        // for (let i = 0; i < this.users.length; i++) {
-        //   const date = new Date(this.users[i].lastmessagetime);
-        //   this.users[i].lastmessagetime = date.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
-        // }
-
-        if (this.users && this.users.length == 0) {
+      messages.subscribe(async (list) => {
+        //this.users = list;
+        console.log(list);
+        var index = (list || []).findIndex((r) => r.customerid == this.utils.userInfo.id && r.sellerid == this.storeid);
+        if (index < 0) {
           var record = {
             sellerid: this.storeid,
             customerid: this.utils.userInfo.id,
             sellerimage: 's.png',
+            sellername:this.storename,
             customerimage: 'c.png',
             customername: this.utils.userInfo.username
-
           }
-          this.fireStore.addChatContacts(record)
+          await this.fireStore.addChatContacts(record);
+        } else {
+          const record = list[index];
+          let navigationExtras = {
+            queryParams: {
+                chatcontactid: record.chatcontactid,
+                sellerid: record.sellerid
+            }
+          };
+          this.router.navigate(['chatroom'], navigationExtras);
+          //this.router.navigateByUrl("/chatroom")
         }
-
       });
     });
 

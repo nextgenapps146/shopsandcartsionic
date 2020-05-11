@@ -272,7 +272,7 @@ export class FirestoreService {
     public async checkChatContacts(storeid) {
         const userId = this.utils.userInfo.id
         this.chatContactsCollectionReference = this.Afs.collection<ChatContacts>('chatcontacts',
-            ref => ref.where('customerid', '==', userId).where('selllerid', '==', storeid));
+            ref => ref.where('customerid', '==', userId).where('sellerid', '==', storeid));
         return this.chatContactsCollectionReference
             .snapshotChanges().pipe(
                 map(res => res.map(dataItems => {
@@ -283,24 +283,7 @@ export class FirestoreService {
             );
 
 
-        //      const userId=this.utils.userInfo.id 
-        //      this.chatContactsCollectionReference = this.Afs.collection<ChatContacts>('chatcontacts',
-        //          ref => ref.where('customerid', '==', userId).where('selllerid' ,'==' ,storeid));
-        //         const rec =  this.chatContactsCollectionReference.snapshotChanges().toPromise();
-        // debugger;
-        //         rec.then((res) => {
-        //             console.log(res);
-        //         }).catch((err) => {
-        //             console.log(err);
-        //         });
-
-        //   .snapshotChanges().pipe(
-        //        map(res => res.map(dataItems => {
-        //          const data: any = dataItems.payload.doc.data() as ChatContacts;
-        //           const id = dataItems.payload.doc.id;
-        //           return {chatcontactid: id};
-        //      }))
-        //    );
+       
     }
 
     public async updateUserDeviceToken() {
@@ -315,7 +298,7 @@ export class FirestoreService {
 
     public async addChatUsers(record) {
         this.addressCollectionRefrence = this.Afs.collection('chatcontacts');
-        await this.addressCollectionRefrence.add(record);
+        return await this.addressCollectionRefrence.add(record);
     }
 
 
@@ -350,8 +333,37 @@ export class FirestoreService {
     }
 
     public async addChatPushMessage(record) {
-        this.addressCollectionRefrence = this.Afs.collection('chatnotificaions');
-        await this.addressCollectionRefrence.add(record);
+        const xhr = new XMLHttpRequest();
+        xhr.addEventListener("readystatechange", function() {
+            if(this.readyState === 4) console.log(this.responseText);
+        });
+        xhr.open("POST", "https://us-central1-bansik-7c7c4.cloudfunctions.net/function-1");
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.send(JSON.stringify(record));
+    }
+
+    public async getUserInfo(userId) {
+        this.userCollectionRefrence = this.Afs.collection<User>('users');
+        return this.userCollectionRefrence.doc(userId)
+            .snapshotChanges().pipe(
+                map((res: any) => {
+                    // Since this is a single object only one value will come here
+                    let record =  res.payload.data() as User;
+                    return record;
+                })
+            );
+    }
+    
+    public async loadChatContactDetails(chatcontactid) {
+        this.userCollectionRefrence = this.Afs.collection<User>('chatcontacts');
+        return this.userCollectionRefrence.doc(chatcontactid)
+            .snapshotChanges().pipe(
+                map((res: any) => {
+                    // Since this is a single object only one value will come here
+                    let record =  res.payload.data() as ChatContacts;
+                    return record;
+                })
+            );
     }
 }
 
