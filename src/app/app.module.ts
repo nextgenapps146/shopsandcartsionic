@@ -34,6 +34,7 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { FirebaseX } from "@ionic-native/firebase-x/ngx";
+import { FCM } from '@ionic-native/fcm/ngx';
 @NgModule({
   declarations: [AppComponent, IssuePage, SearchPage, RateUsPage],
   entryComponents: [IssuePage, SearchPage, RateUsPage],
@@ -50,6 +51,7 @@ import { FirebaseX } from "@ionic-native/firebase-x/ngx";
   exports: [],
   providers: [
     FirebaseX,
+    FCM ,
     StatusBar,
     SplashScreen,
     Geolocation,

@@ -102,9 +102,10 @@ export class AppComponent {
         public utils: UtilsServiceService,
         private firebase: FirebaseX
     ) {
+        localStorage.setItem("deviceid","12345"); // need to remove after actual implmentation
         this.initializeApp();
         this.authService.userId.subscribe(filter => {
-            if (filter.$uid) {
+            if (filter.$uid) {                
                 this.fireStore.getCurrentUserInfo(filter.$uid).then((data) => {
                     data.subscribe(todos => { });
                 });
@@ -142,10 +143,12 @@ export class AppComponent {
         });
     }
 
-    initPush() {
+    initPush() {        
         this.firebase.getToken().then(token => {
+            localStorage.setItem("deviceid",token);
             console.log(`The token is ${token}`);
             alert(token);
+            this.fireStore.updateUserDeviceToken();
         });
         this.firebase.onMessageReceived().subscribe(data => {
             alert(data);

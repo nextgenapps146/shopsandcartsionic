@@ -14,12 +14,12 @@
 
 <ion-row *ngFor="let user of users">  
   <ion-col size=9>
-    <ion-item (click)="onChatroom(user.chatcontactid , user.custoemername)">
+    <ion-item (click)="onChatroom(user.chatcontactid , user.sellerid)">
       <ion-avatar slot="start">
         <img  src="assets/images/user.png" alt="" class="image">
       </ion-avatar>
       <ion-label>
-        <h2>{{user.custoemername}}</h2>
+        <h2>{{user.customername}}</h2>
         <h3>{{user.lastmessage}}</h3>
        
       </ion-label>

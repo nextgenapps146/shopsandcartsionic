@@ -69,3 +69,6 @@ platforms/
 plugins/
 www/
 .history/
+www/*.js
+www
+/www

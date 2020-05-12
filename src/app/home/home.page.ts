@@ -102,10 +102,15 @@ export class HomePage implements OnInit {
         this.ionSlides.startAutoplay();
     }
 
-    goToStorePage() {
-        // this.route.navigate(['store', { product: JSON.stringify(product) }]); later
-        this.route.navigate(['store']);
-    }
+    goToStorePage(store) {
+            let navigationExtras = {
+                queryParams: {
+                    storeid:store.id,
+                    storename: store.name
+                }
+            };
+            this.route.navigate(['store'], navigationExtras);
+        }
     slidesDidLoad() {
         this.ionSlides.startAutoplay();
     }
