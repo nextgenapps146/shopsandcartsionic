@@ -71,3 +71,4 @@ www/
 .history/
 www/*.js
 www
+/www
