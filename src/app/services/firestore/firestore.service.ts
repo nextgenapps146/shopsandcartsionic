@@ -282,12 +282,14 @@ export class FirestoreService {
                 }))
             );
     }
+
     public async  addChatContacts(record) {
         this.chatContactsCollectionReference = this.Afs.collection('chatcontacts');
         await this.chatContactsCollectionReference.add(record);
     }
+
     public async checkChatContacts(storeid) {
-        const userId = this.utils.userInfo.id
+        const userId = this.utils.userInfo.id;
         this.chatContactsCollectionReference = this.Afs.collection<ChatContacts>('chatcontacts',
             ref => ref.where('customerid', '==', userId).where('sellerid', '==', storeid));
         return this.chatContactsCollectionReference
@@ -298,13 +300,10 @@ export class FirestoreService {
                     return { ...data, chatcontactid: id };
                 }))
             );
-
-
-
     }
 
     public async updateUserDeviceToken() {
-        const deviceId = localStorage.getItem("deviceid")
+        const deviceId = localStorage.getItem('deviceid');
         const userId = this.utils.userInfo.id;
         if (deviceId && userId) {
             this.userCollectionRefrence = this.Afs.collection<User>('users');
