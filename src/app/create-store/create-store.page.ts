@@ -80,7 +80,7 @@ export class CreateStorePage implements OnInit {
 
     getSellerStoreInformation() {
         if (this.utils.userInfo.id) {
-            this.fireStore.getUserStore(this.utils.userInfo.id).then((data) => {
+            this.fireStore.getStore(this.utils.userInfo.id).then((data) => {
                 data.subscribe(todos => {
                     // this.utils.storeInfo = todos[0];
                     // console.log(this.utils.storeInfo);

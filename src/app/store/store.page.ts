@@ -39,29 +39,29 @@ export class StorePage implements OnInit {
     getChatUsers() {
         this.fireStore.checkChatContacts(this.storeid).then((messages) => {
             messages.subscribe(async (list) => {
-                //this.users = list;
+                // this.users = list;
                 console.log(list);
-                var index = (list || []).findIndex((r) => r.customerid === this.utils.userInfo.id && r.sellerid == this.storeid);
+                const index = (list || []).findIndex((r) => r.customerid === this.utils.userInfo.id && r.sellerid === this.storeid);
                 if (index < 0) {
-                    var record = {
+                    const record = {
                         sellerid: this.storeid,
                         customerid: this.utils.userInfo.id,
                         sellerimage: 's.png',
                         sellername: this.storename,
                         customerimage: 'c.png',
                         customername: this.utils.userInfo.username
-                    }
+                    };
                     await this.fireStore.addChatContacts(record);
                 } else {
                     const record = list[index];
-                    let navigationExtras = {
+                    const navigationExtras = {
                         queryParams: {
                             chatcontactid: record.chatcontactid,
                             sellerid: record.sellerid
                         }
                     };
                     this.router.navigate(['chatroom'], navigationExtras);
-                    //this.router.navigateByUrl("/chatroom")
+                    // this.router.navigateByUrl("/chatroom")
                 }
             });
         });
@@ -70,6 +70,10 @@ export class StorePage implements OnInit {
 
     onchatroom() {
         this.getChatUsers();
-        //this.router.navigateByUrl("/chatroom")
+        // this.router.navigateByUrl("/chatroom")
+    }
+
+    addToCart() {
+        // Vishal - This will start here----
     }
 }

@@ -46,14 +46,14 @@ export class FirestoreService {
                     this.utils.userInfo = res.payload.data() as User;
                     this.utils.userInfo.id = res.payload.id;
                     this.updateUserDeviceToken();
-                    return this.utils.storeInfo;
+                    return this.utils.userInfo;
                 })
             );
     }
 
-    public async getUserStore(userId) {
+    public async getStore(id) {
         this.storesCollectionRefrence = this.Afs.collection<Store>('stores');
-        return this.storesCollectionRefrence.doc(userId)
+        return this.storesCollectionRefrence.doc(id)
             .snapshotChanges().pipe(
                 map((res: any) => {
                     // Since this is a single object only one value will come here

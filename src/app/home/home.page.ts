@@ -103,14 +103,19 @@ export class HomePage implements OnInit {
     }
 
     goToStorePage(store) {
-            let navigationExtras = {
-                queryParams: {
-                    storeid:store.id,
-                    storename: store.name
-                }
-            };
-            this.route.navigate(['store'], navigationExtras);
-        }
+        const navigationExtras = {
+            queryParams: {
+                storeid: store.id,
+                storename: store.name
+            }
+        };
+        this.fsServices.getStore(store.id).then((data) => {
+            data.subscribe(data => {
+                this.route.navigate(['store'], navigationExtras);
+            });
+        });
+    }
+
     slidesDidLoad() {
         this.ionSlides.startAutoplay();
     }

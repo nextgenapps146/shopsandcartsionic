@@ -26,11 +26,11 @@
     </ion-item>
     <ion-list class="list1">
         <ion-list-header>
-            <span calss="flt-lt">Store Products</span>
-            <span class="flt-rt link">
+            <span calss="flt-lt">Available Products</span>
+            <!-- <span class="flt-rt link">
                 Add from Marketplace
                 <ion-icon name="arrow-forward"></ion-icon>
-            </span>
+            </span> -->
         </ion-list-header>
         <ion-item *ngFor="let product of storeProductsList">
             <ion-thumbnail slot="start">
@@ -41,7 +41,7 @@
                 <p>Category: {{ product.categories? product.categories : '--' }}</p>
                 <p>Price: {{ product.regularPrice }}</p>
             </ion-label>
-            <ion-icon class="round-icon-btn" slot="end" name="add" (click)="displayItemOptions(product)"></ion-icon>
+            <ion-icon class="round-icon-btn" slot="end" name="add" (click)="c(product)"></ion-icon>
         </ion-item>
     </ion-list>
 </ion-content>
