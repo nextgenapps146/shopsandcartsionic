@@ -22,3 +22,49 @@
  * LICENSE.md file in the root directory of this source .
  *
  */
+
+ .flt-lt {
+    float: left;
+}
+
+.flt-rt {
+    float: right;
+}
+
+
+ion-list.list1 {
+    ion-list-header {
+        padding-right: 15px;
+        color: #999;
+        margin: 10px 0px 20px;
+        border-bottom: 1px solid;
+
+        .link {
+            color: #F53D3D;
+        }
+    }
+
+    ion-item {
+        border-bottom: 1px solid;
+        padding: 10px;
+        ion-thumbnail {
+            height: 70px;
+            width: 70px;
+        }
+
+        ion-label {
+
+        }
+
+        .round-icon-btn {
+            border-radius: 18px;
+            padding: 5px;
+            color: #FFF;
+            background-color: #F53D3D;
+        }
+
+        .item-inner {
+            border-bottom: none !important;
+        }
+    }
+}

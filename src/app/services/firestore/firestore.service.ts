@@ -17,6 +17,7 @@ export class FirestoreService {
     addressCollectionRefrence: AngularFirestoreCollection;
     storesCollectionRefrence: AngularFirestoreCollection<Store>;
     ordersCollectionRefrence: AngularFirestoreCollection;
+    selectedStoreProductsCollectionRefrence: AngularFirestoreCollection;
     categories: any = [];
     promoCodes: any = [];
     UserAddress: any = [];
@@ -201,6 +202,20 @@ export class FirestoreService {
             );
     }
 
+    public async getStoreProducts() {
+        this.utils.storeProducts = [];
+        this.selectedStoreProductsCollectionRefrence = this.Afs.collection('storeproducts', ref => ref.where('storeid', '==', this.utils.storeInfo.id));
+        return this.selectedStoreProductsCollectionRefrence
+            .snapshotChanges().pipe(
+                map(res => res.map((dataItems) => {
+                    const data = dataItems.payload.doc.data();
+                    const id = dataItems.payload.doc.id;
+                    this.utils.storeProducts.push({ id, ...data });
+                    return { id, ...data };
+                }))
+            );
+    }
+
     // *****************************************************************************************************************************
     // --------------------------------------------------------------------------------------
     // CREATE CALLS  --------------------------------------------------------------------------------------
@@ -285,7 +300,7 @@ export class FirestoreService {
             );
 
 
-       
+
     }
 
     public async updateUserDeviceToken() {
@@ -355,7 +370,7 @@ export class FirestoreService {
                 })
             );
     }
-    
+
     public async loadChatContactDetails(chatcontactid) {
         this.userCollectionRefrence = this.Afs.collection<User>('chatcontacts');
         return this.userCollectionRefrence.doc(chatcontactid)

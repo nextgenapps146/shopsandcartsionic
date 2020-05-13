@@ -15,6 +15,7 @@ export class UtilsServiceService {
   userInfo: any = {};
   AddAdressBackUrl = '';
   storeInfo = null;
+  storeProducts = [];
   constructor(public loadingController: LoadingController, private fireAuth: AngularFireAuth, private router: Router, private toastController: ToastController, private nav: NavController, public alertController: AlertController) {
     this.getUserId();
   }
