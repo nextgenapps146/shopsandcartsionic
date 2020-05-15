@@ -12,7 +12,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../services/DataServices/data.service';
 import { CartService } from '../services/CartServices/cart.service';
-import { Router } from '@angular/router';
+import { Router ,ActivatedRoute} from '@angular/router';
 import { AlertController } from '@ionic/angular';
 
 @Component({
@@ -27,6 +27,7 @@ export class CartPage implements OnInit {
     public dataServ: DataService,
     public cart: CartService,
     public route: Router,
+    public router:ActivatedRoute,
     public alertController: AlertController
   ) {
     this.addCart();

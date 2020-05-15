@@ -381,6 +381,19 @@ export class FirestoreService {
                 })
             );
     }
+
+    public async addOrder(record) {
+        this.addressCollectionRefrence = this.Afs.collection('orders');
+        return await this.addressCollectionRefrence.add(record).then((doc) => {
+            return doc.id
+        });
+    }
+
+    public async  addOrderItem(record) {
+        this.addressCollectionRefrence = this.Afs.collection('orderitems');
+        return await this.addressCollectionRefrence.add(record)
+    }
+  
 }
 
 export interface Products {
@@ -465,6 +478,9 @@ export interface Order {
     transaction: any; // it is an array of object which contains these values { status , comment , time , username }
     delivery_mode: string; // it can be value from in three three option - deliver, pick_up , curve_site
     payment_mode: string; // it can be value of it =  online , cash_on_dlivery , pay_at_store
+    selected_day: string,
+    address_value: string,
+    selected_time: string
 }
 
 
