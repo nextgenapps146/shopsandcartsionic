@@ -455,3 +455,24 @@ export interface ChatNotificaions {
     token: string;
     targetid: string;
 }
+
+export interface Order {
+    storeid: string;
+    customerid: string;
+    customername: string;
+    total: string;
+    status: string; // vlaue will be New when added first
+    transaction: any; // it is an array of object which contains these values { status , comment , time , username }
+    delivery_mode: string; // it can be value from in three three option - deliver, pick_up , curve_site
+    payment_mode: string; // it can be value of it =  online , cash_on_dlivery , pay_at_store
+}
+
+
+export interface OrderItem {
+    orderid: string;
+    itemid: string;
+    itenname: string;
+    itemimage: string;
+    quantity: number;
+    amount: number;
+}
