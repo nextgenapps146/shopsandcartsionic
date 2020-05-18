@@ -124,7 +124,9 @@ export class DeliveryPage implements OnInit {
         selectedTime: this.selectedTime,
         selecteddeliverymode: this.selectedDeliveryMode,
         selectedpaymentmode: this.selectedPaymentMode,
+        // Needs to replace these hard code values
         storeid: "0Ecg83uZFpT3MAlONXJLicIov4e2",
+        storename:"test store name",
         customerid: this.utils.userInfo.id,
         customername: this.utils.userInfo.username,
         total: this.cart.grandTotal,
