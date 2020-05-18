@@ -110,14 +110,14 @@ export class DeliveryPage implements OnInit {
 
     if (this.selectedDay && this.selectedTime && this.selectedDeliveryMode && this.selectedPaymentMode
       && this.cart.grandTotal) {
-      if (this.selectedDeliveryMode == "Deliver") {
-        if (this.addressvalue) {
-          this.deliveryAddress = this.addressvalue
-        }
-        else {
-          return this.utils.presentToast('Please add delivery address', true, 'bottom', 2100);
-        }
-      }
+      // if (this.selectedDeliveryMode == "Deliver") {
+      //   if (this.addressvalue) {
+      //     this.deliveryAddress = this.addressvalue
+      //   }
+      //   else {
+      //     return this.utils.presentToast('Please add delivery address', true, 'bottom', 2100);
+      //   }
+      // }
       const record = {
         selectedDay: this.selectedDay,
         addressvalue: this.deliveryAddress || '',
