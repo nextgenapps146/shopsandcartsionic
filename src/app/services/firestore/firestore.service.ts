@@ -18,6 +18,8 @@ export class FirestoreService {
     storesCollectionRefrence: AngularFirestoreCollection<Store>;
     ordersCollectionRefrence: AngularFirestoreCollection;
     selectedStoreProductsCollectionRefrence: AngularFirestoreCollection;
+    chatCollectionRefrence:AngularFirestoreCollection<ChatContacts>;
+    ordersItemCollectionRefrence:AngularFirestoreCollection<OrderItem>;
     categories: any = [];
     promoCodes: any = [];
     UserAddress: any = [];
@@ -163,7 +165,7 @@ export class FirestoreService {
             );
     }
     public async getUserOrders() {
-        this.ordersCollectionRefrence = this.Afs.collection<Products>('Orders', ref => ref.where('userid', '==', this.utils.userInfo.id).orderBy('selectedTime'));
+        this.ordersCollectionRefrence = this.Afs.collection<Products>('orders', ref => ref.where('customerid', '==', this.utils.userInfo.id));
         return this.ordersCollectionRefrence
             .snapshotChanges().pipe(
                 map(res => res.map(dataItems => {
@@ -171,6 +173,18 @@ export class FirestoreService {
                     const id = dataItems.payload.doc.id;
                     this.UserOrders.push({ id, ...data });
                     return { id, ...data };
+                }))
+            );
+    }
+    public async getOrdersItem(itemid) {
+        this.chatContactsCollectionReference = this.Afs.collection<ChatContacts>('orderitems',
+            ref => ref.where('orderid', '==', itemid));
+        return this.chatContactsCollectionReference
+            .snapshotChanges().pipe(
+                map(res => res.map(dataItems => {
+                    const data: any = dataItems.payload.doc.data() as ChatContacts;
+                    // const id = dataItems.payload.doc.id;
+                    return { ...data };
                 }))
             );
     }
@@ -313,8 +327,8 @@ export class FirestoreService {
     }
 
     public async addChatUsers(record) {
-        this.addressCollectionRefrence = this.Afs.collection('chatcontacts');
-        return await this.addressCollectionRefrence.add(record);
+        this.chatContactsCollectionReference = this.Afs.collection('chatcontacts');
+        return await this.chatContactsCollectionReference.add(record);
     }
 
 
@@ -332,26 +346,25 @@ export class FirestoreService {
     }
 
     public async addTextMessage(record) {
-        this.addressCollectionRefrence = this.Afs.collection('chatmessages');
-        await this.addressCollectionRefrence.add(record);
+        this.chatContactsCollectionReference = this.Afs.collection('chatmessages');
+        await this.chatContactsCollectionReference.add(record);
     }
     public async addChatMessage(record, userId) {
         record.senderid = userId;
         record.messagetime = new Date().getTime();
         record.readby = [userId];
 
-        this.addressCollectionRefrence = this.Afs.collection('chatmessages');
-        //await this.utils.openLoader();
-        await this.addressCollectionRefrence.add(record);
-        //await this.utils.closeLoading();
+        this.chatContactsCollectionReference = this.Afs.collection('chatmessages');
+    
+        await this.chatContactsCollectionReference.add(record);
         this.chatContactsCollectionReference = this.Afs.collection<ChatContacts>('chatcontacts');
         await this.chatContactsCollectionReference.doc(record.chatcontactid).update({ lastmessage: record.message, lastmessagetime: record.messagetime });
     }
 
     public async addChatPushMessage(record) {
         const xhr = new XMLHttpRequest();
-        xhr.addEventListener("readystatechange", function() {
-            if(this.readyState === 4) console.log(this.responseText);
+        xhr.addEventListener("readystatechange", function () {
+            if (this.readyState === 4) console.log(this.responseText);
         });
         xhr.open("POST", "https://us-central1-bansik-7c7c4.cloudfunctions.net/function-1");
         xhr.setRequestHeader("Content-Type", "application/json");
@@ -371,8 +384,8 @@ export class FirestoreService {
     }
 
     public async loadChatContactDetails(chatcontactid) {
-        this.userCollectionRefrence = this.Afs.collection<User>('chatcontacts');
-        return this.userCollectionRefrence.doc(chatcontactid)
+        this.chatCollectionRefrence = this.Afs.collection<ChatContacts>('chatcontacts');
+        return this.chatCollectionRefrence.doc(chatcontactid)
             .snapshotChanges().pipe(
                 map((res: any) => {
                     // Since this is a single object only one value will come here
@@ -383,15 +396,15 @@ export class FirestoreService {
     }
 
     public async addOrder(record) {
-        this.addressCollectionRefrence = this.Afs.collection('orders');
-        return await this.addressCollectionRefrence.add(record).then((doc) => {
+        this.ordersCollectionRefrence = this.Afs.collection('orders');
+        return await this.ordersCollectionRefrence.add(record).then((doc) => {
             return doc.id
         });
     }
 
     public async  addOrderItem(record) {
-        this.addressCollectionRefrence = this.Afs.collection('orderitems');
-        return await this.addressCollectionRefrence.add(record)
+        this.ordersItemCollectionRefrence = this.Afs.collection('orderitems');
+        return await this.ordersItemCollectionRefrence.add(record)
     }
   
 }
@@ -471,6 +484,7 @@ export interface ChatNotificaions {
 
 export interface Order {
     storeid: string;
+    storename: string;
     customerid: string;
     customername: string;
     total: string;
