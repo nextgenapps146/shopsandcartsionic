@@ -371,6 +371,16 @@ export class FirestoreService {
         xhr.send(JSON.stringify(record));
     }
 
+    public async sendNotificaion(record) {
+        const xhr = new XMLHttpRequest();
+        xhr.addEventListener("readystatechange", function () {
+            if (this.readyState === 4) console.log(this.responseText);
+        });
+        xhr.open("POST", "https://us-central1-bansik-7c7c4.cloudfunctions.net/function-1");
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.send(JSON.stringify(record));
+    }
+
     public async getUserInfo(userId) {
         this.userCollectionRefrence = this.Afs.collection<User>('users');
         return this.userCollectionRefrence.doc(userId)

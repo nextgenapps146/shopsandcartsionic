@@ -149,6 +149,14 @@ export class DeliveryPage implements OnInit {
         this.fireStore.addOrderItem(data)
 
       }
+      const dataPush = {
+        title: "New order request",  
+        body: "You have ordered",
+        token: this.utils.userInfo.id, // it should be customer token 
+        targetid:  this.utils.userInfo.token, // it is customer id
+      };
+
+      this.fireStore.sendNotificaion(dataPush);
     }
     else {
       this.utils.presentToast('All field is required here', true, 'bottom', 2100);
