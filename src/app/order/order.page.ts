@@ -29,10 +29,13 @@ export class OrderPage implements OnInit {
     public fsServices: FirestoreService,
     public util: UtilsServiceService,
     private route: Router) {
-    this.fsServices.getUserOrders().then((data) => {
-      this.orders = data;
+
+    this.fsServices.getUserOrders().then((orders) => {
+      orders.subscribe(list => {
+        this.orders = list;
+      });
     });
-   }
+  }
 
   ngOnInit() {
   }
@@ -41,5 +44,13 @@ export class OrderPage implements OnInit {
     this.route.navigate(['home']);
   }
 
-
+  onOrderItem(item) {
+    debugger
+    let navigationExtras = {
+      queryParams: {
+        itemid: item.id,
+      }
+    };
+    this.route.navigate(['order-items'], navigationExtras);
+  }
 }

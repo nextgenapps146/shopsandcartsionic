@@ -49,6 +49,26 @@
 
   </div>
   <ion-list ion-ion-margin-top *ngIf="orders">
+    <ion-card *ngFor="let order of orders" ion-no-padding class="cardSection" (click)="onOrderItem(order)">
+      <div class="productSection">
+        <div class="productTitle pRelative order-summary" class="order_div">
+            <div ion-ion-margin-top ion-padding-top>
+              <ion-row class="h6">Store Name: {{order.storename}}</ion-row>
+              <ion-row class="h6">
+                <ion-col size="6" class="time"><ion-icon name="time" style="padding-right: 8px;"></ion-icon>{{order.selectedDay}}{{order.selectedTime}}</ion-col>
+                <ion-col size="6">
+                  <ion-row class="pay">
+                  <div class="paymentmode">{{order.selectedpaymentmode}}</div>
+                  </ion-row>
+                </ion-col>
+              </ion-row>
+            <ion-row  class="h6" style="padding-bottom: 5%;">Grand Total : {{order.total}} / {{orders.length}} items</ion-row>
+            </div>
+          </div>
+          </div>
+          </ion-card>
+        </ion-list>
+  <!-- <ion-list ion-ion-margin-top *ngIf="orders">
     <ion-card *ngFor="let order of orders | async;let i=index" ion-no-padding class="cardSection">
       <div class="productSection">
         <div class="productTitle pRelative order-summary">
@@ -123,6 +143,6 @@
         </div>
       </div>
     </ion-card>
-  </ion-list>
+  </ion-list> -->
 
 </ion-content>

@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title style="text-align: center;">Ordered Items</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <div>
+    <ion-list ion-ion-margin-top>
+      <ion-item *ngFor="let item of items;let i = index" ion-no-padding>
+        <div class="item_div">
+          <div class="imageSection" padding>
+            <img [src]="item.itemimage" style="height: 14vh;">
+          </div>
+
+          <div class="productTitle pRelative">
+            <!-- <div class="discountSection">
+              <ion-label ion-text-uppercase>{{item.offer}} % off</ion-label>
+            </div> -->
+            <div ion-ion-margin-top ion-padding-top>
+              <h4 class="title">{{item.itenname}}</h4>
+              <h6>{{item.quantity}}</h6>
+            </div>
+
+          </div>
+        
+        </div>
+      </ion-item>
+    </ion-list>
+    <!--End of Product List-->
+
+  </div>
+ 
+</ion-content>
