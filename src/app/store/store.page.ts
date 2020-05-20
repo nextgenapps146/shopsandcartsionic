@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FirestoreService } from '../services/firestore/firestore.service';
 import { UtilsServiceService } from '../services/Utils/utils-service.service';
+import { CartService } from '../services/CartServices/cart.service';
 import { constants } from 'buffer';
 @Component({
     selector: 'app-store',
@@ -17,7 +18,7 @@ export class StorePage implements OnInit {
     userId = this.utils.userInfo.id;
 
     constructor(private router: Router, private route: ActivatedRoute,
-        private utils: UtilsServiceService, private fireStore: FirestoreService) {
+        private utils: UtilsServiceService, private fireStore: FirestoreService, public cart: CartService,) {
         this.route.queryParams.subscribe(params => {
             if (params && params.storeid && params.storename) {
                 this.storeid = params.storeid;
@@ -68,12 +69,47 @@ export class StorePage implements OnInit {
 
     }
 
+    addToCart(product) {
+        const productunits = this.cart.addCart.find(el => el.id === product.id);
+        if (productunits) {
+          productunits.units += 1;
+          this.cart.productQty += 1;
+          product.units = productunits.units;
+        } else {
+          product.units = 1;
+          this.cart.addCart.push(product);
+          this.cart.productQty += 1;
+        }
+      }
+      updateCart(productID, type, product) {
+        const productunits = this.cart.addCart.find(el => el.id === productID);
+        const productIndex = this.cart.addCart.indexOf(el => el.id === productID);
+        if (type === 'add') {
+          productunits.units += 1;
+          this.cart.productQty += 1;
+          product.units = productunits.units;
+        }
+        if (type === 'remove') {
+          productunits.units -= 1;
+          this.cart.productQty -= 1;
+          product.units = productunits.units;
+          if (product.units === 0) {
+            this.cart.addCart.splice(productIndex, 1);
+          }
+        }
+      }
     onchatroom() {
         this.getChatUsers();
         // this.router.navigateByUrl("/chatroom")
     }
 
-    addToCart() {
-        // Vishal - This will start here----
+    cartPage() {
+        const navigationExtras = {
+            queryParams: {
+                storeid: this.storeid,
+                storename: this.storename
+            }
+        };
+        this.router.navigate(['cart'], navigationExtras);
     }
 }
