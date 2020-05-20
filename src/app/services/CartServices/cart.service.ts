@@ -44,7 +44,7 @@ export class CartService {
     if (store_index >= 0) {
       this.addCart = CartService.storeCarts[store_index].items;
     } else {
-      this.addCart = [];
+      this.addCart = new CartArray();
     }
     this.addCart.map(el => {
       const total = el.units * el.salePrice;

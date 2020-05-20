@@ -45,9 +45,9 @@
                 <p>Category: {{ product.categories? product.categories : '--' }}</p>
                 <p>Price: {{ product.regularPrice }}</p>
             </ion-label>
-            <ion-icon class="round-icon-btn" slot="end" name="add" (click)="addToCart(product)"></ion-icon>
+            <!-- <ion-icon class="round-icon-btn" slot="end" name="add" (click)="addToCart(product)"></ion-icon> -->
             <div class="addBtnSection">
-                <ion-button expand="full" color="danger" class="addBtn" *ngIf="product.units === 0"
+                <ion-button expand="full" color="danger" class="addBtn"  *ngIf="product.units === 0"
                   (click)="addToCart(product)">Add
                 </ion-button>
       

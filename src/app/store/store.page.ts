@@ -32,6 +32,15 @@ export class StorePage implements OnInit {
     ngOnInit() {
         this.fireStore.getStoreProducts().then((data) => {
             data.subscribe(list => {
+                for(let elc= 0; elc < (list || []).length; elc++){
+                    let product = list[elc];
+                    const productunits = this.cart.addCart.find(el => el.id === product.id);
+                    if (productunits) {
+                        (<any>list[elc]).units = productunits.units;
+                    } else {
+                        (<any>list[elc]).units = 0;
+                    }
+                }
                 this.storeProductsList = list;
                 console.log(list);
             });
