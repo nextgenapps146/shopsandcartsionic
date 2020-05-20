@@ -46,11 +46,11 @@ export class CartPage implements OnInit {
     this.cart.totalSave = 0;
     this.cart.grandTotal = 0;
     this.cart.addCart.map(el => {
-      const total = el.units * (el.salePrice || el.regularPrice);
-      this.cart.subTotal = total;
+      const total = el.units * el.salePrice || 0;
+      this.cart.subTotal += total;
       this.cart.deliveryCharge = el.deliveryCharge ? this.cart.deliveryCharge + el.deliveryCharge : this.cart.deliveryCharge;
-      this.cart.grandTotal += this.cart.subTotal + this.cart.deliveryCharge;
-      this.cart.totalSave += el.units * (parseInt(el.regularPrice) - el.salePrice);
+      this.cart.grandTotal += (this.cart.subTotal + this.cart.deliveryCharge).toFixed(2);
+      this.cart.totalSave += (el.units * (parseFloat(el.regularPrice) - parseFloat(el.salePrice))).toFixed(2);
     });
   }
 
