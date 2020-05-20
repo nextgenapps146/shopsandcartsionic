@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FirestoreService } from '../services/firestore/firestore.service';
 import { UtilsServiceService } from '../services/Utils/utils-service.service';
+import { CartService } from '../services/CartServices/cart.service';
 import { constants } from 'buffer';
 @Component({
     selector: 'app-store',
@@ -16,13 +17,14 @@ export class StorePage implements OnInit {
     result: any;
     userId = this.utils.userInfo.id;
 
-    constructor(private router: Router, private route: ActivatedRoute,
+    constructor(private router: Router, private route: ActivatedRoute,  public cart: CartService,
         private utils: UtilsServiceService, private fireStore: FirestoreService) {
         this.route.queryParams.subscribe(params => {
             if (params && params.storeid && params.storename) {
                 this.storeid = params.storeid;
                 this.storename = params.storename;
                 localStorage.setItem('sellerid', this.storeid);
+                this.cart.setCurrentStore(this.storeid);
             }
         });
     }
