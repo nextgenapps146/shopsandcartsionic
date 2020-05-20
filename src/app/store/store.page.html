@@ -13,6 +13,10 @@
         <ion-button slot="end" mode="ios" class="pRelative" (click)="onchatroom()">
             <ion-icon name="chatboxes"></ion-icon>
         </ion-button>
+        <ion-button slot="end" mode="ios" class="pRelative" (click)="cartPage()">
+            <ion-icon slot="icon-only" name="cart"></ion-icon>
+            <span class="cartQuantity">{{cart.productQty}}</span> 
+        </ion-button>
     </ion-toolbar>
     <ion-toolbar color="primary">
         <ion-searchbar color="light" md="ios" (click)="searchPage()"></ion-searchbar>
@@ -41,7 +45,28 @@
                 <p>Category: {{ product.categories? product.categories : '--' }}</p>
                 <p>Price: {{ product.regularPrice }}</p>
             </ion-label>
-            <ion-icon class="round-icon-btn" slot="end" name="add" (click)="c(product)"></ion-icon>
+            <!-- <ion-icon class="round-icon-btn" slot="end" name="add" (click)="addToCart(product)"></ion-icon> -->
+            <div class="addBtnSection">
+                <ion-button expand="full" color="danger" class="addBtn"  *ngIf="product.units === 0"
+                  (click)="addToCart(product)">Add
+                </ion-button>
+      
+                <ion-segment *ngIf="product.units > 0" mode="md">
+                  <ion-segment-button mode="md" ion-no-padding color="undefined" (click)="updateCart(product.id,'remove', product)"
+                    class="segmentBtn">
+                    <div  class="button_div">
+                      <ion-icon name="remove" class="all_icons"></ion-icon>
+                      </div>
+                  </ion-segment-button>
+                  <ion-text ion-padding-horizontal class="textUnits">{{product.units}}</ion-text>
+                  <ion-segment-button mode="md" ion-no-padding color="undefined" (click)="updateCart(product.id,'add', product)"
+                    class="segmentBtn">
+                    <div class="button_div">
+                      <ion-icon name="add"  class="all_icons"></ion-icon>
+                      </div>
+                  </ion-segment-button>
+                </ion-segment>
+              </div>
         </ion-item>
     </ion-list>
 </ion-content>

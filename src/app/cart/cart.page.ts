@@ -22,7 +22,8 @@ import { AlertController } from '@ionic/angular';
 })
 export class CartPage implements OnInit {
 
-
+  storeid:any;
+  storename:any;
   constructor(
     public dataServ: DataService,
     public cart: CartService,
@@ -30,6 +31,12 @@ export class CartPage implements OnInit {
     public router:ActivatedRoute,
     public alertController: AlertController
   ) {
+    this.router.queryParams.subscribe(params => {
+      if (params && params.storeid &&  params.storename) {
+          this.storeid = params.storeid;
+          this.storename= params.storename
+      }
+  });
     this.addCart();
 
   }
@@ -39,11 +46,11 @@ export class CartPage implements OnInit {
     this.cart.totalSave = 0;
     this.cart.grandTotal = 0;
     this.cart.addCart.map(el => {
-      const total = el.units * el.salePrice;
-      this.cart.subTotal = total;
+      const total = el.units * el.salePrice || 0;
+      this.cart.subTotal += total;
       this.cart.deliveryCharge = el.deliveryCharge ? this.cart.deliveryCharge + el.deliveryCharge : this.cart.deliveryCharge;
-      this.cart.grandTotal += this.cart.subTotal + this.cart.deliveryCharge;
-      this.cart.totalSave += el.units * (parseInt(el.regularPrice) - el.salePrice);
+      this.cart.grandTotal += (this.cart.subTotal + this.cart.deliveryCharge).toFixed(2);
+      this.cart.totalSave += (el.units * (parseFloat(el.regularPrice) - parseFloat(el.salePrice))).toFixed(2);
     });
   }
 
@@ -120,6 +127,13 @@ export class CartPage implements OnInit {
   }
 
   deliveryAddress() {
-    this.route.navigate(['delivery']);
-  }
+    const navigationExtras = {
+      queryParams: {
+          storeid: this.storeid,
+          storename: this.storename
+      }
+  };
+  this.route.navigate(['delivery'], navigationExtras);
+}
+  
 }

@@ -41,7 +41,9 @@ export class DeliveryPage implements OnInit {
   selectedDay: any = 'Sunday';
   addressArray;
   paymentmode: any;
+  storename:any;
   data = [];
+  storeid:any;
   constructor(private route: Router, private router: ActivatedRoute,
     public cart: CartService,
     public utils: UtilsServiceService, public fireStore: FirestoreService) {
@@ -53,6 +55,15 @@ export class DeliveryPage implements OnInit {
       this.addressArray = data;
     });
     this.utils.AddAdressBackUrl = '/delivery';
+
+
+    this.router.queryParams.subscribe(params => {
+      debugger
+      if (params && params.storeid && params.storename) {
+          this.storeid = params.storeid;
+          this.storename= params.storename;
+      }
+  });
   }
 
 
@@ -125,8 +136,8 @@ export class DeliveryPage implements OnInit {
         selecteddeliverymode: this.selectedDeliveryMode,
         selectedpaymentmode: this.selectedPaymentMode,
         // Needs to replace these hard code values
-        storeid: "0Ecg83uZFpT3MAlONXJLicIov4e2",
-        storename:"test store name",
+        storeid:this.storeid,
+        storename: this.storename,
         customerid: this.utils.userInfo.id,
         customername: this.utils.userInfo.username,
         total: this.cart.grandTotal,
