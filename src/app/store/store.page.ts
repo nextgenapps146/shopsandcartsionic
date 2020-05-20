@@ -24,6 +24,7 @@ export class StorePage implements OnInit {
                 this.storeid = params.storeid;
                 this.storename = params.storename;
                 localStorage.setItem('sellerid', this.storeid);
+                this.cart.setCurrentStore(this.storeid);
             }
         });
     }
