@@ -498,13 +498,13 @@ export interface Order {
     customerid: string;
     customername: string;
     total: string;
-    status: string; // vlaue will be New when added first
+    status: string;  // vlaue will be New when added first
     transaction: any; // it is an array of object which contains these values { status , comment , time , username }
     delivery_mode: string; // it can be value from in three three option - deliver, pick_up , curve_site
     payment_mode: string; // it can be value of it =  online , cash_on_dlivery , pay_at_store
-    selected_day: string,
-    address_value: string,
-    selected_time: string
+    selected_day: string;
+    address_value: string;
+    selected_time: string;
 }
 
 

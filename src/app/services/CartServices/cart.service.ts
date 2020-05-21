@@ -62,7 +62,6 @@ class CartArray extends Array {
   }
 
   push(item): number {
-    console.log("here");
     const store_index = CartService.getCurrentStoreCartIndex();
     if (store_index >= 0) {
       CartService.storeCarts[store_index].items =
