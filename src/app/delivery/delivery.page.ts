@@ -51,8 +51,12 @@ export class DeliveryPage implements OnInit {
     this.Time = ['6AM - 9AM', '10AM - 1PM', '4PM - 7PM', '8PM - 11PM', '9AM - 4PM'];
     this.DeliveryMode = ['Deliver', 'Pickup', 'Curve site'];
     this.PaymentMode = ['Online', 'Cash on dlivery', 'Pay at store']
-    this.fireStore.getUserAddress().then((data) => {
-      this.addressArray = data;
+    this.fireStore.getUserAddress().then((data1) => {
+      //this.addressArray = data;
+      data1.subscribe(data => {
+        //this.route.navigate(['store'], navigationExtras);
+        console.log(data);
+      });
     });
     this.utils.AddAdressBackUrl = '/delivery';
 

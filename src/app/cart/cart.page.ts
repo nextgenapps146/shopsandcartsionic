@@ -34,10 +34,12 @@ export class CartPage implements OnInit {
     this.router.queryParams.subscribe(params => {
       if (params && params.storeid &&  params.storename) {
           this.storeid = params.storeid;
-          this.storename= params.storename
+          this.storename= params.storename;
+          this.cart.setCurrentStore(this.storeid);
+          this.addCart();
       }
   });
-    this.addCart();
+   
 
   }
 
