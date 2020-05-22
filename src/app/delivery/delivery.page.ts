@@ -209,7 +209,7 @@ export class DeliveryPage implements OnInit {
         "bottom",
         2100
       );
-      this.cart.removeCurrentStore(this.storeid);
+      this.cart.removeCurrentStore();
       this.route.navigate(["home"]);
     } else {
       this.utils.presentToast(
