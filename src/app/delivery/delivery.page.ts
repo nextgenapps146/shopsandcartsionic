@@ -159,9 +159,9 @@ export class DeliveryPage implements OnInit {
       }
       const getAddress = (address) => {
         try {
-          return address.flatNumber;
+          return address.flatNumber || '';
         } catch (err) {
-
+          return '';
         }
       }
       const record = {
@@ -174,7 +174,7 @@ export class DeliveryPage implements OnInit {
         customername: this.utils.userInfo.username,
         total: this.cart.grandTotal,
         status: "New",
-        created_date: new Date(),
+        created_date: new Date().getTime(),
       };
 
       const addedOrder = await this.fireStore.addOrder(record);
