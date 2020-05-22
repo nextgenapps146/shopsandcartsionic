@@ -503,6 +503,7 @@ export interface Order {
     delivery_mode: string; // it can be value from in three three option - deliver, pick_up , curve_site
     payment_mode: string; // it can be value of it =  online , cash_on_dlivery , pay_at_store
     address_value: string;
+    created_date: String;
 }
 
 

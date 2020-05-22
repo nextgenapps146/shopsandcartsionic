@@ -54,14 +54,14 @@
         <div class="productTitle pRelative order-summary" class="order_div">
             <div ion-ion-margin-top ion-padding-top>
               <ion-row class="h6">Store Name: {{order.storename}}</ion-row>
-              <ion-row class="h6">
+              <ion-row class="h6" style=" float: right;padding-right: 5%;">
                 <ion-col size="6">
                   <ion-row class="pay">
                   <div class="paymentmode">{{order.selectedpaymentmode}}</div>
                   </ion-row>
                 </ion-col>
               </ion-row>
-            <ion-row  class="h6" style="padding-bottom: 5%;">Grand Total : {{order.total}} / {{orders.length}} items</ion-row>
+            <ion-row  class="h6" style="padding-bottom: 5%;">Grand Total : {{order.total}} $ / {{orders.length}} items</ion-row>
             </div>
           </div>
           </div>

@@ -35,45 +35,45 @@ export class DeliveryPage implements OnInit {
   };
   public SlideIndex: any = 0;
   selectedTime: any = '6AM - 9AM';
-  selectedDeliveryMode: any = 'Deliver';
-  selectedPaymentMode: any = 'Online';
-  addressvalue: any =[];
-  addressList=[];
+  selectedDeliveryMode: any;
+  selectedPaymentMode: any;
+  addressvalue: any = [];
+  addressList = [];
   selectedDay: any = 'Sunday';
   addressArray;
   paymentmode: any;
-  storename:any;
+  storename: any;
   data = [];
-  storeid:any;
+  storeid: any;
   constructor(private route: Router, private router: ActivatedRoute,
     public cart: CartService,
     public utils: UtilsServiceService, public fireStore: FirestoreService) {
     this.Days = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
     this.Time = ['6AM - 9AM', '10AM - 1PM', '4PM - 7PM', '8PM - 11PM', '9AM - 4PM'];
-    this.DeliveryMode = ['Deliver', 'online', 'Curve site'];
+    this.DeliveryMode = ['Deliver', 'Pickup', 'Curve site'];
     this.PaymentMode = ['Online', 'Cash on dlivery', 'Pay at store']
     this.utils.AddAdressBackUrl = '/delivery';
 
 
     this.router.queryParams.subscribe(params => {
       if (params && params.storeid && params.storename) {
-          this.storeid = params.storeid;
-          this.storename= params.storename;
+        this.storeid = params.storeid;
+        this.storename = params.storename;
       }
-  });
-  this.getAddress()
+    });
+    this.getAddress()
+
   }
 
-getAddress()
-{
-  this.fireStore.getUserAddress().then((address) => {
-    address.subscribe(address => {
-      this.addressList=address;
-      this.addressvalue =this.addressList[0];
-       
+  getAddress() {
+    this.fireStore.getUserAddress().then((address) => {
+      address.subscribe(address => {
+        this.addressList = address;
+        this.addressvalue = this.addressList[0];
+
+      });
     });
-});
-}
+  }
   ngOnInit() {
   }
 
@@ -95,8 +95,22 @@ getAddress()
     });
 
   }
-
-  check() {
+  isDeliver: boolean = false;
+  isPickup: boolean = false;
+  isCurve: boolean = false;
+  checkDeliveryMode(deliveryMode) {
+    this.isDeliver = false;
+    this.isPickup =false;
+    this.isCurve =false;
+    if (deliveryMode == "Deliver") {
+      this.isDeliver = true;
+    }
+    if (deliveryMode == "Pickup") {
+      this.isPickup = true;
+    }
+    if (deliveryMode == "Curve site") {
+      this.isCurve = true;
+    }
 
   }
   itemId: any;
@@ -140,13 +154,13 @@ getAddress()
         addressvalue: this.deliveryAddress || '',
         selecteddeliverymode: this.selectedDeliveryMode,
         selectedpaymentmode: this.selectedPaymentMode,
-        // Needs to replace these hard code values
-        storeid:this.storeid,
+        storeid: this.storeid,
         storename: this.storename,
         customerid: this.utils.userInfo.id,
         customername: this.utils.userInfo.username,
         total: this.cart.grandTotal,
         status: 'New',
+        created_date: new Date(),
       }
 
       let addedOrder = await this.fireStore.addOrder(record);
@@ -166,10 +180,10 @@ getAddress()
 
       }
       const dataPush = {
-        title: "New order request",  
+        title: "New order request",
         body: "You have ordered",
         token: this.utils.userInfo.id, // it should be customer token 
-        targetid:  this.utils.userInfo.token, // it is customer id
+        targetid: this.utils.userInfo.token, // it is customer id
       };
 
       this.fireStore.sendNotificaion(dataPush);
