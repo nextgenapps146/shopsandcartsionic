@@ -15,7 +15,7 @@ import { Injectable } from "@angular/core";
 })
 export class CartService {
   public static storeCarts: Array<{ store_id: string; items: Array<any> }> = [];
-  public static current_store_id = '-1';
+  public static current_store_id = "-1";
 
   public addCart: CartArray;
   public subTotal;
@@ -26,9 +26,16 @@ export class CartService {
   public orderComplete: Array<any>;
 
   static getCurrentStoreCartIndex() {
-    return CartService.storeCarts.findIndex(
+    return (CartService.storeCarts || []).findIndex(
       (store) => store.store_id === CartService.current_store_id
     );
+  }
+
+  static restoreCarts() {
+    try {
+      const store_carts = localStorage.getItem('STORECARTS');
+      CartService.storeCarts = JSON.parse(store_carts);
+    } catch (err) {}
   }
 
   constructor() {
@@ -46,13 +53,24 @@ export class CartService {
     } else {
       this.addCart = new CartArray();
     }
-    this.addCart.map(el => {
+    this.addCart.map((el) => {
       const total = el.units * el.salePrice;
       this.subTotal = total;
-      this.deliveryCharge = el.deliveryCharge ? this.deliveryCharge + el.deliveryCharge : this.deliveryCharge;
+      this.deliveryCharge = el.deliveryCharge
+        ? this.deliveryCharge + el.deliveryCharge
+        : this.deliveryCharge;
       this.grandTotal += this.subTotal + this.deliveryCharge;
       this.totalSave += el.units * (parseInt(el.regularPrice) - el.salePrice);
     });
+  }
+
+  removeCurrentStore(){
+    const store_index = CartService.getCurrentStoreCartIndex();
+    if (store_index >= 0) {
+      CartService.storeCarts.splice(store_index, 1);
+    }
+    localStorage.setItem('STORECARTS', JSON.stringify(CartService.storeCarts));
+    CartService.current_store_id = "-1";
   }
 }
 
@@ -71,8 +89,9 @@ class CartArray extends Array {
       CartService.storeCarts = CartService.storeCarts || [];
       CartService.storeCarts.push({
         store_id: CartService.current_store_id,
-        items: [item]
+        items: [item],
       });
     }
+    localStorage.setItem('STORECARTS', JSON.stringify(CartService.storeCarts));
   }
 }

@@ -21,6 +21,7 @@ import { AuthServiceService } from './services/Auth/auth-service.service';
 import { FirestoreService } from './services/firestore/firestore.service';
 import { UtilsServiceService } from './services/Utils/utils-service.service';
 import { FirebaseX } from "@ionic-native/firebase-x/ngx";
+import { CartService } from './services/CartServices/cart.service';
 
 @Component({
     selector: 'app-root',
@@ -102,10 +103,9 @@ export class AppComponent {
         public utils: UtilsServiceService,
         private firebase: FirebaseX
     ) {
-        localStorage.setItem("deviceid","12345"); // need to remove after actual implmentation
         this.initializeApp();
         this.authService.userId.subscribe(filter => {
-            if (filter.$uid) {                
+            if (filter.$uid) {
                 this.fireStore.getCurrentUserInfo(filter.$uid).then((data) => {
                     data.subscribe(todos => { });
                 });
@@ -133,6 +133,7 @@ export class AppComponent {
                 value: 'MyAddress'
             }
         ];
+        CartService.restoreCarts();
     }
 
     initializeApp() {

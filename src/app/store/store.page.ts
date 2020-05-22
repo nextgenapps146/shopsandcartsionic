@@ -25,6 +25,12 @@ export class StorePage implements OnInit {
                 this.storename = params.storename;
                 localStorage.setItem('sellerid', this.storeid);
                 this.cart.setCurrentStore(this.storeid);
+
+                let productQty = 0;
+                this.cart.addCart.map((el) => {
+                    productQty += el.units ;
+                });
+                this.cart.productQty = productQty;
             }
         });
     }
@@ -90,6 +96,7 @@ export class StorePage implements OnInit {
           this.cart.addCart.push(product);
           this.cart.productQty += 1;
         }
+        this.cart.setCurrentStore(this.storeid);
       }
       updateCart(productID, type, product) {
         const productunits = this.cart.addCart.find(el => el.id === productID);
@@ -107,6 +114,7 @@ export class StorePage implements OnInit {
             this.cart.addCart.splice(productIndex, 1);
           }
         }
+        this.cart.setCurrentStore(this.storeid);
       }
     onchatroom() {
         this.getChatUsers();

@@ -8,22 +8,20 @@
  *
  */
 
-
-
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-import { IonSlides } from '@ionic/angular';
-import { UtilsServiceService } from '../services/Utils/utils-service.service';
-import { FirestoreService } from '../services/firestore/firestore.service';
-import { CartService } from '../services/CartServices/cart.service';
+import { Component, OnInit, ViewChild } from "@angular/core";
+import { Router, ActivatedRoute } from "@angular/router";
+import { IonSlides } from "@ionic/angular";
+import { UtilsServiceService } from "../services/Utils/utils-service.service";
+import { FirestoreService } from "../services/firestore/firestore.service";
+import { CartService } from "../services/CartServices/cart.service";
 
 @Component({
-  selector: 'app-delivery',
-  templateUrl: './delivery.page.html',
-  styleUrls: ['./delivery.page.scss'],
+  selector: "app-delivery",
+  templateUrl: "./delivery.page.html",
+  styleUrls: ["./delivery.page.scss"],
 })
 export class DeliveryPage implements OnInit {
-  @ViewChild('slides', { static: true }) slides: IonSlides;
+  @ViewChild("slides", { static: true }) slides: IonSlides;
   public address;
   public Time;
   public DeliveryMode;
@@ -31,54 +29,60 @@ export class DeliveryPage implements OnInit {
   public Days;
   public CurrentIndex = 0;
   slideOpts = {
-    effect: 'flip'
+    effect: "flip",
   };
   public SlideIndex: any = 0;
-  selectedTime: any = '6AM - 9AM';
+  selectedTime: any = "6AM - 9AM";
   selectedDeliveryMode: any;
   selectedPaymentMode: any;
   addressvalue: any = [];
   addressList = [];
-  selectedDay: any = 'Sunday';
+  selectedDay: any = "Sunday";
   addressArray;
   paymentmode: any;
   storename: any;
   data = [];
   storeid: any;
-  constructor(private route: Router, private router: ActivatedRoute,
+  constructor(
+    private route: Router,
+    private router: ActivatedRoute,
     public cart: CartService,
-    public utils: UtilsServiceService, public fireStore: FirestoreService) {
-    this.Days = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
-    this.Time = ['6AM - 9AM', '10AM - 1PM', '4PM - 7PM', '8PM - 11PM', '9AM - 4PM'];
-    this.DeliveryMode = ['Deliver', 'Pickup', 'Curve site'];
-    this.PaymentMode = ['Online', 'Cash on dlivery', 'Pay at store']
-    this.utils.AddAdressBackUrl = '/delivery';
+    public utils: UtilsServiceService,
+    public fireStore: FirestoreService
+  ) {
+    this.Days = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
+    this.Time = [
+      "6AM - 9AM",
+      "10AM - 1PM",
+      "4PM - 7PM",
+      "8PM - 11PM",
+      "9AM - 4PM",
+    ];
+    this.DeliveryMode = ["Deliver", "Pickup", "Curve site"];
+    this.PaymentMode = ["Online", "Cash on dlivery", "Pay at store"];
+    this.utils.AddAdressBackUrl = "/delivery";
 
-
-    this.router.queryParams.subscribe(params => {
+    this.router.queryParams.subscribe((params) => {
       if (params && params.storeid && params.storename) {
         this.storeid = params.storeid;
         this.storename = params.storename;
       }
     });
-    this.getAddress()
-
+    this.getAddress();
   }
 
   getAddress() {
     this.fireStore.getUserAddress().then((address) => {
-      address.subscribe(address => {
+      address.subscribe((address) => {
         this.addressList = address;
         this.addressvalue = this.addressList[0];
-
       });
     });
   }
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   addAddress() {
-    this.route.navigate(['add-address']);
+    this.route.navigate(["add-address"]);
   }
 
   slideTap(index) {
@@ -88,20 +92,18 @@ export class DeliveryPage implements OnInit {
   }
 
   slideChanged() {
-
     this.slides.getActiveIndex().then((res) => {
       this.CurrentIndex = res;
       this.SlideIndex = res;
     });
-
   }
   isDeliver: boolean = false;
   isPickup: boolean = false;
   isCurve: boolean = false;
   checkDeliveryMode(deliveryMode) {
     this.isDeliver = false;
-    this.isPickup =false;
-    this.isCurve =false;
+    this.isPickup = false;
+    this.isCurve = false;
     if (deliveryMode == "Deliver") {
       this.isDeliver = true;
     }
@@ -111,7 +113,6 @@ export class DeliveryPage implements OnInit {
     if (deliveryMode == "Curve site") {
       this.isCurve = true;
     }
-
   }
   itemId: any;
   deliveryAddress: any;
@@ -140,18 +141,31 @@ export class DeliveryPage implements OnInit {
 
     // }
 
-    if (this.selectedDeliveryMode && this.selectedPaymentMode
-      && this.cart.grandTotal) {
+    if (
+      this.selectedDeliveryMode &&
+      this.selectedPaymentMode 
+    ) {
       if (this.selectedDeliveryMode == "Deliver") {
         if (this.addressvalue) {
-          this.deliveryAddress = this.addressvalue
+          this.deliveryAddress = this.addressvalue;
+        } else {
+          return this.utils.presentToast(
+            "Please add delivery address",
+            true,
+            "bottom",
+            2100
+          );
         }
-        else {
-          return this.utils.presentToast('Please add delivery address', true, 'bottom', 2100);
+      }
+      const getAddress = (address) => {
+        try {
+          return address.flatNumber;
+        } catch (err) {
+
         }
       }
       const record = {
-        addressvalue: this.deliveryAddress || '',
+        addressvalue: getAddress(this.deliveryAddress || ''),
         selecteddeliverymode: this.selectedDeliveryMode,
         selectedpaymentmode: this.selectedPaymentMode,
         storeid: this.storeid,
@@ -159,40 +173,51 @@ export class DeliveryPage implements OnInit {
         customerid: this.utils.userInfo.id,
         customername: this.utils.userInfo.username,
         total: this.cart.grandTotal,
-        status: 'New',
+        status: "New",
         created_date: new Date(),
-      }
+      };
 
-      let addedOrder = await this.fireStore.addOrder(record);
-      this.itemId = addedOrder
+      const addedOrder = await this.fireStore.addOrder(record);
+      this.itemId = addedOrder;
 
-      for (var item_counter = 0; item_counter < this.cart.addCart.length; item_counter++) {
-
+      for (
+        let item_counter = 0;
+        item_counter < this.cart.addCart.length;
+        item_counter++
+      ) {
         const data = {
           orderid: this.itemId,
           itemid: this.cart.addCart[item_counter].id,
           itenname: this.cart.addCart[item_counter].name,
           itemimage: this.cart.addCart[item_counter].images[0],
           quantity: this.cart.addCart[item_counter].units,
-          amount: this.cart.addCart[item_counter].salePrice
-        }
-        this.fireStore.addOrderItem(data)
-
+          amount: this.cart.addCart[item_counter].salePrice,
+        };
+        this.fireStore.addOrderItem(data);
       }
       const dataPush = {
         title: "New order request",
         body: "You have ordered",
-        token: this.utils.userInfo.id, // it should be customer token 
+        token: this.utils.userInfo.id, // it should be customer token
         targetid: this.utils.userInfo.token, // it is customer id
       };
 
       this.fireStore.sendNotificaion(dataPush);
-      this.utils.presentToast('You have ordered successfully', true, 'bottom', 2100);
-      this.route.navigate(['home']);
-
-    }
-    else {
-      this.utils.presentToast('All field is required here', true, 'bottom', 2100);
+      this.utils.presentToast(
+        "You have ordered successfully",
+        true,
+        "bottom",
+        2100
+      );
+      this.cart.removeCurrentStore(this.storeid);
+      this.route.navigate(["home"]);
+    } else {
+      this.utils.presentToast(
+        "All field is required here",
+        true,
+        "bottom",
+        2100
+      );
     }
 
     // this.route.navigate(['payment', {
@@ -202,10 +227,5 @@ export class DeliveryPage implements OnInit {
     //   selecteddeliverymode:this.selectedDeliveryMode,
     //   selectedpaymentmode:this.selectedPaymentMode
     // }]);
-
-
-
   }
-
-
 }
