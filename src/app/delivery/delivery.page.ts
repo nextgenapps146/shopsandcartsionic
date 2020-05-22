@@ -37,7 +37,8 @@ export class DeliveryPage implements OnInit {
   selectedTime: any = '6AM - 9AM';
   selectedDeliveryMode: any = 'Deliver';
   selectedPaymentMode: any = 'Online';
-  addressvalue: any = '';
+  addressvalue: any =[];
+  addressList=[];
   selectedDay: any = 'Sunday';
   addressArray;
   paymentmode: any;
@@ -49,28 +50,30 @@ export class DeliveryPage implements OnInit {
     public utils: UtilsServiceService, public fireStore: FirestoreService) {
     this.Days = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
     this.Time = ['6AM - 9AM', '10AM - 1PM', '4PM - 7PM', '8PM - 11PM', '9AM - 4PM'];
-    this.DeliveryMode = ['Deliver', 'Pickup', 'Curve site'];
+    this.DeliveryMode = ['Deliver', 'online', 'Curve site'];
     this.PaymentMode = ['Online', 'Cash on dlivery', 'Pay at store']
-    this.fireStore.getUserAddress().then((data1) => {
-      //this.addressArray = data;
-      data1.subscribe(data => {
-        //this.route.navigate(['store'], navigationExtras);
-        console.log(data);
-      });
-    });
     this.utils.AddAdressBackUrl = '/delivery';
 
 
     this.router.queryParams.subscribe(params => {
-      debugger
       if (params && params.storeid && params.storename) {
           this.storeid = params.storeid;
           this.storename= params.storename;
       }
   });
+  this.getAddress()
   }
 
-
+getAddress()
+{
+  this.fireStore.getUserAddress().then((address) => {
+    address.subscribe(address => {
+      this.addressList=address;
+      this.addressvalue =this.addressList[0];
+       
+    });
+});
+}
   ngOnInit() {
   }
 
@@ -99,44 +102,42 @@ export class DeliveryPage implements OnInit {
   itemId: any;
   deliveryAddress: any;
   async paymentPage() {
-    switch (this.SlideIndex) {
-      case 0:
-        this.selectedDay = 'Sunday';
-        break;
-      case 1:
-        this.selectedDay = 'Monday';
-        break;
-      case 2:
-        this.selectedDay = 'Tuesday';
-        break;
-      case 3:
-        this.selectedDay = 'Wednesday';
-        break;
-      case 4:
-        this.selectedDay = 'Thrusday';
-        break;
-      case 5:
-        this.selectedDay = 'Friday';
-        break;
-      default:
-        this.selectedDay = 'Saturday';
+    // switch (this.SlideIndex) {
+    //   case 0:
+    //     this.selectedDay = 'Sunday';
+    //     break;
+    //   case 1:
+    //     this.selectedDay = 'Monday';
+    //     break;
+    //   case 2:
+    //     this.selectedDay = 'Tuesday';
+    //     break;
+    //   case 3:
+    //     this.selectedDay = 'Wednesday';
+    //     break;
+    //   case 4:
+    //     this.selectedDay = 'Thrusday';
+    //     break;
+    //   case 5:
+    //     this.selectedDay = 'Friday';
+    //     break;
+    //   default:
+    //     this.selectedDay = 'Saturday';
 
-    }
+    // }
 
-    if (this.selectedDay && this.selectedTime && this.selectedDeliveryMode && this.selectedPaymentMode
+    if (this.selectedDeliveryMode && this.selectedPaymentMode
       && this.cart.grandTotal) {
-      // if (this.selectedDeliveryMode == "Deliver") {
-      //   if (this.addressvalue) {
-      //     this.deliveryAddress = this.addressvalue
-      //   }
-      //   else {
-      //     return this.utils.presentToast('Please add delivery address', true, 'bottom', 2100);
-      //   }
-      // }
+      if (this.selectedDeliveryMode == "Deliver") {
+        if (this.addressvalue) {
+          this.deliveryAddress = this.addressvalue
+        }
+        else {
+          return this.utils.presentToast('Please add delivery address', true, 'bottom', 2100);
+        }
+      }
       const record = {
-        selectedDay: this.selectedDay,
         addressvalue: this.deliveryAddress || '',
-        selectedTime: this.selectedTime,
         selecteddeliverymode: this.selectedDeliveryMode,
         selectedpaymentmode: this.selectedPaymentMode,
         // Needs to replace these hard code values
@@ -172,6 +173,9 @@ export class DeliveryPage implements OnInit {
       };
 
       this.fireStore.sendNotificaion(dataPush);
+      this.utils.presentToast('You have ordered successfully', true, 'bottom', 2100);
+      this.route.navigate(['home']);
+
     }
     else {
       this.utils.presentToast('All field is required here', true, 'bottom', 2100);

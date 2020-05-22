@@ -65,7 +65,7 @@ export class CartPage implements OnInit {
   }
 
   updateCart(productID, type) {
-    const productunits = this.cart.addCart.find((el) => el.id === productID);
+    const productunits = this.cart.addCart.find((el) => el.id === productID); 
     let id;
 
     if (type === "add") {
