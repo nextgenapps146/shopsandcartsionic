@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar color="primary">
     <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
+      <ion-back-button></ion-back-button>
     </ion-buttons>
     <ion-title class="title-ios" ion-text-capitalize>
       <span class="topTitle">My Cart</span>
@@ -22,7 +22,7 @@
               <h5>Sub Total</h5>
             </ion-text>
             <ion-text class="textPadding">
-              <h5> ₹ {{cart.subTotal}}</h5>
+              <h5> ₹ {{cart.subTotal | currency}}</h5>
             </ion-text>
           </div>
           <div class="dliveryCharge dFlexJustifyContentSpaceBetween">
@@ -30,7 +30,7 @@
               <h5>Dilevery Charge</h5>
             </ion-text>
             <ion-text class="textPadding">
-              <h5> ₹ {{cart.deliveryCharge}} </h5>
+              <h5> ₹ {{cart.deliveryCharge | currency}} </h5>
             </ion-text>
           </div>
           <div class="yourSaving dFlexJustifyContentSpaceBetween">
@@ -38,7 +38,7 @@
               <h5>Your Saving</h5>
             </ion-text>
             <ion-text class="textPadding">
-              <h5> ₹ {{cart.totalSave}}</h5>
+              <h5> ₹ {{cart.totalSave | currency}}</h5>
             </ion-text>
           </div>
         </div>
@@ -110,7 +110,7 @@
         <h4>Checkout</h4>
       </ion-text>
       <ion-text>
-        <h4> ₹ {{cart.grandTotal}} </h4>
+        <h4> ₹ {{cart.grandTotal | currency}} </h4>
       </ion-text>
     </div>
   </ion-toolbar>

@@ -18,8 +18,8 @@ export class FirestoreService {
     storesCollectionRefrence: AngularFirestoreCollection<Store>;
     ordersCollectionRefrence: AngularFirestoreCollection;
     selectedStoreProductsCollectionRefrence: AngularFirestoreCollection;
-    chatCollectionRefrence:AngularFirestoreCollection<ChatContacts>;
-    ordersItemCollectionRefrence:AngularFirestoreCollection<OrderItem>;
+    chatCollectionRefrence: AngularFirestoreCollection<ChatContacts>;
+    ordersItemCollectionRefrence: AngularFirestoreCollection<OrderItem>;
     categories: any = [];
     promoCodes: any = [];
     UserAddress: any = [];
@@ -153,7 +153,7 @@ export class FirestoreService {
     }
 
     public async getUserAddress() {
-        this.addressCollectionRefrence = this.Afs.collection<Products>('Address', ref => ref.where('userid', '==', this.utils.userInfo.id).orderBy('locality'));
+        this.addressCollectionRefrence = this.Afs.collection<Products>('address', ref => ref.where('userid', '==', this.utils.userInfo.id));
         return this.addressCollectionRefrence
             .snapshotChanges().pipe(
                 map(res => res.map(dataItems => {
@@ -270,7 +270,7 @@ export class FirestoreService {
     }
 
     public async addUserAddress(result) {
-        this.addressCollectionRefrence = this.Afs.collection('Address');
+        this.addressCollectionRefrence = this.Afs.collection('address');
         await this.utils.openLoader();
         await this.addressCollectionRefrence.add({ ...result, userid: this.utils.userInfo.id });
         await this.utils.closeLoading();
@@ -355,7 +355,7 @@ export class FirestoreService {
         record.readby = [userId];
 
         this.chatContactsCollectionReference = this.Afs.collection('chatmessages');
-    
+
         await this.chatContactsCollectionReference.add(record);
         this.chatContactsCollectionReference = this.Afs.collection<ChatContacts>('chatcontacts');
         await this.chatContactsCollectionReference.doc(record.chatcontactid).update({ lastmessage: record.message, lastmessagetime: record.messagetime });
@@ -387,7 +387,7 @@ export class FirestoreService {
             .snapshotChanges().pipe(
                 map((res: any) => {
                     // Since this is a single object only one value will come here
-                    let record =  res.payload.data() as User;
+                    let record = res.payload.data() as User;
                     return record;
                 })
             );
@@ -399,7 +399,7 @@ export class FirestoreService {
             .snapshotChanges().pipe(
                 map((res: any) => {
                     // Since this is a single object only one value will come here
-                    let record =  res.payload.data() as ChatContacts;
+                    let record = res.payload.data() as ChatContacts;
                     return record;
                 })
             );
@@ -416,7 +416,7 @@ export class FirestoreService {
         this.ordersItemCollectionRefrence = this.Afs.collection('orderitems');
         return await this.ordersItemCollectionRefrence.add(record)
     }
-  
+
 }
 
 export interface Products {
@@ -498,13 +498,12 @@ export interface Order {
     customerid: string;
     customername: string;
     total: string;
-    status: string; // vlaue will be New when added first
+    status: string;  // vlaue will be New when added first
     transaction: any; // it is an array of object which contains these values { status , comment , time , username }
     delivery_mode: string; // it can be value from in three three option - deliver, pick_up , curve_site
     payment_mode: string; // it can be value of it =  online , cash_on_dlivery , pay_at_store
-    selected_day: string,
-    address_value: string,
-    selected_time: string
+    address_value: string;
+    created_date: String;
 }
 
 
