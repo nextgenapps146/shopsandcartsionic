@@ -65,7 +65,7 @@ export class CartPage implements OnInit {
   }
 
   updateCart(productID, type) {
-    const productunits = this.cart.addCart.find((el) => el.id === productID); 
+    const productunits = this.cart.addCart.find((el) => el.id === productID);
     let id;
 
     if (type === "add") {
@@ -74,7 +74,7 @@ export class CartPage implements OnInit {
       const total = 1 * productunits.salePrice;
       this.cart.subTotal = this.cart.subTotal + total;
       this.cart.grandTotal = this.cart.subTotal + this.cart.deliveryCharge;
-      localStorage.setItem('STORECARTS', JSON.stringify(CartService.storeCarts));
+
     }
 
     if (type === "remove") {
@@ -85,7 +85,7 @@ export class CartPage implements OnInit {
         const total = 1 * productunits.salePrice;
         this.cart.subTotal = this.cart.subTotal - total;
         this.cart.grandTotal = this.cart.subTotal + this.cart.deliveryCharge;
-        localStorage.setItem('STORECARTS', JSON.stringify(CartService.storeCarts));
+
       } else {
         this.removeProduct(productID, id);
       }
@@ -102,7 +102,7 @@ export class CartPage implements OnInit {
           text: "Cancel",
           role: "cancel",
           cssClass: "secondary",
-          handler: (cancel) => {},
+          handler: (cancel) => { },
         },
         {
           text: "Remove",
