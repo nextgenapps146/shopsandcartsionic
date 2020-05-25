@@ -8,8 +8,8 @@
 </ion-header>
 <ion-content>
 
-  <ion-radio-group *ngIf="addressArray" [(ngModel)]="addressvalue">
-    <ion-item *ngFor="let add of addressArray|async; let i = index;">
+  <ion-radio-group  [(ngModel)]="addressvalue" (click)="getDeliveryAddress()">
+    <ion-item *ngFor="let add of addressArray">
       <ion-label>
         <ion-row align-items-center>
           <p ion-no-ion-margin>
@@ -37,6 +37,7 @@
       </div>
     </ion-card-content>
   </ion-card>
+
   <!-- <ion-row class="check-row">
     <div *ngFor="let day of Days;let i=index" [ngClass]="{'days':CurrentIndex == i}  " (click)="slideTap(i)"
       class="center">
