@@ -97,7 +97,7 @@ export class DeliveryPage implements OnInit {
       this.SlideIndex = res;
     });
   }
-  isDeliver: boolean = false;
+  isDeliver: boolean = true;
   isPickup: boolean = false;
   isCurve: boolean = false;
   checkDeliveryMode(deliveryMode) {
