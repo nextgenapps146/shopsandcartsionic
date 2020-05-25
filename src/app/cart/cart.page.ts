@@ -91,6 +91,7 @@ export class CartPage implements OnInit {
       }
     }
     this.addCart();
+    this.cart.setCurrentStore(this.storeid);
   }
 
   async removeProduct(productID, index, productUnit?) {
