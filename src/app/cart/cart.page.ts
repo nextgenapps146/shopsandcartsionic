@@ -74,6 +74,7 @@ export class CartPage implements OnInit {
       const total = 1 * productunits.salePrice;
       this.cart.subTotal = this.cart.subTotal + total;
       this.cart.grandTotal = this.cart.subTotal + this.cart.deliveryCharge;
+      localStorage.setItem('STORECARTS', JSON.stringify(CartService.storeCarts));
     }
 
     if (type === "remove") {
@@ -84,6 +85,7 @@ export class CartPage implements OnInit {
         const total = 1 * productunits.salePrice;
         this.cart.subTotal = this.cart.subTotal - total;
         this.cart.grandTotal = this.cart.subTotal + this.cart.deliveryCharge;
+        localStorage.setItem('STORECARTS', JSON.stringify(CartService.storeCarts));
       } else {
         this.removeProduct(productID, id);
       }

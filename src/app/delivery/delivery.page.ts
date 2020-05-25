@@ -152,7 +152,7 @@ export class DeliveryPage implements OnInit {
           return this.utils.presentToast(
             "Please add delivery address",
             true,
-            "bottom",
+            "top",
             2100
           );
         }
@@ -206,7 +206,7 @@ export class DeliveryPage implements OnInit {
       this.utils.presentToast(
         "You have ordered successfully",
         true,
-        "bottom",
+        "top",
         2100
       );
       this.cart.removeCurrentStore();
@@ -215,7 +215,7 @@ export class DeliveryPage implements OnInit {
       this.utils.presentToast(
         "All field is required here",
         true,
-        "bottom",
+        "top",
         2100
       );
     }
