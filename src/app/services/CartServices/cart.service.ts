@@ -62,6 +62,7 @@ export class CartService {
       this.grandTotal += this.subTotal + this.deliveryCharge;
       this.totalSave += el.units * (parseInt(el.regularPrice) - el.salePrice);
     });
+    localStorage.setItem('STORECARTS', JSON.stringify(CartService.storeCarts));
   }
 
   removeCurrentStore(){

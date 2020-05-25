@@ -65,7 +65,7 @@ export class CartPage implements OnInit {
   }
 
   updateCart(productID, type) {
-    const productunits = this.cart.addCart.find((el) => el.id === productID); 
+    const productunits = this.cart.addCart.find((el) => el.id === productID);
     let id;
 
     if (type === "add") {
@@ -74,6 +74,7 @@ export class CartPage implements OnInit {
       const total = 1 * productunits.salePrice;
       this.cart.subTotal = this.cart.subTotal + total;
       this.cart.grandTotal = this.cart.subTotal + this.cart.deliveryCharge;
+
     }
 
     if (type === "remove") {
@@ -84,11 +85,13 @@ export class CartPage implements OnInit {
         const total = 1 * productunits.salePrice;
         this.cart.subTotal = this.cart.subTotal - total;
         this.cart.grandTotal = this.cart.subTotal + this.cart.deliveryCharge;
+
       } else {
         this.removeProduct(productID, id);
       }
     }
     this.addCart();
+    this.cart.setCurrentStore(this.storeid);
   }
 
   async removeProduct(productID, index, productUnit?) {
@@ -100,7 +103,7 @@ export class CartPage implements OnInit {
           text: "Cancel",
           role: "cancel",
           cssClass: "secondary",
-          handler: (cancel) => {},
+          handler: (cancel) => { },
         },
         {
           text: "Remove",
