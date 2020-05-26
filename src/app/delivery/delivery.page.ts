@@ -35,7 +35,7 @@ export class DeliveryPage implements OnInit {
   selectedTime: any = "6AM - 9AM";
   selectedDeliveryMode: any;
   selectedPaymentMode: any;
-  addressvalue: any = [];
+  addressvalue: any;
   addressList = [];
   selectedDay: any = "Sunday";
   addressArray;
@@ -75,11 +75,11 @@ export class DeliveryPage implements OnInit {
     this.fireStore.getUserAddress().then((address) => {
       address.subscribe((address) => {
         this.addressList = address;
-        this.addressvalue = this.addressList[0];
+        this.addressArray = this.addressList;
       });
     });
   }
-  ngOnInit() {}
+  ngOnInit() { }
 
   addAddress() {
     this.route.navigate(["add-address"]);
@@ -116,6 +116,14 @@ export class DeliveryPage implements OnInit {
   }
   itemId: any;
   deliveryAddress: any;
+  getDeliveryAddress() {
+    this.fireStore.getDeliveryAddress(this.addressvalue).then((address) => {
+      address.subscribe((address) => {
+        this.address = address;
+
+      });
+    });
+  }
   async paymentPage() {
     // switch (this.SlideIndex) {
     //   case 0:
@@ -140,14 +148,13 @@ export class DeliveryPage implements OnInit {
     //     this.selectedDay = 'Saturday';
 
     // }
-
     if (
       this.selectedDeliveryMode &&
-      this.selectedPaymentMode 
+      this.selectedPaymentMode
     ) {
       if (this.selectedDeliveryMode == "Deliver") {
-        if (this.addressvalue) {
-          this.deliveryAddress = this.addressvalue;
+        if (this.address) {
+          this.deliveryAddress = this.address;
         } else {
           return this.utils.presentToast(
             "Please add delivery address",
@@ -157,15 +164,16 @@ export class DeliveryPage implements OnInit {
           );
         }
       }
-      const getAddress = (address) => {
-        try {
-          return address.flatNumber || '';
-        } catch (err) {
-          return '';
-        }
-      }
+      // const getAddress = (address) => {
+      //   try {
+      //     return address.flatNumber || '';
+      //   } catch (err) {
+      //     return '';
+      //   }
+      // }
       const record = {
-        addressvalue: getAddress(this.deliveryAddress || ''),
+        //addressvalue: getAddress(this.deliveryAddress || ''),
+        addressvalue: this.deliveryAddress || '',
         selecteddeliverymode: this.selectedDeliveryMode,
         selectedpaymentmode: this.selectedPaymentMode,
         storeid: this.storeid,

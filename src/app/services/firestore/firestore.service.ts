@@ -164,6 +164,17 @@ export class FirestoreService {
                 }))
             );
     }
+    
+    public async getDeliveryAddress(address_id) {
+        this.addressCollectionRefrence = this.Afs.collection<User>('address');
+        return this.addressCollectionRefrence.doc(address_id)
+            .snapshotChanges().pipe(
+                map((res: any) => {
+                    let record = res.payload.data() as User;
+                    return record;
+                })
+            );
+    }
     public async getUserOrders() {
         this.ordersCollectionRefrence = this.Afs.collection<Products>('orders', ref => ref.where('customerid', '==', this.utils.userInfo.id));
         return this.ordersCollectionRefrence
