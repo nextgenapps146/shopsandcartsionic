@@ -108,7 +108,7 @@ $font-family-md-base: 'Abel';
 $font-family-wp-base: 'Abel';
 
 ion-content{
-  --background:#eaeaea;
+  --background:#fff;
 }
 
 .colorWhite{
@@ -161,19 +161,13 @@ ion-content{
   position: relative;
 }
 
+.chat-icon {
+    font-size: 20px;
+}
+
 .cartQuantity {
-  position: absolute;
-  width: 17px;
-  height: 17px;
-  border: 1px solid var(--ion-color-primary-contrast);
-  right: 0;
-  background: var(--ion-color-danger);
-  border-radius: 45px;
-  top: 2px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 11px;
+    font-size: 12px;
+    margin-top: -6px;
 }
 
 .topSection{

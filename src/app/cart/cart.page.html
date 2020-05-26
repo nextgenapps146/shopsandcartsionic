@@ -1,117 +1,218 @@
+<!-- <ion-header>
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-back-button></ion-back-button>
+        </ion-buttons>
+        <ion-title class="title-ios" ion-text-capitalize>
+            <span class="topTitle">My Cart</span>
+            <br />
+            <span class="title-ios cartItems"> {{cart.addCart.length}} Items</span>
+        </ion-title>
+    </ion-toolbar>
+</ion-header> -->
 <ion-header>
-  <ion-toolbar color="primary">
-    <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
-    </ion-buttons>
-    <ion-title class="title-ios" ion-text-capitalize>
-      <span class="topTitle">My Cart</span>
-      <br />
-      <span class="title-ios cartItems"> {{cart.addCart.length}} Items</span>
-    </ion-title>
-  </ion-toolbar>
-
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-back-button text=""></ion-back-button>
+        </ion-buttons>
+        <div class="dFlexRow deliverySection">
+            <ion-note class="whiteColor">Now Shopping In</ion-note>
+            <div class="flex">
+                <ion-label class="locationAddress">Southern Spices</ion-label>
+            </div>
+        </div>
+        <fa-icon class="chat-icon" [icon]="['fas', 'comment']" slot="end" (click)="onchatroom()"></fa-icon>
+        <!-- <ion-button slot="end" mode="ios" class="pRelative icon-btn" (click)="cartPage()">
+            <ion-icon slot="icon-only" name="logo-usd"></ion-icon>
+            <span class="cartQuantity">{{cart.subTotal | currency}}</span>
+        </ion-button> -->
+    </ion-toolbar>
+    <ion-toolbar color="primary">
+        <ion-label slot="end">Sub Total - {{cart.subTotal | currency}}</ion-label>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <div *ngIf="cart.addCart.length > 0">
-    <ion-card class="contentSection">
-      <ion-card-content ion-no-padding>
-        <div>
-          <div class="subTotal dFlexJustifyContentSpaceBetween">
-            <ion-text class="textPadding">
-              <h5>Sub Total</h5>
-            </ion-text>
-            <ion-text class="textPadding">
-              <h5> ₹ {{cart.subTotal | currency}}</h5>
-            </ion-text>
-          </div>
-          <div class="dliveryCharge dFlexJustifyContentSpaceBetween">
-            <ion-text class="textPadding">
-              <h5>Dilevery Charge</h5>
-            </ion-text>
-            <ion-text class="textPadding">
-              <h5> ₹ {{cart.deliveryCharge | currency}} </h5>
-            </ion-text>
-          </div>
-          <div class="yourSaving dFlexJustifyContentSpaceBetween">
-            <ion-text class="textPadding">
-              <h5>Your Saving</h5>
-            </ion-text>
-            <ion-text class="textPadding">
-              <h5> ₹ {{cart.totalSave | currency}}</h5>
-            </ion-text>
-          </div>
-        </div>
-      </ion-card-content>
-    </ion-card>
-    <!--Product List-->
-    <ion-list ion-ion-margin-top>
-      <ion-item *ngFor="let product of cart.addCart;let i = index" ion-no-padding>
-        <div class="productSection">
-          <div class="imageSection" padding>
-            <img [src]="product.images[0]">
-          </div>
+    <ion-list class="list2 cart-page-list">
+        <br/>
+        <ion-item>
+            <ion-label>
+                <fa-icon [icon]="['fas', 'money-check-alt']"></fa-icon>
+                <h3>Payment Option</h3>
+            </ion-label>
+            <ion-select placeholder="Select One" interface="popover" >
+                <ion-select-option value="f">Online</ion-select-option>
+                <ion-select-option value="m">At Store/Later</ion-select-option>
+            </ion-select>
+        </ion-item>
 
-          <div class="productTitle pRelative">
-            <div class="discountSection">
-              <ion-label ion-text-uppercase>{{product.offer}} % off</ion-label>
-            </div>
-            <div ion-ion-margin-top ion-padding-top>
-              <h4 class="title">{{product.name}}</h4>
-              <h6>₹{{product.salePrice}}</h6>
-            </div>
+        <ion-item>
+            <ion-label>
+                <fa-icon [icon]="['fas', 'shopping-basket']"></fa-icon>
+                <h3>Goods Delivery</h3>
+            </ion-label>
+            <ion-select placeholder="Select One" interface="popover" >
+                <ion-select-option value="brown">Home Delivery</ion-select-option>
+                <ion-select-option value="blonde">At Store</ion-select-option>
+                <ion-select-option value="black">Curbside</ion-select-option>
+            </ion-select>
+        </ion-item>
 
-          </div>
-          <div slot="end" class="productCartSection">
-            <div class="addBtnSection">
-              <!-- <ion-button expand="full"  (click)="addToCart(i)">
-                  <ion-icon name="close" color="danger" slot="icon-only" ></ion-icon>
-                </ion-button> -->
-              <div class="removeBtn">
-                <ion-button color="undefined" fill="clear" (click)="removeProduct(product.id,i,product.units)">
-                  <ion-icon slot="icon-only" name="close" color="danger"></ion-icon>
-                </ion-button>
-              </div>
-
-
-              <ion-segment *ngIf="product.units > 0" mode="md">
-                <ion-segment-button mode="md" ion-no-padding color="undefined" (click)="updateCart(product.id,'remove')"
-                  class="segmentBtn">
-                  <ion-icon name="remove-circle-outline"></ion-icon>
-                </ion-segment-button>
-                <ion-text ion-padding-horizontal class="textUnits">{{product.units}}</ion-text>
-                <ion-segment-button mode="md" ion-no-padding color="undefined" (click)="updateCart(product.id,'add')"
-                  class="segmentBtn">
-                  <ion-icon name="add-circle-outline"></ion-icon>
-                </ion-segment-button>
-              </ion-segment>
-            </div>
-          </div>
-        </div>
-      </ion-item>
+        <ion-item>
+            <ion-label>
+                <fa-icon [icon]="['fas', 'address-card']"></fa-icon>
+                <h3>Delivery Address</h3>
+            </ion-label>
+                <ion-select placeholder="Select One" interface="popover" >
+                <ion-select-option value="yellow">Add New Address</ion-select-option>
+                <ion-select-option value="brown">2120 Adamsway Drive, Aurora Il 60056</ion-select-option>
+                <ion-select-option value="blonde">2120 Castlewood Road, Wheaton Il 60189</ion-select-option>
+            </ion-select>
+        </ion-item>
     </ion-list>
-    <!--End of Product List-->
+    <div *ngIf="cart.addCart.length > 0">
+        <!-- <ion-card class="contentSection">
+            <ion-card-content ion-no-padding>
+                <div>
+                    <div class="subTotal dFlexJustifyContentSpaceBetween">
+                        <ion-text class="textPadding">
+                            <h5>Sub Total</h5>
+                        </ion-text>
+                        <ion-text class="textPadding">
+                            <h5>{{cart.subTotal | currency}}</h5>
+                        </ion-text>
+                    </div>
+                    <div class="dliveryCharge dFlexJustifyContentSpaceBetween">
+                        <ion-text class="textPadding">
+                            <h5>Dilevery Charge</h5>
+                        </ion-text>
+                        <ion-text class="textPadding">
+                            <h5> ₹ {{cart.deliveryCharge | currency}} </h5>
+                        </ion-text>
+                    </div>
+                    <div class="yourSaving dFlexJustifyContentSpaceBetween">
+                        <ion-text class="textPadding">
+                            <h5>Your Saving</h5>
+                        </ion-text>
+                        <ion-text class="textPadding">
+                            <h5> ₹ {{cart.totalSave | currency}}</h5>
+                        </ion-text>
+                    </div>
+                </div>
+            </ion-card-content>
+        </ion-card> -->
+        <!--Product List-->
+        <ion-list class="list1 cart-page-list2">
+            <ion-list-header>
+                <span class="flt-lt">
+                    Your Cart Items
+                </span>
+                <span class="flt-rt">
+                    <ion-icon name="cart"></ion-icon>
+                    {{cart.addCart.length}} Items
+                </span>
+            </ion-list-header>
+            <div class="item-overlay" *ngIf="currentAddingItem && currentAddingItem.isItemAdding"(click)="currentAddingItem.isItemAdding=false"></div>
+            <div class="list-item" *ngFor="let product of cart.addCart;let i = index">
+                <ion-thumbnail class="flt-lt">
+                    <img [src]="product.images[0]">
+                </ion-thumbnail>
+                <ion-label class="flt-lt">
+                    <h3><strong>{{ product.name }}</strong></h3>
+                    <p>$ {{ product.regularPrice }}</p>
+                    <div class="links-wrap">
+                        <span class="btn" (click)="removeProduct(product.id, i, product.units)">
+                            <fa-icon [icon]="['fas', 'trash']"></fa-icon>
+                            <span class="label">Delete</span>
+                        </span>
+                        <span class="btn">
+                            <fa-icon [icon]="['fas', 'pen']"></fa-icon>
+                            <span class="label">Instructions</span>
+                        </span>
+                    </div>
+                </ion-label>
+                <div class="flt-rt">
+                    <span class="flt-lt item-quantity-added" (click)="enableItemAdding(product)"
+                    *ngIf="product.units && product.units > 0">{{ product.units }}</span>
+                    <ion-icon class="round-icon-btn flt-lt item-add-initial"
+                    *ngIf="!product.units"
+                    name="ios-add-circle-outline" (click)="addToCart(product)"></ion-icon>
+                </div>
+                <div class="flt-rt add-to-cart-btns-wrap" [ngClass]="product.isItemAdding ? 'item-adding' : 'item-not-adding'">
+                    <div class="item-adding-wrap">
+                        <ion-icon class="round-icon-btn flt-lt" name="ios-remove-circle-outline" (click)="updateCart(product.id,'remove')"></ion-icon>
+                        <span class="item-quantity flt-lt">{{ product.units }}</span>
+                        <ion-icon class="round-icon-btn flt-lt" name="ios-add-circle-outline" (click)="updateCart(product.id,'add')"></ion-icon>
+                    </div>
+                </div>
+            </div>
+        </ion-list>
 
-  </div>
-  <div *ngIf="cart.addCart.length==0" [ngClass]="{ 'cartTopSection' :cart.addCart.length == 0 }">
-    <div [ngClass]="{ 'cartTextSection' : cart.addCart.length == 0 }" text-center>
-      <ion-icon name="cart" class="cartIcon"></ion-icon>
-      <h3>Your Cart is Empty</h3>
-      <p>Lets get you started</p>
-      <ion-button color="primary" (click)="startShopping()">Start shopping </ion-button>
+        <!-- <ion-list>
+            <ion-item *ngFor="let product of cart.addCart;let i = index">
+                <div class="productSection">
+                    <div class="imageSection" padding>
+                        <img [src]="product.images[0]">
+                    </div>
+
+                    <div class="productTitle pRelative">
+                        <div class="discountSection">
+                            <ion-label ion-text-uppercase>{{product.offer}} % off</ion-label>
+                        </div>
+                        <div ion-ion-margin-top ion-padding-top>
+                            <h4 class="title">{{product.name}}</h4>
+                            <h6>₹{{product.salePrice}}</h6>
+                        </div>
+
+                    </div>
+                    <div slot="end" class="productCartSection">
+                        <div class="addBtnSection">
+                            <div class="removeBtn">
+                                <ion-button color="undefined" fill="clear"
+                                    (click)="removeProduct(product.id,i,product.units)">
+                                    <ion-icon slot="icon-only" name="close" color="danger"></ion-icon>
+                                </ion-button>
+                            </div>
+
+
+                            <ion-segment *ngIf="product.units > 0" mode="md">
+                                <ion-segment-button mode="md" ion-no-padding color="undefined"
+                                    (click)="updateCart(product.id,'remove')" class="segmentBtn">
+                                    <ion-icon name="remove-circle-outline"></ion-icon>
+                                </ion-segment-button>
+                                <ion-text ion-padding-horizontal class="textUnits">{{product.units}}</ion-text>
+                                <ion-segment-button mode="md" ion-no-padding color="undefined"
+                                    (click)="updateCart(product.id,'add')" class="segmentBtn">
+                                    <ion-icon name="add-circle-outline"></ion-icon>
+                                </ion-segment-button>
+                            </ion-segment>
+                        </div>
+                    </div>
+                </div>
+            </ion-item>
+        </ion-list> -->
+        <!--End of Product List-->
+
     </div>
-  </div>
+    <div *ngIf="cart.addCart.length==0" [ngClass]="{ 'cartTopSection' :cart.addCart.length == 0 }">
+        <div [ngClass]="{ 'cartTextSection' : cart.addCart.length == 0 }" text-center>
+            <ion-icon name="cart" class="cartIcon"></ion-icon>
+            <h3>Your Cart is Empty</h3>
+            <p>Lets get you started</p>
+            <ion-button color="primary" (click)="startShopping()">Start shopping </ion-button>
+        </div>
+    </div>
 </ion-content>
 
 <ion-footer (click)="deliveryAddress()" *ngIf="cart.addCart.length > 0">
-  <ion-toolbar color="primary" ion-padding-horizontal>
-    <div class="footerCartSection">
-      <ion-text>
-        <h4>Checkout</h4>
-      </ion-text>
-      <ion-text>
-        <h4> ₹ {{cart.grandTotal | currency}} </h4>
-      </ion-text>
-    </div>
-  </ion-toolbar>
+    <ion-toolbar color="primary" ion-padding-horizontal class="checkout-footer">
+        <div class="footerCartSection">
+            <ion-text>
+                Checkout
+            </ion-text>
+            <ion-text>
+                <strong>{{cart.grandTotal | currency}}</strong>
+            </ion-text>
+        </div>
+    </ion-toolbar>
 </ion-footer>

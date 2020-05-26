@@ -35,31 +35,39 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { FirebaseX } from "@ionic-native/firebase-x/ngx";
 import { FCM } from '@ionic-native/fcm/ngx';
+import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
+import { fas } from '@fortawesome/free-solid-svg-icons';
 @NgModule({
-  declarations: [AppComponent, IssuePage, SearchPage, RateUsPage],
-  entryComponents: [IssuePage, SearchPage, RateUsPage],
-  imports: [
-    BrowserModule,
-    AngularFireModule.initializeApp(environment.firebase),
-    IonicModule.forRoot(),
-    AngularFireStorageModule,
-    AngularFireAuthModule,
-    AngularFirestoreModule,
-    AppRoutingModule,
-    HttpClientModule
-  ],
-  exports: [],
-  providers: [
-    FirebaseX,
-    FCM ,
-    StatusBar,
-    SplashScreen,
-    Geolocation,
-    NativeGeocoder,
-    SocialSharing,
-    FirestoreService,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
-  ],
-  bootstrap: [AppComponent]
+    declarations: [AppComponent, IssuePage, SearchPage, RateUsPage],
+    entryComponents: [IssuePage, SearchPage, RateUsPage],
+    imports: [
+        BrowserModule,
+        AngularFireModule.initializeApp(environment.firebase),
+        IonicModule.forRoot(),
+        FontAwesomeModule,
+        AngularFireStorageModule,
+        AngularFireAuthModule,
+        AngularFirestoreModule,
+        AppRoutingModule,
+        HttpClientModule
+    ],
+    exports: [],
+    providers: [
+        FirebaseX,
+        FCM,
+        StatusBar,
+        SplashScreen,
+        Geolocation,
+        NativeGeocoder,
+        SocialSharing,
+        FirestoreService,
+        { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+    ],
+    bootstrap: [AppComponent]
 })
-export class AppModule { }
+
+export class AppModule {
+    constructor(library: FaIconLibrary) {
+        library.addIconPacks(fas);
+    }
+}

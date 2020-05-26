@@ -20,7 +20,7 @@ import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 import { AuthServiceService } from './services/Auth/auth-service.service';
 import { FirestoreService } from './services/firestore/firestore.service';
 import { UtilsServiceService } from './services/Utils/utils-service.service';
-import { FirebaseX } from "@ionic-native/firebase-x/ngx";
+import { FirebaseX } from '@ionic-native/firebase-x/ngx';
 import { CartService } from './services/CartServices/cart.service';
 
 @Component({
@@ -133,7 +133,7 @@ export class AppComponent {
                 value: 'MyAddress'
             }
         ];
-        CartService.restoreCarts();
+        // CartService.restoreCarts(); We will do it later
     }
 
     initializeApp() {
@@ -144,9 +144,9 @@ export class AppComponent {
         });
     }
 
-    initPush() {        
+    initPush() {
         this.firebase.getToken().then(token => {
-            localStorage.setItem("deviceid",token);
+            localStorage.setItem('deviceid', token);
             console.log(`The token is ${token}`);
             alert(token);
             this.fireStore.updateUserDeviceToken();
@@ -166,6 +166,7 @@ export class AppComponent {
             this.route.navigate([pageUrl]);
         }
     }
+
     userProfile() {
         this.menuCtrl.toggle();
         this.route.navigate(['my-account', { title: 'profile' }]);
@@ -183,9 +184,7 @@ export class AppComponent {
             this.socialSharing.share();
         } else {
             this.route.navigate([pageUrl]);
-
         }
-
     }
 
     getUserInAndAround() {

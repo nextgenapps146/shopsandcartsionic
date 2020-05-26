@@ -8,7 +8,6 @@
  *
  */
 
-
 import { Component, Input, ViewChild, OnInit } from '@angular/core';
 import { DataService } from '../services/DataServices/data.service';
 import { CartService } from '../services/CartServices/cart.service';

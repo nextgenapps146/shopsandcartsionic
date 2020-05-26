@@ -16,9 +16,10 @@ export class StorePage implements OnInit {
     users = [];
     result: any;
     userId = this.utils.userInfo.id;
+    currentAddingItem: any = null;
 
     constructor(private router: Router, private route: ActivatedRoute,
-        private utils: UtilsServiceService, private fireStore: FirestoreService, public cart: CartService,) {
+        private utils: UtilsServiceService, private fireStore: FirestoreService, public cart: CartService) {
         this.route.queryParams.subscribe(params => {
             if (params && params.storeid && params.storename) {
                 this.storeid = params.storeid;
@@ -28,7 +29,7 @@ export class StorePage implements OnInit {
 
                 let productQty = 0;
                 this.cart.addCart.map((el) => {
-                    productQty += el.units ;
+                    productQty += el.units;
                 });
                 this.cart.productQty = productQty;
             }
@@ -38,8 +39,8 @@ export class StorePage implements OnInit {
     ngOnInit() {
         this.fireStore.getStoreProducts().then((data) => {
             data.subscribe(list => {
-                for(let elc= 0; elc < (list || []).length; elc++){
-                    let product = list[elc];
+                for (let elc = 0; elc < (list || []).length; elc++) {
+                    const product = list[elc];
                     const productunits = this.cart.addCart.find(el => el.id === product.id);
                     if (productunits) {
                         (<any>list[elc]).units = productunits.units;
@@ -82,40 +83,55 @@ export class StorePage implements OnInit {
                 }
             });
         });
+    }
 
+    enableItemAdding(product) {
+        this.currentAddingItem = product;
+        this.currentAddingItem.isItemAdding = true;
+    }
+
+    disableItemAdding() {
+        if (this.currentAddingItem) {
+            this.currentAddingItem.isItemAdding = false;
+        }
     }
 
     addToCart(product) {
+        this.disableItemAdding();
+        this.enableItemAdding(product);
         const productunits = this.cart.addCart.find(el => el.id === product.id);
         if (productunits) {
-          productunits.units += 1;
-          this.cart.productQty += 1;
-          product.units = productunits.units;
+            productunits.units += 1;
+            this.cart.productQty += 1;
+            product.units = productunits.units;
         } else {
-          product.units = 1;
-          this.cart.addCart.push(product);
-          this.cart.productQty += 1;
+            product.units = 1;
+            this.cart.addCart.push(product);
+            this.cart.productQty += 1;
         }
         this.cart.setCurrentStore(this.storeid);
-      }
-      updateCart(productID, type, product) {
+    }
+
+    updateCart(productID, type, product) {
         const productunits = this.cart.addCart.find(el => el.id === productID);
         const productIndex = this.cart.addCart.indexOf(el => el.id === productID);
         if (type === 'add') {
-          productunits.units += 1;
-          this.cart.productQty += 1;
-          product.units = productunits.units;
+            productunits.units += 1;
+            this.cart.productQty += 1;
+            product.units = productunits.units;
         }
         if (type === 'remove') {
-          productunits.units -= 1;
-          this.cart.productQty -= 1;
-          product.units = productunits.units;
-          if (product.units === 0) {
-            this.cart.addCart.splice(productIndex, 1);
-          }
+            productunits.units -= 1;
+            this.cart.productQty -= 1;
+            product.units = productunits.units;
+            if (product.units === 0) {
+                this.cart.addCart.splice(productIndex, 1);
+                this.disableItemAdding();
+            }
         }
         this.cart.setCurrentStore(this.storeid);
-      }
+    }
+
     onchatroom() {
         this.getChatUsers();
         // this.router.navigateByUrl("/chatroom")

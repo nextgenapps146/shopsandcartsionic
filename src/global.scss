@@ -31,6 +31,13 @@
     float: right;
 }
 
+.overlay {
+    background: #fff;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    opacity: 0.5;
+}
 
 ion-list.list1 {
     ion-list-header {
@@ -44,27 +51,137 @@ ion-list.list1 {
         }
     }
 
-    ion-item {
-        border-bottom: 1px solid;
-        padding: 10px;
+    .list-item {
+        border-bottom: 1px solid #d4d3d3;
+        margin: 0 15px;
+        padding: 20px 15px;
+        overflow: hidden;
+
         ion-thumbnail {
-            height: 70px;
-            width: 70px;
+            height: 50px;
+            width: 50px;
         }
 
         ion-label {
-
+            margin-left: 15px;
         }
 
         .round-icon-btn {
             border-radius: 18px;
-            padding: 5px;
-            color: #FFF;
-            background-color: #F53D3D;
+            color: #F53D3D;
+            font-size: 30px;
+        }
+
+        .item-quantity-added {
+            background: red;
+            border-radius: 20px;
+            color: #fff;
+            padding: 3px 8px;
+            font-size: 13px;
+            margin-top: 3px;
+        }
+
+        .add-to-cart-btns-wrap {
+            position: absolute;
+            right: 20px;
+            background: #fff;
+
+            .item-quantity {
+                margin: 5px 20px;
+                color: #4a4a4a;
+                font-size: 15px;
+            }
+
+            &.item-adding .item-adding-wrap {
+                overflow: hidden;
+                border-radius: 5px;
+                box-shadow: 5px 10px 10px 5px #cecbcb;
+                padding: 5px 10px;
+            }
+
+            &.item-not-adding .item-adding-wrap,
+            &.item-adding .item-quantity-added {
+                display: none;
+            }
         }
 
         .item-inner {
             border-bottom: none !important;
         }
+    }
+}
+
+ion-list.list2 {
+    ion-item {
+        padding: 10px;
+
+        ion-thumbnail {
+            background-color: #eee;
+        }
+
+        ion-select {
+            font-size: 12px;
+        }
+
+        ion-label {
+            h3 {
+                text-transform: capitalize;
+                margin-bottom: 2px;
+            }
+            p {
+                font-size: 12px;
+            }
+        }
+
+        ion-icon {
+            font-size: 18px;
+            color: #f53d3d;
+        }
+
+        .options-wrap {
+            margin-top: 5px;
+
+            .options {
+                font-size: 10px;
+
+                .option-title {
+                    color: #525252;
+                    font-weight: bold;
+                }
+            }
+        }
+    }
+}
+
+ion-searchbar {
+    margin: 0;
+}
+
+.searchbar-input-container {
+    border-radius: 0px !important;
+    margin: 0px 6px 7px;
+}
+
+ion-toolbar {
+    --min-height: 45px;
+}
+
+ion-button.icon-btn {
+    height: 28px;
+}
+
+ion-menu-button {
+    height: 45px;
+}
+
+.dFlexRow.deliverySection {
+    ion-note {
+        font-size: 10px;
+        margin-top: 4px;
+    }
+
+    .flex ion-label {
+        font-size: 16px;
+        line-height: 16px;
     }
 }

@@ -15,6 +15,7 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { RouterModule } from '@angular/router';
 
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { HomePage } from './home.page';
 import { TopSaversComponent } from '../components/top-savers/top-savers.component';
 import { BestOffersComponent } from '../components/best-offers/best-offers.component';
@@ -30,6 +31,7 @@ import { SharedModule } from '../share.module';
     FormsModule,
     IonicModule,
     SharedModule,
+    FontAwesomeModule,
     RouterModule.forChild([
       {
         path: '',
