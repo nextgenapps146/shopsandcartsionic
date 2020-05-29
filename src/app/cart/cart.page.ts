@@ -13,6 +13,7 @@ import { DataService } from "../services/DataServices/data.service";
 import { CartService } from "../services/CartServices/cart.service";
 import { Router, ActivatedRoute } from "@angular/router";
 import { AlertController } from "@ionic/angular";
+import { UtilsServiceService } from "../services/Utils/utils-service.service";
 
 @Component({
   selector: "app-cart",
@@ -22,12 +23,16 @@ import { AlertController } from "@ionic/angular";
 export class CartPage implements OnInit {
   storeid: any;
   storename: any;
+  selectedPaymentMode:any;
+  selectedAddress:any;
+  selectedDeliveryMode:any;
   constructor(
     public dataServ: DataService,
     public cart: CartService,
     public route: Router,
     public router: ActivatedRoute,
-    public alertController: AlertController
+    public alertController: AlertController,
+    public utils:UtilsServiceService
   ) {
     this.router.queryParams.subscribe((params) => {
       if (params && params.storeid && params.storename) {
@@ -134,6 +139,9 @@ export class CartPage implements OnInit {
   deliveryAddress() {
     const navigationExtras = {
       queryParams: {
+        addressvalue: this.selectedAddress,
+        selecteddeliverymode: this.selectedDeliveryMode,
+        selectedpaymentmode: this.selectedPaymentMode,
         storeid: this.storeid,
         storename: this.storename,
       },

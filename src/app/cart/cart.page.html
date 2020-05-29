@@ -31,6 +31,17 @@
         <ion-label slot="end">Sub Total - {{cart.subTotal | currency}}</ion-label>
     </ion-toolbar>
 </ion-header>
+<div class="heading">Delivery Mode</div>
+<ion-radio-group [(ngModel)]="selectedDeliveryMode">
+  <ion-list class="check-list bgTransparent">
+    <ion-item *ngFor="let d of DeliveryMode" class="list-items bgTransparent" lines="none">
+      <ion-radio checked="false" value={{d}} (click)="checkDeliveryMode(d)"></ion-radio>
+      <ion-label ion-padding-start>
+        <span class="check-label">{{d}}</span>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-radio-group>
 
 <ion-content>
     <ion-list class="list2 cart-page-list">
@@ -40,34 +51,40 @@
                 <fa-icon [icon]="['fas', 'money-check-alt']"></fa-icon>
                 <h3>Payment Option</h3>
             </ion-label>
-            <ion-select placeholder="Select One" interface="popover" >
-                <ion-select-option value="f">Online</ion-select-option>
-                <ion-select-option value="m">At Store/Later</ion-select-option>
+       
+            <ion-select placeholder="Select One" interface="popover" [(ngModel)]="selectedPaymentMode">
+                <ion-select-option value="Online">Online</ion-select-option>
+                <ion-select-option value="Pay at store">At Store/Later</ion-select-option>
             </ion-select>
+       
         </ion-item>
-
         <ion-item>
             <ion-label>
                 <fa-icon [icon]="['fas', 'shopping-basket']"></fa-icon>
                 <h3>Goods Delivery</h3>
             </ion-label>
-            <ion-select placeholder="Select One" interface="popover" >
-                <ion-select-option value="brown">Home Delivery</ion-select-option>
-                <ion-select-option value="blonde">At Store</ion-select-option>
-                <ion-select-option value="black">Curbside</ion-select-option>
+       
+            <ion-select placeholder="Select One" interface="popover" [(ngModel)]="selectedDeliveryMode">
+                <ion-select-option value="at home">Home Delivery</ion-select-option>
+                <ion-select-option value="at store">At Store</ion-select-option>
+                <ion-select-option value="curbside">Curbside</ion-select-option>
             </ion-select>
+       
         </ion-item>
+
 
         <ion-item>
             <ion-label>
                 <fa-icon [icon]="['fas', 'address-card']"></fa-icon>
                 <h3>Delivery Address</h3>
             </ion-label>
-                <ion-select placeholder="Select One" interface="popover" >
-                <ion-select-option value="yellow">Add New Address</ion-select-option>
-                <ion-select-option value="brown">2120 Adamsway Drive, Aurora Il 60056</ion-select-option>
-                <ion-select-option value="blonde">2120 Castlewood Road, Wheaton Il 60189</ion-select-option>
+            
+                <ion-select placeholder="Select One" interface="popover"  [(ngModel)]="selectedAddress">
+                <ion-select-option value="add Address">Add New Address</ion-select-option>
+                <ion-select-option value="address1">2120 Adamsway Drive, Aurora Il 60056</ion-select-option>
+                <ion-select-option value="address2">2120 Castlewood Road, Wheaton Il 60189</ion-select-option>
             </ion-select>
+   
         </ion-item>
     </ion-list>
     <div *ngIf="cart.addCart.length > 0">

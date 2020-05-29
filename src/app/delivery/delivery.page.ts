@@ -41,6 +41,7 @@ export class DeliveryPage implements OnInit {
   addressArray;
   paymentmode: any;
   storename: any;
+  customername:any;
   data = [];
   storeid: any;
   constructor(
@@ -50,6 +51,7 @@ export class DeliveryPage implements OnInit {
     public utils: UtilsServiceService,
     public fireStore: FirestoreService
   ) {
+
     this.Days = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
     this.Time = [
       "6AM - 9AM",
@@ -66,8 +68,12 @@ export class DeliveryPage implements OnInit {
       if (params && params.storeid && params.storename) {
         this.storeid = params.storeid;
         this.storename = params.storename;
+        this.selectedDeliveryMode=params.selecteddeliverymode;
+        this.selectedPaymentMode=params.selectedpaymentmode;
+        this.deliveryAddress=params.addressvalue;
       }
     });
+    this.customername=this.utils.userInfo.username;
     this.getAddress();
   }
 
@@ -124,6 +130,9 @@ export class DeliveryPage implements OnInit {
       });
     });
   }
+
+
+
   async paymentPage() {
     // switch (this.SlideIndex) {
     //   case 0:
