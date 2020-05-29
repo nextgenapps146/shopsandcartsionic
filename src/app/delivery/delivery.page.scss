@@ -81,3 +81,46 @@
 {
 padding:5%;
 }
+.span_text
+{
+    font-size: 15px;
+    font-weight: bold;
+    padding-right: 3%;
+
+}
+.deliver-page-list2 {
+    .links-wrap {
+        margin-top: 25px;
+
+        .btn {
+            display: inline-block;
+            margin-right: 15px;
+            font-size: 14px;
+            fa-icon {
+                color: #f53d3d;
+                margin-right: 4px;
+                font-size: 12px;
+            }
+            .label {
+                color: #f53d3d;
+            }
+        }
+    }
+}
+.icon {
+    color: #f53d3d;
+    margin-right: 4px;
+}
+.img
+{
+    height: 12vh;
+    width: 35vw;
+}
+.header{
+    font-size: 22px;
+    font-weight: 500;
+    color: black;
+    padding-left: 3%;
+    padding-bottom: 5%;
+    padding-top: 5%;
+}

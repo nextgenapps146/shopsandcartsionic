@@ -7,7 +7,7 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-
+<!-- 
   <ion-radio-group  [(ngModel)]="addressvalue" (click)="getDeliveryAddress()">
     <ion-item *ngFor="let add of addressArray">
       <ion-label>
@@ -38,15 +38,7 @@
     </ion-card-content>
   </ion-card>
 
-  <!-- <ion-row class="check-row">
-    <div *ngFor="let day of Days;let i=index" [ngClass]="{'days':CurrentIndex == i}  " (click)="slideTap(i)"
-      class="center">
-      <ion-col [ngClass]="{'days':CurrentIndex == i}" class="center">
-        <span class="day-addr">{{day}}</span>
-        <span *ngIf="check()"></span>
-      </ion-col>
-    </div>
-  </ion-row> -->
+ 
 
   <div class="heading">Delivery Mode</div>
   <ion-radio-group [(ngModel)]="selectedDeliveryMode">
@@ -81,8 +73,106 @@
         </ion-label>
       </ion-row>
     </ion-list>
-  </ion-radio-group>
+  </ion-radio-group> -->
+  <ion-list style="padding: 3%;">
+    <ion-item>
+      <ion-avatar slot="start">
+        <fa-icon [icon]="['fas', 'address-card']" class="icon"></fa-icon>
+      </ion-avatar>
+      <ion-label>
+        <h2>Delivery Address</h2>
+        <!-- <p> <strong>{{address.name}}</strong></p> -->
+      </ion-label>
+    </ion-item>
+  </ion-list>
+  <ion-row align-items-center>
+  </ion-row>
+  <ion-list style="padding: 3%;">
+    <ion-item>
+      <ion-avatar slot="start">
+        <fa-icon [icon]="['fas', 'shopping-basket']" class="icon"></fa-icon>
+      </ion-avatar>
+      <ion-label>
+        <h2>Deliver Mode</h2>
+        <p>{{selectedDeliveryMode}}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+  <ion-list style="padding: 3%;">
+    <ion-item>
+      <ion-avatar slot="start">
+        <fa-icon [icon]="['fas', 'money-check-alt']" class="icon"></fa-icon>
+      </ion-avatar>
+      <ion-label>
+        <h2>Payment Mode</h2>
+        <p>{{selectedPaymentMode}}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
 
+  <!-- <ion-list ion-ion-margin-top  class="list2 deliver-page-list">
+   
+ 
+    <ion-card  ion-no-padding class="cardSection" style="border-radius: 12px;">
+      <ion-item>
+        <ion-avatar slot="start">
+          <fa-icon [icon]="['fas', 'shopping-basket']" class="icon"></fa-icon>
+        </ion-avatar>
+        <ion-label>
+          <h2>Deliver Mode</h2>
+          <p>{{selectedDeliveryMode}}</p>
+        </ion-label>
+      </ion-item>
+      </ion-card>
+      <ion-card  ion-no-padding class="cardSection" style="border-radius: 12px;">
+      <ion-item>
+      <ion-avatar slot="start">
+        <fa-icon [icon]="['fas', 'money-check-alt']" class="icon"></fa-icon>
+      </ion-avatar>
+
+        <ion-label>
+          <h2>Payment Mode</h2>
+          <p>{{selectedPaymentMode}}</p>
+        </ion-label>
+      </ion-item>
+    </ion-card>
+    <ion-card  ion-no-padding class="cardSection" style="border-radius: 12px;">
+      <ion-item>
+        <ion-avatar slot="start">
+          <fa-icon [icon]="['fas', 'address-card']" class="icon"></fa-icon>
+        </ion-avatar>
+        <ion-label>
+          <h2>Delivery Address</h2>
+          <p>{{deliveryAddress}}</p>
+        </ion-label>
+      </ion-item>
+    </ion-card>
+     
+        </ion-list> -->
+        <ion-list style="padding: 3%;">
+          <ion-list-header class="header">
+            <ion-label>Items</ion-label>
+          </ion-list-header>
+            <ion-row style="text-align: center;">
+              <ion-col *ngFor="let product of cart.addCart;let i = index">
+                <img [src]="product.images[0]" class="img">
+                <div>{{ product.name }}</div>
+              </ion-col>
+            </ion-row>
+        
+          <!-- <div class="item-overlay" *ngIf="currentAddingItem && currentAddingItem.isItemAdding"(click)="currentAddingItem.isItemAdding=false"></div>
+          <div class="list-item" *ngFor="let product of cart.addCart;let i = index">
+              <ion-thumbnail class="flt-lt">
+                  <img [src]="product.images[0]">
+              </ion-thumbnail>
+              <ion-label class="flt-lt">
+                  <h3><strong>{{ product.name }}</strong></h3>
+                  
+              </ion-label>
+            
+             
+          </div> -->
+      </ion-list>
 </ion-content>
 
 <ion-footer (click)="paymentPage()">

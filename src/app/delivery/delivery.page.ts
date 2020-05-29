@@ -41,6 +41,7 @@ export class DeliveryPage implements OnInit {
   addressArray;
   paymentmode: any;
   storename: any;
+  customername: any;
   data = [];
   storeid: any;
   constructor(
@@ -50,6 +51,7 @@ export class DeliveryPage implements OnInit {
     public utils: UtilsServiceService,
     public fireStore: FirestoreService
   ) {
+
     this.Days = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
     this.Time = [
       "6AM - 9AM",
@@ -61,25 +63,26 @@ export class DeliveryPage implements OnInit {
     this.DeliveryMode = ["Deliver", "Pickup", "Curve site"];
     this.PaymentMode = ["Online", "Cash on dlivery", "Pay at store"];
     this.utils.AddAdressBackUrl = "/delivery";
+    this.customername = this.utils.userInfo.username;
+    this.getCartData();
+  }
 
-    this.router.queryParams.subscribe((params) => {
+
+  ngOnInit() { }
+   async getCartData() {
+   await this.router.queryParams.subscribe((params) => {
       if (params && params.storeid && params.storename) {
         this.storeid = params.storeid;
         this.storename = params.storename;
+        this.selectedDeliveryMode = params.selecteddeliverymode;
+        this.selectedPaymentMode = params.selectedpaymentmode;
+        this.addressvalue = params.addressvalue;
       }
     });
-    this.getAddress();
+    
+  await  this.getDeliveryAddress();
+  
   }
-
-  getAddress() {
-    this.fireStore.getUserAddress().then((address) => {
-      address.subscribe((address) => {
-        this.addressList = address;
-        this.addressArray = this.addressList;
-      });
-    });
-  }
-  ngOnInit() { }
 
   addAddress() {
     this.route.navigate(["add-address"]);
@@ -116,15 +119,22 @@ export class DeliveryPage implements OnInit {
   }
   itemId: any;
   deliveryAddress: any;
+
   getDeliveryAddress() {
-    this.fireStore.getDeliveryAddress(this.addressvalue).then((address) => {
+ this.fireStore.getDeliveryAddress(this.addressvalue).then((address) => {
       address.subscribe((address) => {
         this.address = address;
-
+        if(this.address)
+        {
+          this.deliveryAddress=this.address;
+        }
       });
     });
   }
+
+
   async paymentPage() {
+
     // switch (this.SlideIndex) {
     //   case 0:
     //     this.selectedDay = 'Sunday';
@@ -149,21 +159,19 @@ export class DeliveryPage implements OnInit {
 
     // }
     if (
-      this.selectedDeliveryMode &&
-      this.selectedPaymentMode
-    ) {
-      if (this.selectedDeliveryMode == "Deliver") {
-        if (this.address) {
-          this.deliveryAddress = this.address;
-        } else {
-          return this.utils.presentToast(
-            "Please add delivery address",
-            true,
-            "top",
-            2100
-          );
-        }
-      }
+      this.selectedDeliveryMode && this.selectedPaymentMode && this.deliveryAddress) {
+      // if (this.selectedDeliveryMode == "Deliver") {
+      //   if (this.address) {
+      //     this.deliveryAddress = this.address;
+      //   } else {
+      //     return this.utils.presentToast(
+      //       "Please add delivery address",
+      //       true,
+      //       "top",
+      //       2100
+      //     );
+      //   }
+      // }
       // const getAddress = (address) => {
       //   try {
       //     return address.flatNumber || '';
@@ -172,8 +180,7 @@ export class DeliveryPage implements OnInit {
       //   }
       // }
       const record = {
-        //addressvalue: getAddress(this.deliveryAddress || ''),
-        addressvalue: this.deliveryAddress || '',
+        addressvalue: this.address,
         selecteddeliverymode: this.selectedDeliveryMode,
         selectedpaymentmode: this.selectedPaymentMode,
         storeid: this.storeid,
