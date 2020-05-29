@@ -14,7 +14,7 @@ import { CartService } from "../services/CartServices/cart.service";
 import { Router, ActivatedRoute } from "@angular/router";
 import { AlertController } from "@ionic/angular";
 import { UtilsServiceService } from "../services/Utils/utils-service.service";
-
+import { FirestoreService } from "../services/firestore/firestore.service";
 @Component({
   selector: "app-cart",
   templateUrl: "./cart.page.html",
@@ -23,16 +23,21 @@ import { UtilsServiceService } from "../services/Utils/utils-service.service";
 export class CartPage implements OnInit {
   storeid: any;
   storename: any;
-  selectedPaymentMode:any;
-  selectedAddress:any;
-  selectedDeliveryMode:any;
+  selectedPaymentMode: any;
+  selectedAddress: any;
+  selecteddeliverymode: any;
+  addressvalue: any;
+  addressArray: any;
+  address: any;
+  addressList = [];
   constructor(
     public dataServ: DataService,
     public cart: CartService,
     public route: Router,
     public router: ActivatedRoute,
     public alertController: AlertController,
-    public utils:UtilsServiceService
+    public utils: UtilsServiceService,
+    public fireStore: FirestoreService
   ) {
     this.router.queryParams.subscribe((params) => {
       if (params && params.storeid && params.storename) {
@@ -40,6 +45,7 @@ export class CartPage implements OnInit {
         this.storename = params.storename;
         this.cart.setCurrentStore(this.storeid);
         this.addCart();
+        this.getAddress();
       }
     });
   }
@@ -60,6 +66,18 @@ export class CartPage implements OnInit {
         (parseFloat(el.regularPrice) - parseFloat(el.salePrice || 0));
     });
   }
+  getAddress() {
+    this.fireStore.getUserAddress().then((address) => {
+      address.subscribe((address) => {
+        this.addressList = address;
+        this.addressArray = this.addressList;
+      });
+    });
+  }
+
+  addAddress() {
+    this.route.navigate(["add-address"]);
+  }
 
   ngOnInit() {
     this.addCart();
@@ -68,7 +86,6 @@ export class CartPage implements OnInit {
   startShopping() {
     this.route.navigate(["home"]);
   }
-
   updateCart(productID, type) {
     const productunits = this.cart.addCart.find((el) => el.id === productID);
     let id;
@@ -139,8 +156,8 @@ export class CartPage implements OnInit {
   deliveryAddress() {
     const navigationExtras = {
       queryParams: {
-        addressvalue: this.selectedAddress,
-        selecteddeliverymode: this.selectedDeliveryMode,
+        addressvalue: this.addressvalue,
+        selecteddeliverymode: this.selecteddeliverymode,
         selectedpaymentmode: this.selectedPaymentMode,
         storeid: this.storeid,
         storename: this.storename,
