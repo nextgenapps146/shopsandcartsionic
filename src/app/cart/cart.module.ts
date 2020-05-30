@@ -18,6 +18,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { CartPage } from './cart.page';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { LocationPage } from '../location/location.page';
 
 const routes: Routes = [
   {
@@ -34,6 +35,7 @@ const routes: Routes = [
     FontAwesomeModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [CartPage]
+  declarations: [CartPage, LocationPage],
+  entryComponents: [LocationPage]
 })
 export class CartPageModule {}
