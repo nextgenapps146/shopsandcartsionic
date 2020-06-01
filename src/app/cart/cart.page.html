@@ -81,7 +81,7 @@
                 <h3>Delivery Address</h3>
             </ion-label>
         </div>
-        <ion-radio-group [(ngModel)]="addressvalue" s>
+        <!-- <ion-radio-group [(ngModel)]="addressvalue" s>
             <ion-item *ngFor="let add of addressArray">
                 <ion-label>
                     <ion-row align-items-center>
@@ -92,21 +92,23 @@
                 </ion-label>
                 <ion-radio slot="start" value={{add.id}} checked></ion-radio>
             </ion-item>
-        </ion-radio-group>
-        <!-- <ion-select placeholder="Select One" interface="popover"  [(ngModel)]="selectedAddress">
-                <ion-select-option value="add Address"  (click)="addAddress()">Add New Address</ion-select-option>
-                <ion-select-option value="address1">2120 Adamsway Drive, Aurora Il 60056</ion-select-option>
-                <ion-select-option value="address2">2120 Castlewood Road, Wheaton Il 60189</ion-select-option>
-            </ion-select> -->
+        </ion-radio-group> -->
+        <ion-select placeholder="Select One" interface="popover"  [(ngModel)]="selectedAddress" (ionChange)="addressChange()">
+                <ion-select-option value="add_address"  (click)="addAddress()">Add New Address</ion-select-option>
+                <ion-select-option *ngFor="let add of addressArray">
+                    {{add.flatNumbers}},{{add.street}},{{add.locality}}
+                </ion-select-option>
+                <!-- <ion-select-option value="address2">2120 Castlewood Road, Wheaton Il 60189</ion-select-option> -->
+            </ion-select>
 
-        <ion-card class="contentSection" (click)="addAddress()">
+        <!-- <ion-card class="contentSection" (click)="addAddress()">
             <ion-card-content>
                 <div class="dFlexAlignItemCenter">
                     <ion-icon name="add-circle-outline" class="iconSize fontSize"></ion-icon>
                     <h5 ion-padding-start class="fontSize">Add New Address</h5>
                 </div>
             </ion-card-content>
-        </ion-card>
+        </ion-card> -->
 
     </ion-list>
 

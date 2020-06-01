@@ -15,6 +15,8 @@ import { Router, ActivatedRoute } from "@angular/router";
 import { AlertController } from "@ionic/angular";
 import { UtilsServiceService } from "../services/Utils/utils-service.service";
 import { FirestoreService } from "../services/firestore/firestore.service";
+import { Platform, ModalController, MenuController } from '@ionic/angular';
+import { LocationPage } from '../location/location.page';
 @Component({
   selector: "app-cart",
   templateUrl: "./cart.page.html",
@@ -37,7 +39,8 @@ export class CartPage implements OnInit {
     public router: ActivatedRoute,
     public alertController: AlertController,
     public utils: UtilsServiceService,
-    public fireStore: FirestoreService
+    public fireStore: FirestoreService,
+    private modalController: ModalController
   ) {
     this.router.queryParams.subscribe((params) => {
       if (params && params.storeid && params.storename) {
@@ -151,6 +154,33 @@ export class CartPage implements OnInit {
     });
 
     await alert.present();
+  }
+
+  async addressChange(){
+    //alert(this.selectedAddress);
+    if(this.selectedAddress == "add_address"){
+      const modal = await this.modalController.create({
+        component: LocationPage,
+        cssClass: 'rateUs'
+      });
+      modal.onDidDismiss().then((res) => {
+        console.log(res.data);
+        const selectedAddressValue = res.data; 
+        if(selectedAddressValue){
+          this.fireStore.addUserAddress({
+            name: selectedAddressValue.name || '',
+            flatNumber: selectedAddressValue.flatNumber || '',
+            street: selectedAddressValue.street || '', 
+            locality: selectedAddressValue.locality || '',
+            title: selectedAddressValue.title || '',
+            addresstype: selectedAddressValue.addresstype || ''
+          }).then(async () => {
+            //this.route.navigate([this.utils.AddAdressBackUrl, { title: 'MyAddress' }]);
+          });
+        }
+      });
+      return await modal.present();
+    }
   }
 
   deliveryAddress() {

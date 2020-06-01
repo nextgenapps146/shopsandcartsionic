@@ -7,11 +7,11 @@
       <ion-back-button [text]="''" icon="close" class="btn-close"></ion-back-button>
     </ion-buttons>
   </ion-toolbar>
-  <ion-toolbar class="padding-tool">
+   <ion-toolbar class="padding-tool">
     <ion-searchbar #q placeholder="Search Location" ion-no-padding (keyup.enter)="searchAddress(q.value)"></ion-searchbar>
-    <p ion-no-ion-margin padding style="font-size:16px;text-align:center;">Or</p>
-    <button class="btn" ion-button full color="primary" (click)="getUserLocation()">Use my Current Location</button>
-  </ion-toolbar>
+   <!-- <p ion-no-ion-margin padding style="font-size:16px;text-align:center;">Or</p>
+    <button class="btn" ion-button full color="primary" (click)="getUserLocation()">Use my Current Location</button>-->
+  </ion-toolbar> 
 </ion-header>
 
 <ion-content ion-no-padding>
@@ -26,7 +26,7 @@
 
   <ion-list *ngIf="possibleAddresses && possibleAddresses.length > 0">
     <ion-radio-group value="biff">
-      <ion-item *ngFor="let address of possibleAddresses">
+      <ion-item *ngFor="let address of possibleAddresses" (click)="addressSelect(address)">
         <ion-label>
             <h3>{{ address.streetnumber }} {{ address.route }}</h3>
             <p>{{ address.city }}, {{ address.state }} {{ address.zipcode }}</p>
