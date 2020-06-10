@@ -26,19 +26,25 @@ import { CategoriesComponent } from '../components/categories/categories.compone
 import { SharedModule } from '../share.module';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    SharedModule,
-    FontAwesomeModule,
-    RouterModule.forChild([
-      {
-        path: '',
-        component: HomePage
-      }
-    ])
-  ],
-  declarations: [HomePage, TopSaversComponent, BestOffersComponent, PopularDealsComponent, ShortOffersComponent]
+    imports: [
+        CommonModule,
+        FormsModule,
+        IonicModule,
+        SharedModule,
+        FontAwesomeModule,
+        RouterModule.forChild([
+            {
+                path: '',
+                component: HomePage
+            }
+        ])
+    ],
+    declarations: [
+        HomePage,
+        TopSaversComponent,
+        BestOffersComponent,
+        PopularDealsComponent,
+        ShortOffersComponent
+    ]
 })
-export class HomePageModule {}
+export class HomePageModule { }

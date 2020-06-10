@@ -112,7 +112,12 @@ export class AppComponent {
             }
         });
         this.getUserInAndAround();
-        this.userDetails = { profileUrl: 'assets/images/user.png', name: ' Hey John Smith', phoneNo: '+91-000-0000-0000', location: 'jaipur' };
+        this.userDetails = {
+            profileUrl: 'assets/images/user.png',
+            name: ' Hey John Smith',
+            phoneNo: '+91-000-0000-0000',
+            location: 'jaipur'
+        };
         this.userPersonalDetails = [
             {
                 icons: 'assets/images/delivery-truck.png',

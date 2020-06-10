@@ -1,16 +1,16 @@
 // http://ionicframework.com/docs/theming/
-@import '~@ionic/angular/css/core.css';
-@import '~@ionic/angular/css/normalize.css';
-@import '~@ionic/angular/css/structure.css';
-@import '~@ionic/angular/css/typography.css';
+@import "~@ionic/angular/css/core.css";
+@import "~@ionic/angular/css/normalize.css";
+@import "~@ionic/angular/css/structure.css";
+@import "~@ionic/angular/css/typography.css";
 
-@import '~@ionic/angular/css/padding.css';
-@import '~@ionic/angular/css/float-elements.css';
-@import '~@ionic/angular/css/text-alignment.css';
-@import '~@ionic/angular/css/text-transformation.css';
-@import '~@ionic/angular/css/flex-utils.css';
-@import url('https://fonts.googleapis.com/css?family=Slabo+27px');
-@import url('https://fonts.googleapis.com/css?family=Nunito');
+@import "~@ionic/angular/css/padding.css";
+@import "~@ionic/angular/css/float-elements.css";
+@import "~@ionic/angular/css/text-alignment.css";
+@import "~@ionic/angular/css/text-transformation.css";
+@import "~@ionic/angular/css/flex-utils.css";
+@import url("https://fonts.googleapis.com/css?family=Slabo+27px");
+@import url("https://fonts.googleapis.com/css?family=Nunito");
 // @import url('https://fonts.googleapis.com/css?family=Abel');
 
 /**
@@ -23,7 +23,7 @@
  *
  */
 
- .flt-lt {
+.flt-lt {
     float: left;
 }
 
@@ -47,7 +47,7 @@ ion-list.list1 {
         border-bottom: 1px solid;
 
         .link {
-            color: #F53D3D;
+            color: #f53d3d;
         }
     }
 
@@ -68,7 +68,7 @@ ion-list.list1 {
 
         .round-icon-btn {
             border-radius: 18px;
-            color: #F53D3D;
+            color: #f53d3d;
             font-size: 30px;
         }
 
@@ -174,7 +174,18 @@ ion-menu-button {
     height: 45px;
 }
 
-.dFlexRow.deliverySection {
+ion-searchbar {
+    padding-top: 0;
+    padding-bottom: 0;
+    height: 45px;
+}
+
+.dFlexRow {
+    display: flex;
+    flex-direction: column;
+}
+
+.dFlexRow.headerSection {
     ion-note {
         font-size: 10px;
         margin-top: 4px;
