@@ -1,14 +1,3 @@
-/**
- * Ionic 4  Grocery Complete Platform(https://store.enappd.com/product/ionic-4-grocery-app-and-admin-dashboard)
- *
- * Copyright © 2019-present Enappd. All rights reserved.
- *
- * This source code is licensed as per the terms found in the
- * LICENSE.md file in the root directory of this source .
- *
- */
-
-
 import { NgModule, } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
@@ -19,11 +8,11 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AngularFireModule } from '@angular/fire';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { IssuePage } from './issue/issue.page';
-import { SearchPage } from './search/search.page';
-import { AngularFirestore } from '@angular/fire/firestore';
-import { AccordianComponent } from './components/accordian/accordian.component';
-import { RateUsPage } from './rate-us/rate-us.page';
+// import { IssuePage } from './modules/issue/issue.page';
+// import { SearchPage } from './modules/search/search.page';
+// import { AngularFirestore } from '@angular/fire/firestore';
+// import { AccordianComponent } from './components/accordian/accordian.component';
+// import { RateUsPage } from './modules/rate-us/rate-us.page';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { NativeGeocoder } from '@ionic-native/native-geocoder/ngx';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
@@ -33,14 +22,26 @@ import { FirestoreService } from './services/firestore/firestore.service';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
-import { FirebaseX } from "@ionic-native/firebase-x/ngx";
+import { FirebaseX } from '@ionic-native/firebase-x/ngx';
 import { FCM } from '@ionic-native/fcm/ngx';
 import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { fas } from '@fortawesome/free-solid-svg-icons';
+import { ComponentsModule } from './components/components.module';
+
 @NgModule({
-    declarations: [AppComponent, IssuePage, SearchPage, RateUsPage],
-    entryComponents: [IssuePage, SearchPage, RateUsPage],
+    declarations: [
+        AppComponent,
+        // IssuePage,
+        // SearchPage,
+        // RateUsPage
+    ],
+    entryComponents: [
+        // IssuePage,
+        // SearchPage,
+        // RateUsPage
+    ],
     imports: [
+        ComponentsModule,
         BrowserModule,
         AngularFireModule.initializeApp(environment.firebase),
         IonicModule.forRoot(),

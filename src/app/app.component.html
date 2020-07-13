@@ -1,8 +1,19 @@
 <ion-app>
-    <ion-split-pane contentId="menu-content">
-        <ion-menu contentId="menu-content">
+        <ion-menu menu-id="first">
             <ion-content>
-                <div *ngIf="userDetails" class="userSection" ion-padding-top ion-padding-start (click)="userProfile()">
+                <div *ngIf="utils.userInfo" class="userSection" ion-padding-top ion-padding-start (click)="userProfile()">
+                    <ion-avatar slot="start">
+                        <img [alt]="utils.userInfo.username" [src]="utils.userInfo.profileimage">
+                    </ion-avatar>
+                    <div ion-padding-start class="user_name">
+                        <ion-label>
+                            {{ utils.userInfo.username }}
+                            <ion-icon name="md-create"></ion-icon>
+                        </ion-label>
+                        <div class="email">{{ utils.userInfo.email }}</div>
+                    </div>
+                </div>
+                <!-- <div *ngIf="userDetails" class="userSection" ion-padding-top ion-padding-start (click)="userProfile()">
                     <ion-avatar slot="start">
                         <img [src]="userDetails.profileUrl">
                     </ion-avatar>
@@ -14,7 +25,7 @@
                     <div class="arrowSection">
                         <ion-icon name="arrow-forward" slot="end" color="dark" mode="ios"></ion-icon>
                     </div>
-                </div>
+                </div> -->
 
                 <!-- <div class="locationSection" ion-padding-start ion-padding-bottom (click)="locationPage()">
                     <div class="pinSection">
@@ -46,7 +57,6 @@
                     </ion-menu-toggle>
                 </ion-list>
 
-
                 <ion-list>
                     <div style="margin-bottom: 8px;">
                         <ion-label ion-padding-start><b style="margin-left: 6%;">Others</b></ion-label>
@@ -62,6 +72,5 @@
                 </ion-list>
             </ion-content>
         </ion-menu>
-        <ion-router-outlet id="menu-content"></ion-router-outlet>
-    </ion-split-pane>
+        <ion-router-outlet main></ion-router-outlet>
 </ion-app>

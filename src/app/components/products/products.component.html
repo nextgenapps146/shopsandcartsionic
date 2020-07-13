@@ -1,0 +1,23 @@
+<div class="product-list">
+    <div class="item" *ngFor="let item of list">
+        <span (click)="handleItemClick(item)">
+            <h4>25% OFF</h4>
+            <div class="image-container">
+                <img alt="" [src]="item.images[0]">
+            </div>
+            <div class="name-container">
+                <span>{{ item.name }}</span>
+            </div>
+            <h5>1 kg</h5>
+            <div class="price-container">
+                <span class="reg">${{ item.regularPrice }}</span>
+                <span class="sale">${{ item.regularPrice }}</span>
+            </div>
+        </span>
+        <div *ngIf="showAddToStoreBtn" class="add-btn" [ngClass]="item.isAdded ? 'disbale': ''"
+            (click)="!item.isAdded && addToStoreBtnClick(item)">
+            <span *ngIf="!item.isAdded">Add to Store</span>
+            <span *ngIf="item.isAdded">Added</span>
+        </div>
+    </div>
+</div>

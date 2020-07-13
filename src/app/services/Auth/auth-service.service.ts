@@ -5,7 +5,7 @@ import { take } from 'rxjs/operators';
 // import { UserDataService } from "../data-services/user-data.service";
 import { User } from 'firebase';
 import { resolve } from 'url';
-import { UtilsServiceService } from '../Utils/utils-service.service';
+import { UtilsService } from '../utils.service';
 import { FirestoreService } from '../firestore/firestore.service';
 
 export class AuthInfo {
@@ -19,12 +19,13 @@ export class AuthInfo {
 @Injectable({
     providedIn: 'root'
 })
+
 export class AuthServiceService {
 
     static UNKNOWN_USER = new AuthInfo(null);
     public authInfo$: BehaviorSubject<AuthInfo> = new BehaviorSubject<AuthInfo>(AuthServiceService.UNKNOWN_USER);
     userId = this.authInfo$.asObservable();
-    constructor(private fireStore: FirestoreService, private fireAuth: AngularFireAuth, private util: UtilsServiceService) {
+    constructor(private fireStore: FirestoreService, private fireAuth: AngularFireAuth, private util: UtilsService) {
 
         this.fireAuth.authState.pipe(
             take(1)

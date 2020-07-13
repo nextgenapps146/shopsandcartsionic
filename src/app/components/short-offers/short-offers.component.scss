@@ -1,45 +1,34 @@
-/**
- * Ionic 4  Grocery Complete Platform(https://store.enappd.com/product/ionic-4-grocery-app-and-admin-dashboard)
- *
- * Copyright © 2019-present Enappd. All rights reserved.
- *
- * This source code is licensed as per the terms found in the
- * LICENSE.md file in the root directory of this source .
- *
- */
-
-
 
 
 .contentSection{
     background: #fff;
     margin: 8px;
   }
-  
+
   .leftHeading{
     font-size: 20px;
     font-weight: bold;
   }
-  
+
   .rightHeading{
     font-size: 18px;
   }
-  
+
   .topRightSection{
       border: 1px solid #9e9898;
       padding: 6px;
       border-radius: 5px;
   }
-  
+
   .productCard{
     box-shadow: 0 4px 16px rgba(156, 153, 153, 0.97);
     --box-shadow: 0 4px 16px rgba(156, 153, 153, 0.97);
     width: 60%;
-  
+
     .productImage{
       padding: 0 40px;
       position: relative;
-  
+
       .discountSection {
         background: #15bf15;
         color: #fff;
@@ -51,7 +40,7 @@
         left: 10px;
     }
     }
-  
+
     ion-card-header{
       padding: 0 16px;
     }
@@ -61,36 +50,36 @@
       padding-left: 16px;
       color: #000;
     }
-  
-    
+
+
   }
-  
+
   .addBtnIcon{
     background:var(--ion-color-primary);
     --background:var(--ion-color-primary);
   }
-  
+
   .addBtnSection{
     .addBtn{
       border-radius:5px;
-    --border-radius:5px; 
+    --border-radius:5px;
     }
-    
+
   }
-  
+
   .productName{
     font-size: 22px;
     color:var(--ion-color-dark);
     padding-top: 8px;
   }
-  
+
   .productDesc{
     color:var(--ion-color-dark);
     // text-align: justify;
     padding-bottom: 16px;
   }
-  
-  
+
+
   .productCardSection{
     white-space: nowrap;
     height: auto;
@@ -116,6 +105,5 @@
     font-size: 18px;
     font-weight: 800;
     margin-top: 10px;
-  }  
-  
-  
+  }
+

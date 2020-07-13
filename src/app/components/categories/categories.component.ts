@@ -1,48 +1,24 @@
-/**
- * Ionic 4  Grocery Complete Platform(https://store.enappd.com/product/ionic-4-grocery-app-and-admin-dashboard)
- *
- * Copyright © 2019-present Enappd. All rights reserved.
- *
- * This source code is licensed as per the terms found in the
- * LICENSE.md file in the root directory of this source .
- *
- */
-
-
-import { Component, OnInit, Renderer, ViewChild, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
-  selector: 'store-categories',
-  templateUrl: './categories.component.html',
-  styleUrls: ['./categories.component.scss'],
+    selector: 'app-categories',
+    templateUrl: './categories.component.html',
+    styleUrls: ['./categories.component.scss'],
 })
 export class CategoriesComponent implements OnInit {
 
-  accordianExpandable = false;
-  cardContentToggle = false;
+    @Input()
+    list: Array<any>;
 
-  @ViewChild('cardContent', { static: true }) cardContent: any;
-  @Input() title: string;
-  @Input() image: string;
-  @Input() label: string;
-  @Input() desc: string;
-  @Input() youInm: string;
-  constructor(public render: Renderer) { }
+    @Output()
+    categoriesEvent: EventEmitter<any> = new EventEmitter();
 
-  ngOnInit() {
+    constructor() { }
 
-  }
+    ngOnInit() { }
 
-  toggleAccordian() {
-    this.cardContentToggle = !this.cardContentToggle;
-    this.accordianExpandable = !this.accordianExpandable;
-    if (this.accordianExpandable) {
+    rightArrowClick(item) {
+        this.categoriesEvent.emit({ name: 'arrow-right', type: 'click', item });
     }
-  }
-
-  condition() {
-    return this.accordianExpandable;
-  }
-
 
 }

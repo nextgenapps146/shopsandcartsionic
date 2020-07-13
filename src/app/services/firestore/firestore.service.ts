@@ -2,11 +2,12 @@ import { Injectable } from '@angular/core';
 import { AngularFirestoreCollection, AngularFirestore } from '@angular/fire/firestore';
 import { map } from 'rxjs/operators';
 import * as firebase from 'firebase';
-import { UtilsServiceService } from '../Utils/utils-service.service';
+import { UtilsService } from '../utils.service';
 
 @Injectable({
     providedIn: 'root'
 })
+
 export class FirestoreService {
     chatMessagesCollectionReference: AngularFirestoreCollection<ChatMessages>;
     chatContactsCollectionReference: AngularFirestoreCollection<ChatContacts>;
@@ -26,7 +27,8 @@ export class FirestoreService {
     UserOrders: any = [];
     recentSearches: any = [];
     storesNearBy: any = [];
-    constructor(private utils: UtilsServiceService, public Afs: AngularFirestore) { }
+
+    constructor(private utils: UtilsService, public Afs: AngularFirestore) { }
 
 
     // *****************************************************************************************************************************
@@ -164,13 +166,13 @@ export class FirestoreService {
                 }))
             );
     }
-    
+
     public async getDeliveryAddress(address_id) {
         this.addressCollectionRefrence = this.Afs.collection<User>('address');
         return this.addressCollectionRefrence.doc(address_id)
             .snapshotChanges().pipe(
                 map((res: any) => {
-                    let record = res.payload.data() as User;
+                    const record = res.payload.data() as User;
                     return record;
                 })
             );
@@ -374,21 +376,25 @@ export class FirestoreService {
 
     public async addChatPushMessage(record) {
         const xhr = new XMLHttpRequest();
-        xhr.addEventListener("readystatechange", function () {
-            if (this.readyState === 4) console.log(this.responseText);
+        xhr.addEventListener('readystatechange', function () {
+            if (this.readyState === 4) {
+                console.log(this.responseText);
+            }
         });
-        xhr.open("POST", "https://us-central1-bansik-7c7c4.cloudfunctions.net/function-1");
-        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.open('POST', 'https://us-central1-bansik-7c7c4.cloudfunctions.net/function-1');
+        xhr.setRequestHeader('Content-Type', 'application/json');
         xhr.send(JSON.stringify(record));
     }
 
     public async sendNotificaion(record) {
         const xhr = new XMLHttpRequest();
-        xhr.addEventListener("readystatechange", function () {
-            if (this.readyState === 4) console.log(this.responseText);
+        xhr.addEventListener('readystatechange', function () {
+            if (this.readyState === 4) {
+                console.log(this.responseText);
+            }
         });
-        xhr.open("POST", "https://us-central1-bansik-7c7c4.cloudfunctions.net/function-1");
-        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.open('POST', 'https://us-central1-bansik-7c7c4.cloudfunctions.net/function-1');
+        xhr.setRequestHeader('Content-Type', 'application/json');
         xhr.send(JSON.stringify(record));
     }
 
@@ -398,7 +404,7 @@ export class FirestoreService {
             .snapshotChanges().pipe(
                 map((res: any) => {
                     // Since this is a single object only one value will come here
-                    let record = res.payload.data() as User;
+                    const record = res.payload.data() as User;
                     return record;
                 })
             );
@@ -410,7 +416,7 @@ export class FirestoreService {
             .snapshotChanges().pipe(
                 map((res: any) => {
                     // Since this is a single object only one value will come here
-                    let record = res.payload.data() as ChatContacts;
+                    const record = res.payload.data() as ChatContacts;
                     return record;
                 })
             );
@@ -419,13 +425,13 @@ export class FirestoreService {
     public async addOrder(record) {
         this.ordersCollectionRefrence = this.Afs.collection('orders');
         return await this.ordersCollectionRefrence.add(record).then((doc) => {
-            return doc.id
+            return doc.id;
         });
     }
 
     public async  addOrderItem(record) {
         this.ordersItemCollectionRefrence = this.Afs.collection('orderitems');
-        return await this.ordersItemCollectionRefrence.add(record)
+        return await this.ordersItemCollectionRefrence.add(record);
     }
 
 }

@@ -1,98 +1,43 @@
+ion-list {
+    ion-item {
+        --background: #FFF !important;
+        padding: 18px 0;
+        --padding-start: 0;
+        margin: 0 25px;
 
+        ion-thumbnail {
+            height: 70px;
+            width: 70px;
+            margin-right: 25px;
+        }
 
-/**
- * Ionic 4  Grocery Complete Platform(https://store.enappd.com/product/ionic-4-grocery-app-and-admin-dashboard)
- *
- * Copyright © 2019-present Enappd. All rights reserved.
- *
- * This source code is licensed as per the terms found in the
- * LICENSE.md file in the root directory of this source .
- *
- */
+        ion-label {
+            h4 {
+                font-size: 11px;
+                font-weight: bold;
+                text-transform: uppercase;
+                color: #f1a034;
+                margin-bottom: 2px;
+            }
+            h2 {
+                text-transform: capitalize;
+            }
+            p {
+                color: #656464;
+                font-size: 10px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                -webkit-box-orient: vertical;
+                display: -webkit-box;
+                -webkit-line-clamp: 2;
+                white-space: break-spaces;
+            }
+        }
 
-
-.contentSection{
-    margin: 8px;
-    margin: 8px;
-}
-
-.card-header{
-    background-color: white;
-    color:rgb(12, 11, 11);
-}
-.card-content{
-}
-.sideImg{
-  height:80px;
-  width:100px;
-  float: left;
-  margin-top: 25px;
-}
-.title{
-  margin-top:20px;
-  margin-left:10px;
-  font-size: 22px;
-}
-.colorChange{
-  background-color: var(--ion-color-primary)
-}
-
-.labels{
-  margin-left:7px;
-}
-
-.des{
-  margin-left:10px;
-  font-size: 18px;
-}
-
-
-.discountSection {
-    background: #15bf15;
-    color: #fff;
-    position: absolute;
-    padding: 6px 16px;
-    border-radius: 5px;
-    font-weight: bold;
-    margin-top: 4px;
-    left: 10px;
-}
-
-.iconBtn{
-    position: absolute;
-    right: -10px;
-    top: -20px;
-    .icons{
-        float:right;
-        font-size: 18px;
-        margin-top: 10px;
-        margin-left: 10px;
-        margin-right: 0px;
-        zoom:1.5;
-      
+        ion-icon {
+            color: #F53D3D;
+            font-size: 28px;
+            margin-right: 0;
+        }
     }
 }
-
-.minheight{
-    background:var(--ion-color-primary);
-}
-.carminHeight{
-    background: #fff;
-}
-
-.titleSection{
-    white-space: nowrap;
-    width: 60%;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.textColorWhite{
-    color:#fff;
-    color:var(--ion-color-light)
-}
-.textColorBlack{
-    color: #000;
-    color:var(--ion-color-dark)
-}
-

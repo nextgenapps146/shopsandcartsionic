@@ -1,25 +1,13 @@
-/**
- * Ionic 4  Grocery Complete Platform(https://store.enappd.com/product/ionic-4-grocery-app-and-admin-dashboard)
- *
- * Copyright © 2019-present Enappd. All rights reserved.
- *
- * This source code is licensed as per the terms found in the
- * LICENSE.md file in the root directory of this source .
- *
- */
-
-
 import { Component } from '@angular/core';
-
 import { Platform, ModalController, MenuController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { Router } from '@angular/router';
-import { RateUsPage } from './rate-us/rate-us.page';
+import { RateUsPage } from './modules/rate-us/rate-us.page';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 import { AuthServiceService } from './services/Auth/auth-service.service';
 import { FirestoreService } from './services/firestore/firestore.service';
-import { UtilsServiceService } from './services/Utils/utils-service.service';
+import { UtilsService } from './services/utils.service';
 import { FirebaseX } from '@ionic-native/firebase-x/ngx';
 import { CartService } from './services/CartServices/cart.service';
 
@@ -100,7 +88,7 @@ export class AppComponent {
         private socialSharing: SocialSharing,
         public authService: AuthServiceService,
         public fireStore: FirestoreService,
-        public utils: UtilsServiceService,
+        public utils: UtilsService,
         private firebase: FirebaseX
     ) {
         this.initializeApp();

@@ -1,0 +1,21 @@
+<ion-header>
+    <ion-toolbar class="toolbar-up" color="primary">
+        <ion-icon *ngIf="!showBackButton" slot="start" name="menu" (click)="openFirst()"></ion-icon>
+        <ion-icon *ngIf="showBackButton" slot="start" name="arrow-back" (click)="goBack()"></ion-icon>
+        <div class="">{{ title }}</div>
+        <ion-buttons *ngIf="showOrdersIcon" slot="end">
+            <fa-icon slot="end" [icon]="['fas', 'shopping-cart']"></fa-icon>
+            <ion-badge color="danger">3</ion-badge>
+        </ion-buttons>
+        <ion-buttons *ngIf="showChatIcon" slot="end">
+            <fa-icon slot="end" [icon]="['fas', 'comment-dots']"></fa-icon>
+            <ion-badge color="danger">5</ion-badge>
+        </ion-buttons>
+        <ion-buttons *ngIf="showMoreIcon" slot="end" (click)="moreIconClick()">
+            <fa-icon slot="end" [icon]="['fas', 'ellipsis-v']"></fa-icon>
+        </ion-buttons>
+    </ion-toolbar>
+    <ion-toolbar class="toolbar-down" color="primary">
+        <ion-searchbar color="light" md="ios" (click)="searchPage()"></ion-searchbar>
+    </ion-toolbar>
+</ion-header>

@@ -1,100 +1,86 @@
-/**
- * Ionic 4  Grocery Complete Platform(https://store.enappd.com/product/ionic-4-grocery-app-and-admin-dashboard)
- *
- * Copyright © 2019-present Enappd. All rights reserved.
- *
- * This source code is licensed as per the terms found in the
- * LICENSE.md file in the root directory of this source .
- *
- */
-
-
-.contentSection{
+.contentSection {
     background: #fff;
     margin: 8px;
-  }
+}
 
-  .leftHeading{
+.leftHeading {
     font-size: 20px;
     font-weight: bold;
-  }
-  
-  .rightHeading{
+}
+
+.rightHeading {
     font-size: 18px;
-  }
-  
-  .topRightSection{
+}
+
+.topRightSection {
     border: 1px solid #9e9898;
     padding: 6px;
     border-radius: 5px;
-  }
-  
-  .productCard{
+}
+
+.productCard {
     box-shadow: 0 4px 16px rgba(156, 153, 153, 0.97);
     --box-shadow: 0 4px 16px rgba(156, 153, 153, 0.97);
     width: 60%;
-  
-    .productImage{
-      padding: 0 40px;
-      position: relative;
-  
-      .discountSection {
-        background: #15bf15;
-        color: #fff;
-        position: absolute;
-        padding: 6px 16px;
-        border-radius: 5px;
-        font-weight: bold;
-        margin-top: -10px;
-        left: 10px;
-      }
-    }
-  
-    ion-card-header{
-      padding: 0 16px;
-    }
-    .subTitle{
-      font-size: 16px;
-      text-decoration: line-through;
-      padding-left: 16px;
-      color: #000;
+
+    .productImage {
+        padding: 0 40px;
+        position: relative;
+
+        .discountSection {
+            background: #15bf15;
+            color: #fff;
+            position: absolute;
+            padding: 6px 16px;
+            border-radius: 5px;
+            font-weight: bold;
+            margin-top: -10px;
+            left: 10px;
+        }
     }
 
-  }
-  
-  .addBtnIcon{
-    background:var(--ion-color-primary);
-    --background:var(--ion-color-primary);
-  }
-  
-  .addBtnSection{
-    .addBtn{
-      border-radius:5px;
-    --border-radius:5px; 
+    ion-card-header {
+        padding: 0 16px;
     }
-    
-  }
-  
-  .productName{
+    .subTitle {
+        font-size: 16px;
+        text-decoration: line-through;
+        padding-left: 16px;
+        color: #000;
+    }
+}
+
+.addBtnIcon {
+    background: var(--ion-color-primary);
+    --background: var(--ion-color-primary);
+}
+
+.addBtnSection {
+    .addBtn {
+        border-radius: 5px;
+        --border-radius: 5px;
+    }
+}
+
+.productName {
     font-size: 22px;
-    color:var(--ion-color-dark);
+    color: var(--ion-color-dark);
     padding-top: 8px;
-  }
-  
-  .productDesc{
-    color:var(--ion-color-dark);
+}
+
+.productDesc {
+    color: var(--ion-color-dark);
     // text-align: justify;
     padding-bottom: 16px;
-  }
-  
-  
-  .productCardSection{
+}
+
+.productCardSection {
     white-space: nowrap;
     height: auto;
-    overflow-X: scroll;
+    overflow-x: scroll;
     overflow-y: hidden;
-  }
-  .productCard{
+}
+.productCard {
     display: inline-block;
     white-space: pre-line;
     padding: 2px auto;
@@ -102,16 +88,15 @@
     height: auto;
     box-shadow: 0 4px 16px rgba(156, 153, 153, 0.97);
     --box-shadow: 0 4px 16px rgba(156, 153, 153, 0.97);
-  }
-  
-  .segmentBtn{
+}
+
+.segmentBtn {
     // min-width: 45px;
     // max-width: 60px;
 }
 
-.textUnits{
-  font-size: 18px;
-  font-weight: 800;
-  margin-top: 10px;
+.textUnits {
+    font-size: 18px;
+    font-weight: 800;
+    margin-top: 10px;
 }
-  
