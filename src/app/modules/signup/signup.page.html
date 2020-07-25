@@ -1,40 +1,64 @@
 <ion-content ion-no-padding>
     <div class="main">
-      <ion-card ion-no-ion-margin class="card">
-          <ion-card-content>
-              <ion-row class="row">
-                  <div class="fire-logo">
-                      <img src="../../assets/imgs/icon.png" class="img-logo">
-                      <ion-text><h2 ion-no-ion-margin ion-margin-vertical text-center>Sign Up</h2></ion-text>
+        <ion-card ion-no-ion-margin class="card">
+            <ion-card-content>
+                <!-- <ion-row class="row">
+                    <div class="fire-logo">
+                        <img src="../../assets/imgs/icon.png" class="img-logo">
+                        <ion-text>
+                            <h2 ion-no-ion-margin ion-margin-vertical text-center>Sign Up</h2>
+                        </ion-text>
                     </div>
-              </ion-row>
-              <ion-row>
-                  <ion-col>
-                    <ion-input type="text" placeholder="User Name" [(ngModel)]="first_name" class="input" ion-padding-horizontal></ion-input>
-                  </ion-col>
-                </ion-row>
-                <ion-row>
-                  <ion-col>
-                    <ion-input clearInput type="email" placeholder="Email" [(ngModel)]="email" class="input" ion-padding-horizontal></ion-input>
-                  </ion-col>
-                </ion-row>
-                <ion-row>
-                  <ion-col>
-                    <ion-input clearInput type="password" placeholder="Password" [(ngModel)]="password" class="input" ion-padding-horizontal></ion-input>
-                  </ion-col>
-                </ion-row>
-                <ion-row>
-                  <ion-col>
-                    <ion-button expand="block" color="undefined" class="btn-transition" (click)="signup()" ><strong >Create an Account</strong></ion-button>
-                  </ion-col>
+                </ion-row> -->
+                <div class="fire-logo">
+                    <img src="../../assets/imgs/icon.png" class="img-logo">
+                    <ion-text>
+                        <h2 ion-no-ion-margin ion-margin-vertical text-center>Sign Up</h2>
+                    </ion-text>
+                </div>
+                <ion-item class="f-item">
+                    <ion-input type="text" placeholder="First Name" [(ngModel)]="firstname"></ion-input>
+                </ion-item>
+                <ion-item class="f-item">
+                    <ion-input type="text" placeholder="Last Name" [(ngModel)]="lastname"></ion-input>
+                </ion-item>
+                <ion-item class="f-item">
+                    <ion-input type="text" placeholder="Email" [(ngModel)]="email" name="email"></ion-input>
+                </ion-item>
+                <ion-item class="f-item">
+                    <ion-input type="tel" placeholder="Phone" (ionInput)="enableContinue($event)" [(ngModel)]="phone" name="phone"></ion-input>
+                </ion-item>
+                <!-- <ion-row>
+                    <ion-col>
+                        <ion-input type="text" placeholder="User Name" [(ngModel)]="first_name" class="input"
+                            ion-padding-horizontal></ion-input>
+                    </ion-col>
                 </ion-row>
                 <ion-row>
                     <ion-col>
-                      <ion-button expand="block" fill="outline" color="undefined" (click)="util.navigate('login')" class="btn-color"><strong>Have an account? Sign in</strong></ion-button>
+                        <ion-input clearInput type="email" placeholder="Email" [(ngModel)]="email" class="input"
+                            ion-padding-horizontal></ion-input>
                     </ion-col>
-                  </ion-row>
-          </ion-card-content>
+                </ion-row>
+                <ion-row>
+                    <ion-col>
+                        <ion-input clearInput type="password" placeholder="Password" [(ngModel)]="password"
+                            class="input" ion-padding-horizontal></ion-input>
+                    </ion-col>
+                </ion-row> -->
+                <ion-row>
+                    <ion-col>
+                        <ion-button expand="block" color="undefined" class="btn-transition" (click)="signup()">
+                            <strong>Create an Account</strong></ion-button>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col>
+                        <ion-button expand="block" fill="outline" color="undefined" (click)="util.navigate('login')"
+                            class="btn-color"><strong>Have an account? Sign in</strong></ion-button>
+                    </ion-col>
+                </ion-row>
+            </ion-card-content>
         </ion-card>
-  </div>
-  </ion-content>
-
+    </div>
+</ion-content>

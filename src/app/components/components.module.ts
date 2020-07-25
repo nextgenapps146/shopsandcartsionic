@@ -7,19 +7,22 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { CategoriesComponent } from './categories/categories.component';
 import { ProductsComponent } from './products/products.component';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
+import { SelectLocationComponent } from './select-location/select-location.component';
 
 @NgModule({
     declarations: [
         HeaderComponent,
         CategoriesComponent,
         ProductsComponent,
-        ProductDetailComponent
+        ProductDetailComponent,
+        SelectLocationComponent
     ],
     exports: [
         HeaderComponent,
         CategoriesComponent,
         ProductsComponent,
-        ProductDetailComponent
+        ProductDetailComponent,
+        SelectLocationComponent
     ],
     imports: [
         FontAwesomeModule,

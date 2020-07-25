@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FirestoreService } from '../../services/firestore/firestore.service';
+import { OrderService } from 'src/app/services/order.service';
 
 @Component({
     selector: 'app-order-items',
@@ -13,7 +13,7 @@ export class OrderItemsPage implements OnInit {
     itemid: any;
     items = [];
 
-    constructor(private route: ActivatedRoute, private fsServices: FirestoreService) {
+    constructor(private route: ActivatedRoute, private orderService: OrderService) {
         this.loadItem();
     }
 
@@ -25,7 +25,7 @@ export class OrderItemsPage implements OnInit {
             if (params && params.itemid) {
                 this.itemid = params.itemid;
 
-                this.fsServices.getOrdersItem(this.itemid).then((items) => {
+                this.orderService.getOrdersItem(this.itemid).then((items) => {
                     items.subscribe(items => {
                         this.items = items;
 

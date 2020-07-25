@@ -9,6 +9,7 @@ import { MyAccountPage } from './my-account.page';
 import { PaymentcardsComponent } from '../../components/paymentcards/paymentcards.component';
 import { MyProfileComponent } from '../../components/my-profile/my-profile.component';
 import { MyAddressComponent } from '../../components/my-address/my-address.component';
+import { ComponentsModule } from 'src/app/components/components.module';
 
 const routes: Routes = [
   {
@@ -19,6 +20,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [
+    ComponentsModule,
     CommonModule,
     FormsModule,
     IonicModule,

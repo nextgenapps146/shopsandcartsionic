@@ -13,6 +13,13 @@ export class MyAccountPage implements OnInit {
     selectSegment;
     userDetails;
     profileUrl;
+    segmentItems = [
+        { title: 'Profile', active: true },
+        { title: 'Card' },
+        { title: 'Address' }
+    ];
+    activeSegment = 'Profile';
+
     constructor(
         public cart: CartService,
         private activeRoute: ActivatedRoute,
@@ -36,6 +43,12 @@ export class MyAccountPage implements OnInit {
     }
     cartPage() {
         this.route.navigate(['cart']);
+    }
+
+    handleHeaderEvents(event) {
+        if (event.type === 'segment') {
+            this.activeSegment = event.name.title;
+        }
     }
 
 }

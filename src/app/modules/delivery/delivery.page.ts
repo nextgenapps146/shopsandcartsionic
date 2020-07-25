@@ -4,12 +4,16 @@ import { IonSlides } from '@ionic/angular';
 import { UtilsService } from '../../services/utils.service';
 import { FirestoreService } from '../../services/firestore/firestore.service';
 import { CartService } from '../../services/CartServices/cart.service';
+import { ChatService } from '../../services/chat.service';
+import { OrderService } from '../../services/order.service';
+import { AddressService } from '../../services/address.service';
 
 @Component({
     selector: 'app-delivery',
     templateUrl: './delivery.page.html',
     styleUrls: ['./delivery.page.scss'],
 })
+
 export class DeliveryPage implements OnInit {
     @ViewChild('slides', { static: true }) slides: IonSlides;
     public address;
@@ -46,7 +50,10 @@ export class DeliveryPage implements OnInit {
         private route: Router,
         private router: ActivatedRoute,
         public cart: CartService,
+        private chatService: ChatService,
+        private orderService: OrderService,
         public utils: UtilsService,
+        private addressService: AddressService,
         public fireStore: FirestoreService
     ) {
 
@@ -115,7 +122,7 @@ export class DeliveryPage implements OnInit {
     }
 
     getDeliveryAddress() {
-        this.fireStore.getDeliveryAddress(this.addressvalue).then((address) => {
+        this.addressService.getDeliveryAddress(this.addressvalue).then((address) => {
             address.subscribe((address) => {
                 this.address = address;
                 if (this.address) {
@@ -185,7 +192,7 @@ export class DeliveryPage implements OnInit {
                 created_date: new Date().getTime(),
             };
 
-            const addedOrder = await this.fireStore.addOrder(record);
+            const addedOrder = await this.orderService.addOrder(record);
             this.itemId = addedOrder;
 
             for (
@@ -201,7 +208,7 @@ export class DeliveryPage implements OnInit {
                     quantity: this.cart.addCart[item_counter].units,
                     amount: this.cart.addCart[item_counter].salePrice,
                 };
-                this.fireStore.addOrderItem(data);
+                this.orderService.addOrderItem(data);
             }
             const dataPush = {
                 title: 'New order request',
@@ -210,7 +217,7 @@ export class DeliveryPage implements OnInit {
                 targetid: this.utils.userInfo.token, // it is customer id
             };
 
-            this.fireStore.sendNotificaion(dataPush);
+            this.chatService.sendNotificaion(dataPush);
             this.utils.presentToast(
                 'You have ordered successfully',
                 true,

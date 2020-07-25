@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DataService } from 'src/app/services/DataServices/data.service';
+import { DataService } from '../../services/DataServices/data.service';
 
 @Component({
   selector: 'stor-paymentcards',

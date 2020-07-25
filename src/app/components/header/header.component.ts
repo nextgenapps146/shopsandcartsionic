@@ -15,6 +15,15 @@ export class HeaderComponent implements OnInit {
     @Input()
     title: string;
 
+    @Input()
+    toolbar2: string;
+
+    @Input()
+    segmentItems: Array<object>;
+
+    @Input()
+    activeSegment: string;
+
     @Output()
     headerEvent: EventEmitter<any> = new EventEmitter();
 
@@ -30,12 +39,18 @@ export class HeaderComponent implements OnInit {
     @Input()
     showBackButton: boolean;
 
+    segmentWidth: number;
+
     constructor(
         private menuCtrl: MenuController,
         private navCtrl: NavController) {
     }
 
-    ngOnInit() {}
+    ngOnInit() {
+        if (this.segmentItems && this.segmentItems.length > 0) {
+            this.segmentWidth = 100 / this.segmentItems.length;
+        }
+    }
 
     openFirst() {
         this.menuCtrl.enable(true, 'first');
@@ -56,6 +71,14 @@ export class HeaderComponent implements OnInit {
 
     ordersIconClick() {
         this.headerEvent.emit({ name: 'orders', type: 'click' });
+    }
+
+    titleClick() {
+        this.headerEvent.emit({ name: 'title', type: 'click' });
+    }
+
+    segmentClick(item) {
+        this.headerEvent.emit({ name: item, type: 'segment' });
     }
 
 }

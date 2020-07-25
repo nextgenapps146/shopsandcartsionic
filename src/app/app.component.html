@@ -37,16 +37,17 @@
                     </div>
                 </div> -->
 
-                <div *ngIf="userPersonalDetails" class="userParentSection" ion-padding-vertical>
+                <!-- <div *ngIf="userPersonalDetails" class="userParentSection" ion-padding-vertical>
                     <div *ngFor=" let personalDetails of userPersonalDetails" class="userChildSection"
                         (click)="navigatePage(personalDetails.url,personalDetails.value)">
                         <img [src]="personalDetails.icons">
                         <ion-label color="light" class="titleSection">{{personalDetails.title}}</ion-label>
                     </div>
                 </div>
-                <br/>
+                <br/> -->
 
                 <ion-list class="appPageSection">
+                    <br/>
                     <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages">
                         <ion-item [routerDirection]="'root'" [routerLink]="[p.url]" lines="none">
                             <ion-icon slot="start" [name]="p.icon" color="primary" mode="ios"></ion-icon>

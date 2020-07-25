@@ -4,7 +4,7 @@
         <div class="dFlexRow headerSection">
             <ion-note class="whiteColor">In & Around</ion-note>
             <div class="flex">
-                <ion-select #myCitySelect interface="popover" [(ngModel)]="util.userSearchingCity" (ionChange)="setUserSearchCity($event)">
+                <ion-select #myCitySelect interface="popover" [(ngModel)]="utils.userSearchingCity" (ionChange)="setUserSearchCity($event)">
                     <ion-select-option value="Naperville">Naperville, IL</ion-select-option>
                     <ion-select-option value="Aurora">Aurora, IL</ion-select-option>
                 </ion-select>
@@ -19,7 +19,8 @@
     </ion-toolbar>
 </ion-header> -->
 
-<app-header title="Dashboard" page="home" showChatIcon=true (headerEvent)="handleHeaderEvents($event)"></app-header>
+<app-header [title]="utils.userShoppingCity" page="home" showChatIcon=true toolbar2="search"
+    (headerEvent)="handleHeaderEvents($event)"></app-header>
 <ion-content>
 
     <ion-list class="list2">

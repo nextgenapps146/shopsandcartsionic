@@ -143,6 +143,15 @@ ion-list.list2 {
     }
 }
 
+.overlay-popover {
+    ion-backdrop {
+        opacity: 0.9 !important;
+    }
+    .popover-content {
+        width: 80%;
+    }
+}
+
 // ion-searchbar {
 //     margin: 0;
 // }

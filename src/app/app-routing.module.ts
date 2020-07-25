@@ -24,7 +24,7 @@ const routes: Routes = [
     { path: 'order', loadChildren: () => import('./modules/order/order.module').then(m => m.OrderPageModule) },
     { path: 'cart', loadChildren: () => import('./modules/cart/cart.module').then(m => m.CartPageModule) },
     { path: 'add-address', loadChildren: () => import('./modules/add-address/add-address.module').then(m => m.AddAddressPageModule) },
-    { path: 'create-store', loadChildren: () => import('./modules/create-store/create-store.module').then(m => m.CreateStorePageModule) },
+    // { path: 'create-store', loadChildren: () => import('./modules/create-store/create-store.module').then(m => m.CreateStorePageModule) },
     { path: 'delivery', loadChildren: () => import('./modules/delivery/delivery.module').then(m => m.DeliveryPageModule) },
     { path: 'location', loadChildren: () => import('./modules/location/location.module').then(m => m.LocationPageModule) },
     { path: 'payment', loadChildren: () => import('./modules/payment/payment.module').then(m => m.PaymentPageModule) },

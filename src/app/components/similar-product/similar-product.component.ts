@@ -1,7 +1,7 @@
 
 import { Component, OnInit } from '@angular/core';
-import { DataService } from 'src/app/services/DataServices/data.service';
-import { CartService } from 'src/app/services/CartServices/cart.service';
+import { DataService } from '../../services/DataServices/data.service';
+import { CartService } from '../../services/CartServices/cart.service';
 import { Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
 

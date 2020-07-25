@@ -17,7 +17,7 @@ export class ChatService {
 
     public async getChatUsers(userId) {
         this.chatContactsRef = this.Afs.collection<ChatContacts>('chatcontacts',
-            ref => ref.where('sellerid', '==', userId));
+            ref => ref.where('customerid', '==', userId));
         return this.chatContactsRef.snapshotChanges().pipe(
             map(res => res.map((dataItems) => {
                 const data = dataItems.payload.doc.data() as ChatContacts,
@@ -45,6 +45,30 @@ export class ChatService {
     //     await this.addressCollectionRefrence.add(record);
     // }
 
+    public async addChatPushMessage(record) {
+        const xhr = new XMLHttpRequest();
+        xhr.addEventListener('readystatechange', function () {
+            if (this.readyState === 4) {
+                console.log(this.responseText);
+            }
+        });
+        xhr.open('POST', 'https://us-central1-bansik-7c7c4.cloudfunctions.net/function-1');
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.send(JSON.stringify(record));
+    }
+
+    public async sendNotificaion(record) {
+        const xhr = new XMLHttpRequest();
+        xhr.addEventListener('readystatechange', function () {
+            if (this.readyState === 4) {
+                console.log(this.responseText);
+            }
+        });
+        xhr.open('POST', 'https://us-central1-bansik-7c7c4.cloudfunctions.net/function-1');
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.send(JSON.stringify(record));
+    }
+
     public async addChatMessage(record, userId) {
         record.senderid = userId;
         record.messagetime = new Date().getTime();
@@ -68,6 +92,36 @@ export class ChatService {
             })
         );
     }
+
+    public async checkChatContacts(userId, storeId) {
+        this.chatContactsRef = this.Afs.collection<ChatContacts>('chatcontacts',
+            ref => ref.where('customerid', '==', userId).where('sellerid', '==', storeId));
+        return this.chatContactsRef
+            .snapshotChanges().pipe(
+                map(res => res.map(dataItems => {
+                    const data: any = dataItems.payload.doc.data() as ChatContacts;
+                    const id = dataItems.payload.doc.id;
+                    return { ...data, chatcontactid: id };
+                }))
+            );
+    }
+
+    public async  addChatContacts(record) {
+        this.chatContactsRef = this.Afs.collection('chatcontacts');
+        await this.chatContactsRef.add(record);
+    }
+
+    // public async checkChatContacts(userId, storeId) {
+    //     this.chatContactsRef = this.Afs.collection<ChatContacts>('chatcontacts',
+    //         ref => ref.where('customerid', '==', userId).where('sellerid', '==', storeId));
+    //     return this.chatContactsRef.snapshotChanges().pipe(
+    //         map(res => res.map(dataItems => {
+    //             const data: any = dataItems.payload.doc.data() as ChatContacts;
+    //             const id = dataItems.payload.doc.id;
+    //             return { ...data, chatcontactid: id };
+    //         }))
+    //     );
+    // }
 
 }
 

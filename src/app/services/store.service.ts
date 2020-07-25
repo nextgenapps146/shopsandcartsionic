@@ -31,6 +31,18 @@ export class StoreService {
         }
     }
 
+    public async getUserLocalStores() {
+        this.myStoreRef = this.Afs.collection('stores', ref => ref.where('city', '==', this.utils.userShoppingCity));
+        return this.myStoreRef.snapshotChanges().pipe(
+                map(res => res.map(dataItems => {
+                    const data: any = dataItems.payload.doc.data();
+                    const id = dataItems.payload.doc.id;
+                    // this.storesNearBy.push({ id, ...data });
+                    return { id, ...data };
+                }))
+            );
+    }
+
     public async createStore(userId, result) {
         this.myStoreRef = this.Afs.collection<Store>('stores');
         await this.utils.openLoader();

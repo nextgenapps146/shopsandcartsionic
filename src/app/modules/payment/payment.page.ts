@@ -6,12 +6,14 @@ import { CartService } from '../../services/CartServices/cart.service';
 import { ProductsService } from '../../services/ProductService/products.service';
 import { FirestoreService } from '../../services/firestore/firestore.service';
 import { UtilsService } from '../../services/utils.service';
+import { OrderService } from '../../services/order.service';
 
 @Component({
     selector: 'app-payment',
     templateUrl: './payment.page.html',
     styleUrls: ['./payment.page.scss'],
 })
+
 export class PaymentPage implements OnInit {
     addNewPayment = false;
     cardDetails: any;
@@ -29,6 +31,7 @@ export class PaymentPage implements OnInit {
         public fsServices: FirestoreService,
         public util: UtilsService,
         private activeRoute: ActivatedRoute,
+        private orderService: OrderService,
         public product: ProductsService) {
         this.cardDetails = { cardNumber: null, cardType: null, cardCvv: null, cardDate: null, zipCode: null };
         this.activeRoute.params.subscribe((res) => {
@@ -60,7 +63,7 @@ export class PaymentPage implements OnInit {
                 }
             });
         }
-        this.fsServices.createUserOrder(this.cart.grandTotal, this.cart.addCart, promocode, this.selectedDay, this.selectedTime, address)
+        this.orderService.createUserOrder(this.cart.grandTotal, this.cart.addCart, promocode, this.selectedDay, this.selectedTime, address)
             .then(async () => {
                 const toast = await this.toastCtrl.create({
                     message: 'Your order Successfully Complete',
@@ -79,6 +82,7 @@ export class PaymentPage implements OnInit {
                 this.route.navigate(['home']);
             });
     }
+
     removePromoCode() {
         this.appliedPromoCode = '';
         this.util.presentToast('Promocode removed successfully!', true, 'bottom', 2100);

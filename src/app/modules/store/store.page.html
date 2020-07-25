@@ -21,6 +21,8 @@
         <ion-searchbar color="light" md="ios" (click)="searchPage()"></ion-searchbar>
     </ion-toolbar>
 </ion-header>
+<!--
+<app-header [title]="storename" page="store" showChatIcon=true (headerEvent)="handleHeaderEvents($event)"></app-header> -->
 
 <ion-content>
     <ion-item *ngIf="!storeProductsList || storeProductsList.length === 0">

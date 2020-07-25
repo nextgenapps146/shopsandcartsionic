@@ -3,6 +3,7 @@ import { ProductsService } from '../../services/ProductService/products.service'
 import { Router } from '@angular/router';
 import { FirestoreService } from '../../services/firestore/firestore.service';
 import { UtilsService } from '../../services/utils.service';
+import { OrderService } from '../../services/order.service';
 
 @Component({
     selector: 'app-order',
@@ -14,10 +15,11 @@ export class OrderPage implements OnInit {
     constructor(
         public products: ProductsService,
         public fsServices: FirestoreService,
-        public util: UtilsService,
+        public utils: UtilsService,
+        private orderService: OrderService,
         private route: Router) {
 
-        this.fsServices.getUserOrders().then((orders) => {
+        this.orderService.getUserOrders(this.utils.userInfo.id).then((orders) => {
             orders.subscribe(list => {
                 this.orders = list;
             });

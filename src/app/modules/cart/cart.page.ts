@@ -7,6 +7,7 @@ import { UtilsService } from '../../services/utils.service';
 import { FirestoreService } from '../../services/firestore/firestore.service';
 import { Platform, ModalController, MenuController } from '@ionic/angular';
 import { LocationPage } from '../location/location.page';
+import { AddressService } from '../../services/address.service';
 
 @Component({
     selector: 'app-cart',
@@ -33,6 +34,7 @@ export class CartPage implements OnInit {
         public alertController: AlertController,
         public utils: UtilsService,
         public fireStore: FirestoreService,
+        private addressService: AddressService,
         private modalController: ModalController
     ) {
         this.router.queryParams.subscribe((params) => {
@@ -63,7 +65,7 @@ export class CartPage implements OnInit {
         });
     }
     getAddress() {
-        this.fireStore.getUserAddress().then((address) => {
+        this.addressService.getUserAddress().then((address) => {
             address.subscribe((address) => {
                 this.addressList = address;
                 this.addressArray = this.addressList;
@@ -159,7 +161,7 @@ export class CartPage implements OnInit {
                 console.log(res.data);
                 const selectedAddressValue = res.data;
                 if (selectedAddressValue) {
-                    this.fireStore.addUserAddress({
+                    this.addressService.addUserAddress({
                         name: selectedAddressValue.name || '',
                         flatNumber: selectedAddressValue.flatNumber || '',
                         street: selectedAddressValue.street || '',

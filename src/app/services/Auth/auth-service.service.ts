@@ -7,6 +7,7 @@ import { User } from 'firebase';
 import { resolve } from 'url';
 import { UtilsService } from '../utils.service';
 import { FirestoreService } from '../firestore/firestore.service';
+import { UserService } from '../user.service';
 
 export class AuthInfo {
     constructor(public $uid: string) { }
@@ -25,7 +26,11 @@ export class AuthServiceService {
     static UNKNOWN_USER = new AuthInfo(null);
     public authInfo$: BehaviorSubject<AuthInfo> = new BehaviorSubject<AuthInfo>(AuthServiceService.UNKNOWN_USER);
     userId = this.authInfo$.asObservable();
-    constructor(private fireStore: FirestoreService, private fireAuth: AngularFireAuth, private util: UtilsService) {
+    constructor(
+        private fireStore: FirestoreService,
+        private fireAuth: AngularFireAuth,
+        private userService: UserService,
+        private util: UtilsService) {
 
         this.fireAuth.authState.pipe(
             take(1)
@@ -35,6 +40,7 @@ export class AuthServiceService {
             }
         });
     }
+
     public forgotPassoword(email: string) {
         this.fireAuth.auth.sendPasswordResetEmail(email).then(() => {
             this.util.presentToast('Email Sent', true, 'bottom', 2100);
@@ -44,23 +50,22 @@ export class AuthServiceService {
     public createAccount(email: string, password: string, username: string): Promise<any> {
         return new Promise<any>((resolve, reject) => {
             this.util.openLoader();
-            this.fireAuth.auth.createUserWithEmailAndPassword(email, password)
-                .then(res => {
-                    if (res.user) {
-                        this.authInfo$.next(new AuthInfo(res.user.uid));
-                        this.util.closeLoading();
-                        this.fireStore.createUser(res.user.uid, {
-                            email: email,
-                            username: username
-                        });
-                        resolve(res.user);
-                    }
-                })
-                .catch(err => {
+            this.fireAuth.auth.createUserWithEmailAndPassword(email, password).then(res => {
+                if (res.user) {
+                    this.authInfo$.next(new AuthInfo(res.user.uid));
                     this.util.closeLoading();
-                    // this.authInfo$.next(AuthenticationService.UNKNOWN_USER);
-                    reject(`creation failed ${err}`);
-                });
+                    this.userService.createUser(res.user.uid, {
+                        email: email,
+                        username: username
+                    });
+                    resolve(res.user);
+                }
+            })
+            .catch(err => {
+                this.util.closeLoading();
+                // this.authInfo$.next(AuthenticationService.UNKNOWN_USER);
+                reject(`creation failed ${err}`);
+            });
         });
     }
 

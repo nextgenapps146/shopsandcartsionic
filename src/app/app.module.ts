@@ -27,6 +27,8 @@ import { FCM } from '@ionic-native/fcm/ngx';
 import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { fas } from '@fortawesome/free-solid-svg-icons';
 import { ComponentsModule } from './components/components.module';
+import { SelectLocationComponent } from './components/select-location/select-location.component';
+import { UserService } from './services/user.service';
 
 @NgModule({
     declarations: [
@@ -36,6 +38,7 @@ import { ComponentsModule } from './components/components.module';
         // RateUsPage
     ],
     entryComponents: [
+        SelectLocationComponent
         // IssuePage,
         // SearchPage,
         // RateUsPage
@@ -62,6 +65,7 @@ import { ComponentsModule } from './components/components.module';
         NativeGeocoder,
         SocialSharing,
         FirestoreService,
+        UserService,
         { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
     ],
     bootstrap: [AppComponent]

@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { FirestoreService } from '../../services/firestore/firestore.service';
 import { AuthServiceService } from '../../services/Auth/auth-service.service';
 import { UtilsService } from '../../services/utils.service';
+import { ChatService } from '../../services/chat.service';
 
 @Component({
     selector: 'app-chat',
@@ -14,7 +15,10 @@ export class ChatPage implements OnInit {
     users: any = [];
     messages: any = [];
     messagetime: any;
-    constructor(public router: Router, public authService: AuthServiceService,
+    constructor(
+        public router: Router,
+        public authService: AuthServiceService,
+        public chatService: ChatService,
         public fsServices: FirestoreService,
         private utils: UtilsService) {
 
@@ -22,7 +26,7 @@ export class ChatPage implements OnInit {
             console.log(filter);
         });
 
-        this.fsServices.getChatUsers(this.userId).then((users) => {
+        this.chatService.getChatUsers(this.userId).then((users) => {
             users.subscribe(list => {
                 this.users = list;
                 for (let i = 0; i < this.users.length; i++) {

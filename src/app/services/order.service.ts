@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestoreCollection, AngularFirestore } from '@angular/fire/firestore';
 import { map } from 'rxjs/operators';
+import { UtilsService } from './utils.service';
 
 @Injectable({
     providedIn: 'root'
@@ -12,20 +13,9 @@ export class OrderService {
     orderItemsRef: AngularFirestoreCollection<OrderItem>;
 
     constructor(
-        public Afs: AngularFirestore
+        public Afs: AngularFirestore,
+        public utils: UtilsService
     ) { }
-
-    public async getUserOrders(storeid) {
-        this.ordersRef = this.Afs.collection<Order>('orders',
-            ref => ref.where('storeid', '==', storeid));
-        return this.ordersRef.snapshotChanges().pipe(
-            map(res => res.map(dataItems => {
-                const data: any = dataItems.payload.doc.data() as Order,
-                    id = dataItems.payload.doc.id;
-                return { id, ...data };
-            }))
-        );
-    }
 
     public async updateStatus(status, orderid) {
         this.ordersRef = this.Afs.collection<Order>('orders');
@@ -54,17 +44,66 @@ export class OrderService {
         );
     }
 
-    public async sendNotificaion(record) {
-        const xhr = new XMLHttpRequest();
-        xhr.addEventListener('readystatechange', function() {
-            if (this.readyState === 4) {
-                console.log(this.responseText);
-            }
+    public async addOrder(record) {
+        this.ordersRef = this.Afs.collection('orders');
+        return await this.ordersRef.add(record).then((doc) => {
+            return doc.id;
         });
-        xhr.open('POST', 'https://us-central1-bansik-7c7c4.cloudfunctions.net/function-1');
-        xhr.setRequestHeader('Content-Type', 'application/json');
-        xhr.send(JSON.stringify(record));
     }
+
+    public async addOrderItem(record) {
+        this.orderItemsRef = this.Afs.collection('orderitems');
+        return await this.orderItemsRef.add(record);
+    }
+
+    public async getUserOrders(userId) {
+        this.ordersRef = this.Afs.collection<Order>('orders', ref => ref.where('customerid', '==', userId));
+        return this.ordersRef.snapshotChanges().pipe(
+            map(res => res.map(dataItems => {
+                const data: any = dataItems.payload.doc.data() as Order;
+                const id = dataItems.payload.doc.id;
+                // this.UserOrders.push({ id, ...data });
+                return { id, ...data };
+            }))
+        );
+    }
+
+    public async getOrdersItem(itemid) {
+        this.orderItemsRef = this.Afs.collection<OrderItem>('orderitems',
+            ref => ref.where('orderid', '==', itemid));
+        return this.orderItemsRef.snapshotChanges().pipe(
+            map(res => res.map(dataItems => {
+                const data: any = dataItems.payload.doc.data() as OrderItem;
+                // const id = dataItems.payload.doc.id;
+                return { ...data };
+            }))
+        );
+    }
+
+    // Revisiting needed ----
+    public async createUserOrder(grandTotal, addCart, promoCode, selectedDay, selectedTime, address) {
+        this.ordersRef = this.Afs.collection('Orders');
+        await this.utils.openLoader();
+        // if (Object.keys(promoCode).length) {
+        //     await this.ordersRef.add({ created: new Date(), total: grandTotal, products: addCart, promoCode, selectedDay, selectedTime, address, userid: this.utils.userInfo.id });
+        // } else {
+        //     await this.ordersRef.add({ created: new Date(), total: grandTotal, products: addCart, selectedDay, selectedTime, address, userid: this.utils.userInfo.id });
+        // }
+        await this.utils.closeLoading();
+    }
+
+    // This is also in chat Service - i dont think we need in two places
+    // public async sendNotificaion(record) {
+    //     const xhr = new XMLHttpRequest();
+    //     xhr.addEventListener('readystatechange', function() {
+    //         if (this.readyState === 4) {
+    //             console.log(this.responseText);
+    //         }
+    //     });
+    //     xhr.open('POST', 'https://us-central1-bansik-7c7c4.cloudfunctions.net/function-1');
+    //     xhr.setRequestHeader('Content-Type', 'application/json');
+    //     xhr.send(JSON.stringify(record));
+    // }
 
     // Vishal - when you take a look at this, wanted to know where is this used..
     // public async getOders() {
@@ -110,7 +149,7 @@ export interface Order {
     transaction: any; // it is an array of object which contains these values { status , comment , time , username }
     delivery_mode: string; // it can be value from in three three option - deliver, pick_up , curve_site
     payment_mode: string;
-    created_date: string; // it can be value of it =  online , cash_on_dlivery , pay_at_store
+    created: Date; // it can be value of it =  online , cash_on_dlivery , pay_at_store
 }
 
 export interface OrderItem {

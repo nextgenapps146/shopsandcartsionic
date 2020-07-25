@@ -2,7 +2,9 @@
     <ion-toolbar class="toolbar-up" color="primary">
         <ion-icon *ngIf="!showBackButton" slot="start" name="menu" (click)="openFirst()"></ion-icon>
         <ion-icon *ngIf="showBackButton" slot="start" name="arrow-back" (click)="goBack()"></ion-icon>
-        <div class="">{{ title }}</div>
+        <div class="title">
+            <div class="label" (click)="titleClick()">{{ title }}</div>
+        </div>
         <ion-buttons *ngIf="showOrdersIcon" slot="end">
             <fa-icon slot="end" [icon]="['fas', 'shopping-cart']"></fa-icon>
             <ion-badge color="danger">3</ion-badge>
@@ -15,7 +17,14 @@
             <fa-icon slot="end" [icon]="['fas', 'ellipsis-v']"></fa-icon>
         </ion-buttons>
     </ion-toolbar>
-    <ion-toolbar class="toolbar-down" color="primary">
+    <ion-toolbar class="toolbar-down" color="primary" *ngIf="toolbar2 === 'search'">
         <ion-searchbar color="light" md="ios" (click)="searchPage()"></ion-searchbar>
+    </ion-toolbar>
+    <ion-toolbar class="toolbar-segment" color="primary" *ngIf="toolbar2 === 'segment'">
+        <div class="nav">
+            <div class="nav-item" *ngFor="let item of segmentItems" (click)="segmentClick(item)"
+                [ngClass]="item.title === activeSegment ? 'active': ''"
+                [style.width.%]="segmentWidth">{{ item.title }}</div>
+        </div>
     </ion-toolbar>
 </ion-header>

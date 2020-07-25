@@ -3,6 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FirestoreService } from '../../services/firestore/firestore.service';
 import { AuthServiceService } from '../../services/Auth/auth-service.service';
 import { UtilsService } from '../../services/utils.service';
+import { UserService } from '../../services/user.service';
+import { ChatService } from '../../services/chat.service';
 
 @Component({
     selector: 'app-chatroom',
@@ -31,10 +33,14 @@ export class ChatroomPage implements OnInit {
         private router: Router,
         public authService: AuthServiceService,
         public fsServices: FirestoreService,
+        private userService: UserService,
+        private chatService: ChatService,
         private utils: UtilsService
     ) {
         this.loadMessage();
     }
+
+    ngOnInit() { }
 
     loadMessage() {
         this.route.queryParams.subscribe((params) => {
@@ -42,13 +48,13 @@ export class ChatroomPage implements OnInit {
                 this.chatcontactid = params.chatcontactid;
                 this.sellerid = params.sellerid;
                 this.loadChatMessage();
-                this.fsServices.getUserInfo(this.sellerid).then((users) => {
+                this.userService.getUserInfo(this.sellerid).then((users) => {
                     users.subscribe((seller: any) => {
                         this.sellername = seller.username;
                         this.sellertoken = seller.token;
                     });
                 });
-                this.fsServices.loadChatContactDetails(this.chatcontactid).then((users) => {
+                this.chatService.loadChatContactDetails(this.chatcontactid).then((users) => {
                     users.subscribe((chatcontact) => {
                         this.custoemername = chatcontact.customername;
                     });
@@ -58,7 +64,7 @@ export class ChatroomPage implements OnInit {
     }
 
     loadChatMessage() {
-        this.fsServices.getChatMessages(this.chatcontactid).then((messages) => {
+        this.chatService.getChatMessages(this.chatcontactid).then((messages) => {
             messages.subscribe((list) => {
                 this.messages = list;
                 for (let i = 0; i < this.messages.length; i++) {
@@ -72,8 +78,6 @@ export class ChatroomPage implements OnInit {
             });
         });
     }
-
-    ngOnInit() { }
 
     isMyMessage(message) {
         return message.senderid === this.userid;
@@ -89,7 +93,7 @@ export class ChatroomPage implements OnInit {
             message: this.message,
         };
 
-        this.fsServices.addChatMessage(data, this.userid);
+        this.chatService.addChatMessage(data, this.userid);
         if (this.sellertoken) {
             const dataPush = {
                 title: this.custoemername + ' has sent you a new message',  // user shoudl be replace with username
@@ -98,7 +102,7 @@ export class ChatroomPage implements OnInit {
                 targetid: this.sellerid,
             };
 
-            this.fsServices.addChatPushMessage(dataPush);
+            this.chatService.addChatPushMessage(dataPush);
         }
     }
 }

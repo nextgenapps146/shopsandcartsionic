@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { CartService } from 'src/app/services/CartServices/cart.service';
-import { DataService } from 'src/app/services/DataServices/data.service';
+import { CartService } from '../../services/CartServices/cart.service';
+import { DataService } from '../../services/DataServices/data.service';
 import { Router } from '@angular/router';
 import { FirestoreService } from '../../services/firestore/firestore.service';
 

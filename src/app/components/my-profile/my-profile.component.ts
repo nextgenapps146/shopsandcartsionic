@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UtilsService } from '../../services/utils.service';
-import { FirestoreService } from '../../services/firestore/firestore.service';
+import { UserService } from '../../services/user.service';
 
 
 @Component({
@@ -11,21 +11,32 @@ import { FirestoreService } from '../../services/firestore/firestore.service';
 
 export class MyProfileComponent implements OnInit {
 
-    public toggle: boolean;
-    public btnColor;
     userInfo: any = {};
+    enableBtn = false;
 
-    constructor(public utils: UtilsService, public fireStore: FirestoreService) {
+    constructor(
+        public utils: UtilsService,
+        private userService: UserService) {
         this.userInfo = Object.assign({}, this.utils.userInfo);
     }
 
     ngOnInit() { }
 
     Continue() {
-        if (this.userInfo.username && this.userInfo.phoneNumber && this.userInfo.gender) {
-            this.fireStore.updateUser(this.userInfo.id, Object.assign({}, this.userInfo));
+        if (this.userInfo.username && this.userInfo.email) {
+            if (this.userInfo.name !== this.utils.userInfo.name ||
+                this.userInfo.phone !== this.utils.userInfo.phoneNumber) {
+                this.userService.updateUser(this.userInfo.id, Object.assign({}, this.userInfo));
+            }
         } else {
             this.utils.presentToast('All field is required here', true, 'bottom', 2100);
+        }
+    }
+
+    enableContinue() {
+        if (this.userInfo.name !== this.utils.userInfo.name ||
+            this.userInfo.phone !== this.utils.userInfo.phoneNumber) {
+            this.enableBtn = true;
         }
     }
 }

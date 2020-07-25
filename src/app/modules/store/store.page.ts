@@ -4,6 +4,7 @@ import { FirestoreService } from '../../services/firestore/firestore.service';
 import { UtilsService } from '../../services/utils.service';
 import { CartService } from '../../services/CartServices/cart.service';
 import { constants } from 'buffer';
+import { ChatService } from '../../services/chat.service';
 
 @Component({
     selector: 'app-store',
@@ -25,6 +26,7 @@ export class StorePage implements OnInit {
         private route: ActivatedRoute,
         private utils: UtilsService,
         private fireStore: FirestoreService,
+        private chatService: ChatService,
         public cart: CartService) {
         this.route.queryParams.subscribe(params => {
             if (params && params.storeid && params.storename) {
@@ -43,25 +45,26 @@ export class StorePage implements OnInit {
     }
 
     ngOnInit() {
-        this.fireStore.getStoreProducts().then((data) => {
-            data.subscribe(list => {
-                for (let elc = 0; elc < (list || []).length; elc++) {
-                    const product = list[elc];
-                    const productunits = this.cart.addCart.find(el => el.id === product.id);
-                    if (productunits) {
-                        (<any>list[elc]).units = productunits.units;
-                    } else {
-                        (<any>list[elc]).units = 0;
-                    }
-                }
-                this.storeProductsList = list;
-                console.log(list);
-            });
-        });
+        // This needs to be moved to products page and category id needs to be sent with this
+        // this.storeProductService.getStoreProducts().then((data) => {
+        //     data.subscribe(list => {
+        //         for (let elc = 0; elc < (list || []).length; elc++) {
+        //             const product = list[elc];
+        //             const productunits = this.cart.addCart.find(el => el.id === product.id);
+        //             if (productunits) {
+        //                 (<any>list[elc]).units = productunits.units;
+        //             } else {
+        //                 (<any>list[elc]).units = 0;
+        //             }
+        //         }
+        //         this.storeProductsList = list;
+        //         console.log(list);
+        //     });
+        // });
     }
 
     getChatUsers() {
-        this.fireStore.checkChatContacts(this.storeid).then((messages) => {
+        this.chatService.checkChatContacts(this.utils.userInfo.id, this.storeid).then((messages) => {
             messages.subscribe(async (list) => {
                 // this.users = list;
                 console.log(list);
@@ -75,7 +78,7 @@ export class StorePage implements OnInit {
                         customerimage: 'c.png',
                         customername: this.utils.userInfo.username
                     };
-                    await this.fireStore.addChatContacts(record);
+                    await this.chatService.addChatContacts(record);
                 } else {
                     const record = list[index];
                     const navigationExtras = {
@@ -140,7 +143,7 @@ export class StorePage implements OnInit {
 
     onchatroom() {
         this.getChatUsers();
-        // this.router.navigateByUrl("/chatroom")
+        this.router.navigate(['chatroom'], { queryParams: { storeId: this.storeid }});
     }
 
     cartPage() {

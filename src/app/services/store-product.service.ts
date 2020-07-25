@@ -42,6 +42,20 @@ export class StoreProductService {
         );
     }
 
+    // public async getStoreProducts() {
+    //     this.utils.storeProducts = [];
+    //     this.selectedStoreProductsCollectionRefrence = this.Afs.collection('storeproducts', ref => ref.where('storeid', '==', this.utils.storeInfo.id));
+    //     return this.selectedStoreProductsCollectionRefrence
+    //         .snapshotChanges().pipe(
+    //             map(res => res.map((dataItems) => {
+    //                 const data = dataItems.payload.doc.data();
+    //                 const id = dataItems.payload.doc.id;
+    //                 this.utils.storeProducts.push({ id, ...data });
+    //                 return { id, ...data };
+    //             }))
+    //         );
+    // }
+
     // Add Store only when user has a category from market place..
 }
 

@@ -6,6 +6,7 @@ import { AuthServiceService } from '../../services/Auth/auth-service.service';
 import { IfStmt } from '@angular/compiler';
 import { LoadingController } from '@ionic/angular';
 import { FirestoreService } from '../../services/firestore/firestore.service';
+import { UserService } from '../../services/user.service';
 
 @Component({
     selector: 'app-login',
@@ -25,6 +26,7 @@ export class LoginPage implements OnInit {
         private splashScreen: SplashScreen,
         public util: UtilsService,
         private menuCtrl: MenuController,
+        private userService: UserService,
         private authServ: AuthServiceService) {
     }
 
@@ -39,16 +41,14 @@ export class LoginPage implements OnInit {
     }
 
     signin() {
-
         if (this.util.validateEmail(this.email) && this.password !== '') {
             this.util.openLoader();
             this.authServ.login(this.email, this.password).then(
                 userData => {
-
-                    this.fireStore.updateUserDeviceToken();
+                    this.userService.updateMyDeviceToken(userData.id);
                     this.util.navigate('home', false);
-                    this.email = '';
-                    this.password = '';
+                    // this.email = '';
+                    // this.password = '';
                 }
             ).catch(err => {
                 if (err) {

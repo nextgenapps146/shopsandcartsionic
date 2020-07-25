@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
 import { FirestoreService } from '../../services/firestore/firestore.service';
 import { UtilsService } from '../../services/utils.service';
+import { AddressService } from '../../services/address.service';
 
 @Component({
     selector: 'app-add-address',
@@ -26,7 +27,8 @@ export class AddAddressPage implements OnInit {
         private route: Router,
         public utils: UtilsService,
         private toastCtrl: ToastController,
-        public fireStore: FirestoreService
+        public fireStore: FirestoreService,
+        private addressService: AddressService
     ) { }
 
     ngOnInit() {
@@ -50,7 +52,7 @@ export class AddAddressPage implements OnInit {
 
     async Continue() {
         if (this.name && this.flatNumber && this.street && this.locality && this.title && this.addresstype) {
-            this.fireStore.addUserAddress({
+            this.addressService.addUserAddress({
                 name: this.name, flatNumber: this.flatNumber, street: this.street, locality: this.locality, title: this.title, addresstype: this.addresstype
             }).then(async () => {
                 const toast = await this.toastCtrl.create({
