@@ -14,10 +14,17 @@
                 <span class="sale">${{ item.regularPrice }}</span>
             </div>
         </span>
-        <div *ngIf="showAddToStoreBtn" class="add-btn" [ngClass]="item.isAdded ? 'disbale': ''"
-            (click)="!item.isAdded && addToStoreBtnClick(item)">
-            <span *ngIf="!item.isAdded">Add to Store</span>
-            <span *ngIf="item.isAdded">Added</span>
+        <div *ngIf="qpMap && qpMap[item.id]; else showAddBtn" class="plus-minus-wrap">
+            <ion-icon class="minus flt-lt" name="remove-circle" (click)="addToStoreMinusBtnClick(item)"></ion-icon>
+            <span class="quantity">{{ qpMap[item.id].orderQuantity }}</span>
+            <ion-icon class="plus flt-rt" name="add-circle" (click)="addToStorePlusBtnClick(item)"></ion-icon>
         </div>
+        <ng-template #showAddBtn>
+            <div *ngIf="showAddToCartBtn" class="add-btn"
+                (click)="!item.isAdded && addToStoreBtnClick(item)">
+                <span *ngIf="!item.isAdded">Add to Cart</span>
+            </div>
+        </ng-template>
+
     </div>
 </div>

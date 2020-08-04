@@ -24,45 +24,44 @@ export class AuthInfo {
 export class AuthServiceService {
 
     static UNKNOWN_USER = new AuthInfo(null);
-    public authInfo$: BehaviorSubject<AuthInfo> = new BehaviorSubject<AuthInfo>(AuthServiceService.UNKNOWN_USER);
-    userId = this.authInfo$.asObservable();
+    // public authInfo$: BehaviorSubject<AuthInfo> = new BehaviorSubject<AuthInfo>(AuthServiceService.UNKNOWN_USER);
+    // userId = this.authInfo$.asObservable();
     constructor(
         private fireStore: FirestoreService,
         private fireAuth: AngularFireAuth,
         private userService: UserService,
-        private util: UtilsService) {
+        private utils: UtilsService) {
 
-        this.fireAuth.authState.pipe(
-            take(1)
-        ).subscribe(user => {
-            if (user) {
-                this.authInfo$.next(new AuthInfo(user.uid));
-            }
-        });
+        // this.fireAuth.authState.pipe(
+        //     take(1)
+        // ).subscribe(user => {
+        //     if (user) {
+        //         // this.authInfo$.next(new AuthInfo(user.uid));
+        //     }
+        // });
     }
 
     public forgotPassoword(email: string) {
         this.fireAuth.auth.sendPasswordResetEmail(email).then(() => {
-            this.util.presentToast('Email Sent', true, 'bottom', 2100);
-        }).catch(err => this.util.presentToast(`${err}`, true, 'bottom', 2100));
+            this.utils.presentToast('Email Sent', true, 'bottom', 2100);
+        }).catch(err => this.utils.presentToast(`${err}`, true, 'bottom', 2100));
     }
 
-    public createAccount(email: string, password: string, username: string): Promise<any> {
+    public createAccount(email: string, password: string): Promise<any> {
         return new Promise<any>((resolve, reject) => {
-            this.util.openLoader();
+            this.utils.openLoader();
             this.fireAuth.auth.createUserWithEmailAndPassword(email, password).then(res => {
                 if (res.user) {
-                    this.authInfo$.next(new AuthInfo(res.user.uid));
-                    this.util.closeLoading();
+                    // this.authInfo$.next(new AuthInfo(res.user.uid));
+                    this.utils.closeLoading();
                     this.userService.createUser(res.user.uid, {
-                        email: email,
-                        username: username
+                        email: email
                     });
                     resolve(res.user);
                 }
             })
             .catch(err => {
-                this.util.closeLoading();
+                this.utils.closeLoading();
                 // this.authInfo$.next(AuthenticationService.UNKNOWN_USER);
                 reject(`creation failed ${err}`);
             });
@@ -71,17 +70,24 @@ export class AuthServiceService {
 
     public login(email: string, password: string): Promise<any> {
         return new Promise<any>((resolve, reject) => {
-            this.util.openLoader();
+            this.utils.openLoader();
             this.fireAuth.auth.signInWithEmailAndPassword(email, password)
                 .then(res => {
                     if (res.user) {
-                        this.util.closeLoading();
-                        this.authInfo$.next(new AuthInfo(res.user.uid));
-                        resolve(res.user);
+                        this.userService.getUserInfo(res.user.uid).then((data) => {
+                            data.subscribe(result => {
+                                if (result.id) {
+                                    this.utils.closeLoading();
+                                    resolve(result);
+                                }
+                            });
+                        });
+                        // this.authInfo$.next(new AuthInfo(res.user.uid));
+                        // resolve(res.user);
                     }
                 })
                 .catch(err => {
-                    this.util.closeLoading();
+                    this.utils.closeLoading();
                     // this.authInfo$.next(AuthenticationService.UNKNOWN_USER);
                     reject(`login failed ${err}`);
                 });

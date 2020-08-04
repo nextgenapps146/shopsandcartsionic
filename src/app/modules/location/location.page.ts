@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ModalController, ToastController } from '@ionic/angular';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
-import { NativeGeocoder, NativeGeocoderOptions } from '@ionic-native/native-geocoder/ngx';
+// import { NativeGeocoder, NativeGeocoderOptions } from '@ionic-native/native-geocoder/ngx';
 import { UtilsService } from '../../services/utils.service';
 // import { NativeGeocoder, NativeGeocoderReverseResult, NativeGeocoderForwardResult, NativeGeocoderOptions } from '@ionic-native/native-geocoder';
 declare var google;
@@ -13,12 +13,11 @@ declare var google;
     styleUrls: ['./location.page.scss'],
 })
 export class LocationPage implements OnInit {
-    items = ['New Delhi', 'Gurgaon', 'Jaipur', 'Goa', 'Mumbai', 'Bengaluru', 'Hyderabad', 'Kolkata', 'Pune', 'Chennai', 'Chandigarh'];
-    location: any;
-    options: NativeGeocoderOptions = {
-        useLocale: true,
-        maxResults: 5
-    };
+    // location: any;
+    // options: NativeGeocoderOptions = {
+    //     useLocale: true,
+    //     maxResults: 5
+    // };
     geocoder: any;
     possibleAddresses: Array<object>;
     constructor(
@@ -26,8 +25,7 @@ export class LocationPage implements OnInit {
         public util: UtilsService,
         public modalCtrl: ModalController,
         public toastCtrl: ToastController,
-        public geolocation: Geolocation,
-        private nativeGeocoder: NativeGeocoder) { }
+        public geolocation: Geolocation) { }
 
     ngOnInit() {
         this.possibleAddresses = [];
@@ -56,6 +54,12 @@ export class LocationPage implements OnInit {
     //         });
     //     }
     // }
+
+    handleHeaderEvents(event) {
+        if (event.name === 'close') {
+            this.modalCtrl.dismiss();
+        }
+    }
 
     addressSelect(address) {
         this.modalCtrl.dismiss(address);

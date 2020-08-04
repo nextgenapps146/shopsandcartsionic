@@ -96,18 +96,6 @@ ion-segment{
     }
 }
 
-.cart-page-list {
-    ion-item {
-        padding: 3px 10px;
-    }
-
-    fa-icon {
-        float: left;
-        margin-right: 10px;
-        color: #f53d3d
-    }
-}
-
 .cart-page-list2 {
     .links-wrap {
         margin-top: 25px;
@@ -130,4 +118,25 @@ ion-segment{
 
 .checkout-footer {
     padding: 0 20px;
+}
+
+.total-wrap {
+    overflow: hidden;
+    padding: 20px;
+    font-size: 14px;
+
+    .item {
+        display: block;
+        clear: both;
+        overflow: hidden;
+        padding: 4px 0;
+
+        &.total {
+            font-weight: bold;
+        }
+
+        &.savings {
+            color: #f53d3d;
+        }
+    }
 }

@@ -5,20 +5,24 @@
             Edit
         </div>
         <ion-item class="f-item" lines="full">
-            <ion-label position="stacked">Name</ion-label>
-            <ion-input type="text" (ionInput)="enableContinue($event)" [(ngModel)]="userInfo.username" name="username"></ion-input>
+            <ion-label position="stacked">First Name</ion-label>
+            <ion-input type="text" (ionInput)="enableContinue($event)" [(ngModel)]="firstname" name="firstname"></ion-input>
+        </ion-item>
+        <ion-item class="f-item" lines="full">
+            <ion-label position="stacked">Last Name</ion-label>
+            <ion-input type="text" (ionInput)="enableContinue($event)" [(ngModel)]="lastname" name="lastname"></ion-input>
         </ion-item>
         <ion-item class="f-item" lines="full">
             <ion-label position="stacked">Email</ion-label>
-            <ion-input type="text" [(ngModel)]="userInfo.email" name="email" disabled></ion-input>
+            <ion-input type="text" [(ngModel)]="utils.userInfo.email" name="email" disabled></ion-input>
         </ion-item>
 
         <ion-item class="f-item" lines="full">
             <ion-label position="stacked">Phone Number</ion-label>
-            <ion-input type="tel" (ionInput)="enableContinue($event)" [(ngModel)]="userInfo.phoneNumber" name="phoneNumber"></ion-input>
+            <ion-input type="tel" (ionInput)="enableContinue($event)" [(ngModel)]="phone" name="phone"></ion-input>
         </ion-item>
     </ion-list>
     <div>
-        <ion-button expand="full" color="primary" (click)="Continue()" disabled>Continue</ion-button>
+        <ion-button expand="full" color="primary" (click)="Continue()" [attr.disabled]="!enableBtn">Continue</ion-button>
     </div>
 </div>

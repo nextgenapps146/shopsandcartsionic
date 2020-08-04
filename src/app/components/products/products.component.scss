@@ -94,5 +94,20 @@
                 cursor: pointer;
             }
         }
+
+        .plus-minus-wrap {
+            margin: 12px;
+            text-align: center;
+
+            .plus, .minus {
+                color: #f53e3e;
+                font-size: 30px;
+            }
+            .quantity {
+                font-size: 13px;
+                line-height: 30px;
+                font-weight: bold;
+            }
+        }
     }
 }

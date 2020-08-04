@@ -52,18 +52,27 @@ ion-card{
     flex-direction: column;
     justify-content: center;
 }
+
 .btn-transition{
     background: var(--ion-color-primary-tint, #4c8dff) !important;;
 }
+
 .btn-color{
     color:var(--ion-color-primary-tint, #4c8dff) !important;
 }
 
-.card-css{
+.card-css {
     // height: 100vh;
     // display: flex;
     // flex-direction: column;
     // justify-content: center;
     /* align-items: center; */
     margin: 20px;
+}
+
+.close-btn {
+    position: absolute;
+    ion-icon {
+        font-size: 35px;
+    }
 }

@@ -105,7 +105,7 @@ export class HomePage implements OnInit {
     }
 
     getUserSearchingStores() {
-        this.storeService.getUserLocalStores().then((data) => {
+        this.storeService.getUserLocalStores(this.utils.userShoppingCity).then((data) => {
             data.subscribe(list => {
                 this.storesList = list;
             });
@@ -117,15 +117,11 @@ export class HomePage implements OnInit {
     goToStorePage(store) {
         const navigationExtras = {
             queryParams: {
-                storeid: store.id,
-                storename: store.name
+                storeId: store.id,
+                storeName: store.name
             }
         };
-        this.storeService.getStoreInfo(store.id).then((data) => {
-            data.subscribe(data => {
-                this.route.navigate(['store'], navigationExtras);
-            });
-        });
+        this.route.navigate(['store'], navigationExtras);
     }
 
     // slidesDidLoad() {

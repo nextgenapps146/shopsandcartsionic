@@ -34,10 +34,19 @@ export class HeaderComponent implements OnInit {
     showChatIcon: boolean;
 
     @Input()
+    showMessageIcon: boolean;
+
+    @Input()
+    showCartIcon: boolean;
+
+    @Input()
+    cartBadge: number;
+
+    @Input()
     showOrdersIcon: boolean;
 
     @Input()
-    showBackButton: boolean;
+    leftTopButton: string;
 
     segmentWidth: number;
 
@@ -61,6 +70,10 @@ export class HeaderComponent implements OnInit {
         this.navCtrl.pop();
     }
 
+    close() {
+        this.headerEvent.emit({ name: 'close', type: 'click' });
+    }
+
     moreIconClick() {
         this.headerEvent.emit({ name: 'more', type: 'click' });
     }
@@ -79,6 +92,14 @@ export class HeaderComponent implements OnInit {
 
     segmentClick(item) {
         this.headerEvent.emit({ name: item, type: 'segment' });
+    }
+
+    messageIconClick() {
+        this.headerEvent.emit({ name: 'message', type: 'click' });
+    }
+
+    cartIconClick() {
+        this.headerEvent.emit({ name: 'cart', type: 'click' });
     }
 
 }

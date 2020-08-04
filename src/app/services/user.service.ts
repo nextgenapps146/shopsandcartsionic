@@ -64,11 +64,15 @@ export class UserService {
         delete result.id;
         await this.usersRef.doc(dataId).update({ ...result });
         await this.utils.closeLoading();
+        this.utils.setUserInfoToLocalStorage(result);
+        this.utils.presentToast('Profile Updated!', true, 'top', 2100);
     }
 }
 
 export interface User {
     email: string;
     id: string;
-    username: string;
+    firstname: string;
+    lastname: string;
+    phone: number;
 }

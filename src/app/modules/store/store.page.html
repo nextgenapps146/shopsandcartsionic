@@ -1,4 +1,4 @@
-<ion-header>
+<!-- <ion-header>
     <ion-toolbar color="primary">
         <ion-buttons slot="start">
             <ion-menu-button></ion-menu-button>
@@ -20,11 +20,20 @@
     <ion-toolbar color="primary">
         <ion-searchbar color="light" md="ios" (click)="searchPage()"></ion-searchbar>
     </ion-toolbar>
-</ion-header>
-<!--
-<app-header [title]="storename" page="store" showChatIcon=true (headerEvent)="handleHeaderEvents($event)"></app-header> -->
+</ion-header> -->
+
+<app-header [title]="storeName" page="store" showMessageIcon=true showCartIcon=true toolbar2="search"
+(headerEvent)="handleHeaderEvents($event)">
+</app-header>
 
 <ion-content>
+    <div *ngIf="!storeCategoriesList || storeCategoriesList.length === 0" class="message-to-user">
+        You do not have any products added to your store. Start adding new products or
+        add it from the marketplace and modify them.</div>
+    <app-categories [list]="storeCategoriesList" (categoriesEvent)="handleCategoriesEvent($event)"></app-categories>
+</ion-content>
+
+<!-- <ion-content>
     <ion-item *ngIf="!storeProductsList || storeProductsList.length === 0">
         <p>You do not have any products added to your store. Start adding new products or
             add it from the marketplace and modify them.</p>
@@ -32,10 +41,6 @@
     <ion-list class="list1">
         <ion-list-header>
             <span calss="flt-lt">Available Products</span>
-            <!-- <span class="flt-rt link">
-                Add from Marketplace
-                <ion-icon name="arrow-forward"></ion-icon>
-            </span> -->
         </ion-list-header>
         <div class="overlay" *ngIf="currentAddingItem && currentAddingItem.isItemAdding"(click)="currentAddingItem.isItemAdding=false"></div>
         <div class="list-item" *ngFor="let product of storeProductsList">
@@ -62,4 +67,4 @@
             </div>
         </div>
     </ion-list>
-</ion-content>
+</ion-content> -->

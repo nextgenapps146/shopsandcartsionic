@@ -11,32 +11,40 @@ import { UserService } from '../../services/user.service';
 
 export class MyProfileComponent implements OnInit {
 
-    userInfo: any = {};
+    firstname: string;
+    lastname: string;
+    phone: any;
     enableBtn = false;
+    userInfo: any;
 
     constructor(
         public utils: UtilsService,
         private userService: UserService) {
-        this.userInfo = Object.assign({}, this.utils.userInfo);
+            this.firstname = this.utils.userInfo.firstname;
+            this.lastname = this.utils.userInfo.lastname;
+            this.phone = this.utils.userInfo.phone;
     }
 
     ngOnInit() { }
 
     Continue() {
-        if (this.userInfo.username && this.userInfo.email) {
-            if (this.userInfo.name !== this.utils.userInfo.name ||
-                this.userInfo.phone !== this.utils.userInfo.phoneNumber) {
-                this.userService.updateUser(this.userInfo.id, Object.assign({}, this.userInfo));
-            }
-        } else {
-            this.utils.presentToast('All field is required here', true, 'bottom', 2100);
+        if (this.utils.userInfo.email) {
+            this.userInfo = {
+                firstname: this.firstname,
+                lastname: this.lastname,
+                phone: this.phone
+            };
+            this.userService.updateUser(this.utils.userInfo.id, Object.assign({}, this.userInfo));
         }
     }
 
-    enableContinue() {
-        if (this.userInfo.name !== this.utils.userInfo.name ||
-            this.userInfo.phone !== this.utils.userInfo.phoneNumber) {
+    enableContinue(event) {
+        if (this.firstname !== this.utils.userInfo.firstname ||
+            this.lastname !== this.utils.userInfo.lastname ||
+            this.phone !== this.utils.userInfo.phone) {
             this.enableBtn = true;
+        } else {
+            this.enableBtn = false;
         }
     }
 }

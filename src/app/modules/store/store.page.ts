@@ -5,6 +5,8 @@ import { UtilsService } from '../../services/utils.service';
 import { CartService } from '../../services/CartServices/cart.service';
 import { constants } from 'buffer';
 import { ChatService } from '../../services/chat.service';
+import { StoreCategoryService } from '../../services/store-category.service';
+import { StoreService } from '../../services/store.service';
 
 @Component({
     selector: 'app-store',
@@ -14,32 +16,39 @@ import { ChatService } from '../../services/chat.service';
 
 export class StorePage implements OnInit {
     storeProductsList: any;
-    storeid: any;
-    storename: any;
+    storeId: any;
+    storeName: any;
     users = [];
     result: any;
     userId = this.utils.userInfo.id;
     currentAddingItem: any = null;
+    storeCategoriesList: any;
+    qpMap: any;
 
     constructor(
-        private router: Router,
-        private route: ActivatedRoute,
+        private route: Router,
+        private activatedRoute: ActivatedRoute,
         private utils: UtilsService,
         private fireStore: FirestoreService,
         private chatService: ChatService,
+        private storeCategoryService: StoreCategoryService,
+        private storeService: StoreService,
         public cart: CartService) {
-        this.route.queryParams.subscribe(params => {
-            if (params && params.storeid && params.storename) {
-                this.storeid = params.storeid;
-                this.storename = params.storename;
-                localStorage.setItem('sellerid', this.storeid);
-                this.cart.setCurrentStore(this.storeid);
+        this.qpMap = this.utils.quantitiesAndProductsMap;
+        this.activatedRoute.queryParams.subscribe(params => {
+            if (params && params.storeId && params.storeName) {
+                this.storeId = params.storeId;
+                this.storeName = params.storeName;
+                this.getStoreInfo(this.storeId);
+                localStorage.setItem('sellerid', this.storeId);
+                this.cart.setCurrentStore(this.storeId);
 
                 let productQty = 0;
                 this.cart.addCart.map((el) => {
                     productQty += el.units;
                 });
                 this.cart.productQty = productQty;
+                this.getStoreCategories(this.storeId);
             }
         });
     }
@@ -63,96 +72,137 @@ export class StorePage implements OnInit {
         // });
     }
 
-    getChatUsers() {
-        this.chatService.checkChatContacts(this.utils.userInfo.id, this.storeid).then((messages) => {
-            messages.subscribe(async (list) => {
-                // this.users = list;
-                console.log(list);
-                const index = (list || []).findIndex((r) => r.customerid === this.utils.userInfo.id && r.sellerid === this.storeid);
-                if (index < 0) {
-                    const record = {
-                        sellerid: this.storeid,
-                        customerid: this.utils.userInfo.id,
-                        sellerimage: 's.png',
-                        sellername: this.storename,
-                        customerimage: 'c.png',
-                        customername: this.utils.userInfo.username
-                    };
-                    await this.chatService.addChatContacts(record);
-                } else {
-                    const record = list[index];
-                    const navigationExtras = {
-                        queryParams: {
-                            chatcontactid: record.chatcontactid,
-                            sellerid: record.sellerid
-                        }
-                    };
-                    this.router.navigate(['chatroom'], navigationExtras);
-                    // this.router.navigateByUrl("/chatroom")
-                }
+    getStoreInfo(storeId) {
+        this.storeService.getStoreInfo(storeId).then((data) => {
+            data.subscribe(data => {
+                this.utils.userShoppingStoreInfo = data;
             });
         });
     }
 
-    enableItemAdding(product) {
-        this.currentAddingItem = product;
-        this.currentAddingItem.isItemAdding = true;
+    getStoreCategories(storeId) {
+        this.storeCategoryService.getStoreCategories(storeId).then((data) => {
+            data.subscribe(list => {
+                this.storeCategoriesList = list;
+                // this.myStore.categories = list;
+            });
+        });
     }
 
-    disableItemAdding() {
-        if (this.currentAddingItem) {
-            this.currentAddingItem.isItemAdding = false;
-        }
-    }
+    // I dont think we need to call this here - we only ceck and add when they click on it
+    // getChatUsers() {
+    //     this.chatService.checkChatContacts(this.utils.userInfo.id, this.storeId).then((messages) => {
+    //         messages.subscribe(async (list) => {
+    //             // this.users = list;
+    //             console.log(list);
+    //             const index = (list || []).findIndex((r) => r.customerid === this.utils.userInfo.id && r.sellerid === this.storeId);
+    //             if (index < 0) {
+    //                 const record = {
+    //                     sellerid: this.storeId,
+    //                     customerid: this.utils.userInfo.id,
+    //                     sellerimage: 's.png',
+    //                     sellername: this.storeName,
+    //                     customerimage: 'c.png',
+    //                     customername: this.utils.userInfo.username
+    //                 };
+    //                 await this.chatService.addChatContacts(record);
+    //             } else {
+    //                 const record = list[index];
+    //                 const navigationExtras = {
+    //                     queryParams: {
+    //                         chatcontactid: record.chatcontactid,
+    //                         sellerid: record.sellerid
+    //                     }
+    //                 };
+    //                 this.router.navigate(['chatroom'], navigationExtras);
+    //                 // this.router.navigateByUrl("/chatroom")
+    //             }
+    //         });
+    //     });
+    // }
 
-    addToCart(product) {
-        this.disableItemAdding();
-        this.enableItemAdding(product);
-        const productunits = this.cart.addCart.find(el => el.id === product.id);
-        if (productunits) {
-            productunits.units += 1;
-            this.cart.productQty += 1;
-            product.units = productunits.units;
-        } else {
-            product.units = 1;
-            this.cart.addCart.push(product);
-            this.cart.productQty += 1;
-        }
-        this.cart.setCurrentStore(this.storeid);
-    }
+    // enableItemAdding(product) {
+    //     this.currentAddingItem = product;
+    //     this.currentAddingItem.isItemAdding = true;
+    // }
 
-    updateCart(productID, type, product) {
-        const productunits = this.cart.addCart.find(el => el.id === productID);
-        const productIndex = this.cart.addCart.indexOf(el => el.id === productID);
-        if (type === 'add') {
-            productunits.units += 1;
-            this.cart.productQty += 1;
-            product.units = productunits.units;
-        }
-        if (type === 'remove') {
-            productunits.units -= 1;
-            this.cart.productQty -= 1;
-            product.units = productunits.units;
-            if (product.units === 0) {
-                this.cart.addCart.splice(productIndex, 1);
-                this.disableItemAdding();
-            }
-        }
-        this.cart.setCurrentStore(this.storeid);
-    }
+    // disableItemAdding() {
+    //     if (this.currentAddingItem) {
+    //         this.currentAddingItem.isItemAdding = false;
+    //     }
+    // }
+
+    // addToCart(product) {
+    //     this.disableItemAdding();
+    //     this.enableItemAdding(product);
+    //     const productunits = this.cart.addCart.find(el => el.id === product.id);
+    //     if (productunits) {
+    //         productunits.units += 1;
+    //         this.cart.productQty += 1;
+    //         product.units = productunits.units;
+    //     } else {
+    //         product.units = 1;
+    //         this.cart.addCart.push(product);
+    //         this.cart.productQty += 1;
+    //     }
+    //     this.cart.setCurrentStore(this.storeId);
+    // }
+
+    // updateCart(productID, type, product) {
+    //     const productunits = this.cart.addCart.find(el => el.id === productID);
+    //     const productIndex = this.cart.addCart.indexOf(el => el.id === productID);
+    //     if (type === 'add') {
+    //         productunits.units += 1;
+    //         this.cart.productQty += 1;
+    //         product.units = productunits.units;
+    //     }
+    //     if (type === 'remove') {
+    //         productunits.units -= 1;
+    //         this.cart.productQty -= 1;
+    //         product.units = productunits.units;
+    //         if (product.units === 0) {
+    //             this.cart.addCart.splice(productIndex, 1);
+    //             this.disableItemAdding();
+    //         }
+    //     }
+    //     this.cart.setCurrentStore(this.storeId);
+    // }
 
     onchatroom() {
-        this.getChatUsers();
-        this.router.navigate(['chatroom'], { queryParams: { storeId: this.storeid }});
+        // this.getChatUsers();
+        this.route.navigate(['chatroom'], { queryParams: { storeId: this.storeId }});
     }
 
     cartPage() {
         const navigationExtras = {
             queryParams: {
-                storeid: this.storeid,
-                storename: this.storename
+                storeid: this.storeId,
+                storeName: this.storeName
             }
         };
-        this.router.navigate(['cart'], navigationExtras);
+        this.route.navigate(['cart'], navigationExtras);
     }
+
+    handleHeaderEvents(event) {
+        if (event.name === 'cart' && this.qpMap['totalCart'] && this.qpMap['totalCart'] > 0) {
+            this.route.navigate(['cart']);
+        }
+    }
+
+    handleCategoriesEvent(event) {
+        if (event.name === 'arrow-right') {
+            this.goToStoreProducts(event.item);
+        }
+    }
+
+    goToStoreProducts(category) {
+        const navigationExtras = {
+            queryParams: {
+                storeId: this.storeId,
+                categoryId: category.id
+            }
+        };
+        this.route.navigate(['product-list'], navigationExtras);
+    }
+
 }

@@ -1,37 +1,9 @@
-<!-- <ion-header>
-    <ion-toolbar color="primary">
-        <ion-buttons slot="start">
-            <ion-back-button></ion-back-button>
-        </ion-buttons>
-        <ion-title class="title-ios" ion-text-capitalize>
-            <span class="topTitle">My Cart</span>
-            <br />
-            <span class="title-ios cartItems"> {{cart.addCart.length}} Items</span>
-        </ion-title>
-    </ion-toolbar>
-</ion-header> -->
-<ion-header>
-    <ion-toolbar color="primary">
-        <ion-buttons slot="start">
-            <ion-back-button text=""></ion-back-button>
-        </ion-buttons>
-        <div class="dFlexRow headerSection">
-            <ion-note class="whiteColor">Now Shopping In</ion-note>
-            <div class="flex">
-                <ion-label class="locationAddress">Southern Spices</ion-label>
-            </div>
-        </div>
-        <fa-icon class="chat-icon" [icon]="['fas', 'comment']" slot="end" (click)="onchatroom()"></fa-icon>
-        <!-- <ion-button slot="end" mode="ios" class="pRelative icon-btn" (click)="cartPage()">
-            <ion-icon slot="icon-only" name="logo-usd"></ion-icon>
-            <span class="cartQuantity">{{cart.subTotal | currency}}</span>
-        </ion-button> -->
-    </ion-toolbar>
-    <ion-toolbar color="primary">
-        <ion-label slot="end">Sub Total - {{cart.subTotal | currency}}</ion-label>
-    </ion-toolbar>
-</ion-header>
-<div class="heading">Delivery Mode</div>
+<app-header [title]="utils.userShoppingStoreInfo.name" page="cart" leftTopButton="back"
+    showMessageIcon=true showCartIcon=true
+    cartBadge="{{ qpMap['totalCart'] ? qpMap['totalCart'] : 0 }}" toolbar2="subtotal"
+    (headerEvent)="handleHeaderEvents($event)">
+</app-header>
+<!--
 <ion-radio-group [(ngModel)]="selectedDeliveryMode">
     <ion-list class="check-list bgTransparent">
         <ion-item *ngFor="let d of DeliveryMode" class="list-items bgTransparent" lines="none">
@@ -41,79 +13,66 @@
             </ion-label>
         </ion-item>
     </ion-list>
-</ion-radio-group>
+</ion-radio-group> -->
 
 <ion-content>
-    <ion-list class="list2 cart-page-list">
+    <div class="total-wrap">
+        <div class="item">
+            <div class="flt-lt">Subtotal</div>
+            <div class="flt-rt">$77.36</div>
+        </div>
+        <div class="item">
+            <div class="flt-lt">Sales Tax</div>
+            <div class="flt-rt">$2.11</div>
+        </div>
+        <div class="item total">
+            <div class="flt-lt">Total</div>
+            <div class="flt-rt">$99.36</div>
+        </div>
+        <div class="item savings">
+            <div class="flt-lt">Savings(4.6%)</div>
+            <div class="flt-rt">$7.36</div>
+        </div>
+    </div>
+    <!-- <ion-list class="list2 cart-page-list">
         <br />
         <ion-item>
             <ion-label>
                 <fa-icon [icon]="['fas', 'money-check-alt']"></fa-icon>
                 <h3>Payment Option</h3>
             </ion-label>
-
             <ion-select placeholder="Select One" interface="popover" [(ngModel)]="selectedPaymentMode">
-                <ion-select-option value="Online">Online</ion-select-option>
+                <ion-select-option value="Online">Credit/Debit</ion-select-option>
                 <ion-select-option value="Pay at store">At Store/Later</ion-select-option>
             </ion-select>
-
         </ion-item>
         <ion-item>
             <ion-label>
                 <fa-icon [icon]="['fas', 'shopping-basket']"></fa-icon>
                 <h3>Goods Delivery</h3>
             </ion-label>
-
-
-
             <ion-select placeholder="Select One" interface="popover" [(ngModel)]="selecteddeliverymode">
                 <ion-select-option value="at home">Home Delivery</ion-select-option>
                 <ion-select-option value="at store">At Store</ion-select-option>
                 <ion-select-option value="curbside">Curbside</ion-select-option>
             </ion-select>
-
         </ion-item>
-
-        <div style="padding: 7%;">
-
+        <ion-item>
             <ion-label>
                 <fa-icon [icon]="['fas', 'address-card']"></fa-icon>
                 <h3>Delivery Address</h3>
             </ion-label>
-        </div>
-        <!-- <ion-radio-group [(ngModel)]="addressvalue" s>
-            <ion-item *ngFor="let add of addressArray">
-                <ion-label>
-                    <ion-row align-items-center>
-                        <p ion-no-ion-margin>
-                            <strong> {{add.flatNumbers}},{{add.street}},{{add.locality}}</strong>
-                        </p>
-                    </ion-row>
-                </ion-label>
-                <ion-radio slot="start" value={{add.id}} checked></ion-radio>
-            </ion-item>
-        </ion-radio-group> -->
-        <ion-select placeholder="Select One" interface="popover"  [(ngModel)]="selectedAddress" (ionChange)="addressChange()">
-                <ion-select-option value="add_address"  (click)="addAddress()">Add New Address</ion-select-option>
-                <ion-select-option *ngFor="let add of addressArray">
-                    {{add.flatNumbers}},{{add.street}},{{add.locality}}
+            <ion-select placeholder="Select One" interface="popover" [(ngModel)]="selectedAddress"
+                (ionChange)="addressChange()">
+                <ion-select-option *ngFor="let addr of addressArray" [value]="addr.addressType">
+                    {{ addr.fullAddress }}
                 </ion-select-option>
-                <!-- <ion-select-option value="address2">2120 Castlewood Road, Wheaton Il 60189</ion-select-option> -->
             </ion-select>
-
-        <!-- <ion-card class="contentSection" (click)="addAddress()">
-            <ion-card-content>
-                <div class="dFlexAlignItemCenter">
-                    <ion-icon name="add-circle-outline" class="iconSize fontSize"></ion-icon>
-                    <h5 ion-padding-start class="fontSize">Add New Address</h5>
-                </div>
-            </ion-card-content>
-        </ion-card> -->
-
-    </ion-list>
+        </ion-item>
+    </ion-list> -->
 
 
-    <div *ngIf="cart.addCart.length > 0">
+    <div *ngIf="cartItems && cartItems.length > 0">
         <!-- <ion-card class="contentSection">
             <ion-card-content ion-no-padding>
                 <div>
@@ -152,20 +111,20 @@
                 </span>
                 <span class="flt-rt">
                     <ion-icon name="cart"></ion-icon>
-                    {{cart.addCart.length}} Items
+                    {{ cartItems.length }} Items
                 </span>
             </ion-list-header>
             <div class="item-overlay" *ngIf="currentAddingItem && currentAddingItem.isItemAdding"
                 (click)="currentAddingItem.isItemAdding=false"></div>
-            <div class="list-item" *ngFor="let product of cart.addCart;let i = index">
+            <div class="list-item" *ngFor="let product of cartItems;let i = index">
                 <ion-thumbnail class="flt-lt">
                     <img [src]="product.images[0]">
                 </ion-thumbnail>
-                <ion-label class="flt-lt">
+                <ion-label class="flt-lt" (click)="itemLabelClick(product)">
                     <h3><strong>{{ product.name }}</strong></h3>
                     <p>$ {{ product.regularPrice }}</p>
                     <div class="links-wrap">
-                        <span class="btn" (click)="removeProduct(product.id, i, product.units)">
+                        <span class="btn" (click)="deleteProduct(product)">
                             <fa-icon [icon]="['fas', 'trash']"></fa-icon>
                             <span class="label">Delete</span>
                         </span>
@@ -176,19 +135,19 @@
                     </div>
                 </ion-label>
                 <div class="flt-rt">
-                    <span class="flt-lt item-quantity-added" (click)="enableItemAdding(product)"
-                        *ngIf="product.units && product.units > 0">{{ product.units }}</span>
-                    <ion-icon class="round-icon-btn flt-lt item-add-initial" *ngIf="!product.units"
+                    <span class="flt-lt item-quantity-added" (click)="enableItemModifying(product)"
+                        *ngIf="product.orderQuantity&& product.orderQuantity> 0">{{ product.orderQuantity}}</span>
+                    <ion-icon class="round-icon-btn flt-lt item-add-initial" *ngIf="!product.orderQuantity"
                         name="ios-add-circle-outline" (click)="addToCart(product)"></ion-icon>
                 </div>
                 <div class="flt-rt add-to-cart-btns-wrap"
-                    [ngClass]="product.isItemAdding ? 'item-adding' : 'item-not-adding'">
+                    [ngClass]="product.isItemModifying ? 'item-adding' : 'item-not-adding'">
                     <div class="item-adding-wrap">
                         <ion-icon class="round-icon-btn flt-lt" name="ios-remove-circle-outline"
-                            (click)="updateCart(product.id,'remove')"></ion-icon>
-                        <span class="item-quantity flt-lt">{{ product.units }}</span>
+                            (click)="updateCart(product,'remove')"></ion-icon>
+                        <span class="item-quantity flt-lt">{{ product.orderQuantity}}</span>
                         <ion-icon class="round-icon-btn flt-lt" name="ios-add-circle-outline"
-                            (click)="updateCart(product.id,'add')"></ion-icon>
+                            (click)="updateCart(product,'add')"></ion-icon>
                     </div>
                 </div>
             </div>
@@ -240,7 +199,7 @@
         <!--End of Product List-->
 
     </div>
-    <div *ngIf="cart.addCart.length==0" [ngClass]="{ 'cartTopSection' :cart.addCart.length == 0 }">
+    <div *ngIf="cartItems.length === 0" [ngClass]="{ 'cartTopSection' :cart.addCart.length == 0 }">
         <div [ngClass]="{ 'cartTextSection' : cart.addCart.length == 0 }" text-center>
             <ion-icon name="cart" class="cartIcon"></ion-icon>
             <h3>Your Cart is Empty</h3>
@@ -250,7 +209,7 @@
     </div>
 </ion-content>
 
-<ion-footer (click)="deliveryAddress()" *ngIf="cart.addCart.length > 0">
+<ion-footer (click)="checkout()" *ngIf="cartItems.length > 0">
     <ion-toolbar color="primary" ion-padding-horizontal class="checkout-footer">
         <div class="footerCartSection">
             <ion-text>

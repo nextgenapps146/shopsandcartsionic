@@ -14,7 +14,7 @@
 
 
   <ng-container *ngFor="let message of messages">
-    
+
     <ion-row class="top_row"  *ngIf="message.senderid == userid">
       <!-- <ion-col size="2">
     <img  src="assets/images/user.png" alt="" class="image">
@@ -33,7 +33,7 @@
         </div>
       </ion-col>
     </ion-row>
-    
+
     <ion-row *ngIf="message.senderid != userid">
       <ion-col size="5">
       </ion-col>
@@ -50,7 +50,7 @@
           <span class="time">{{message.messagetime}}</span>
         </div>
       </ion-col>
-    
+
     </ion-row>
   </ng-container>
 

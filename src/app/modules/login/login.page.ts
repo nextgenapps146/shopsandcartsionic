@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuController, Platform, AlertController } from '@ionic/angular';
+import { MenuController, Platform, AlertController, ModalController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { UtilsService } from '../../services/utils.service';
 import { AuthServiceService } from '../../services/Auth/auth-service.service';
@@ -24,15 +24,14 @@ export class LoginPage implements OnInit {
         private fireStore: FirestoreService,
         public alertController: AlertController,
         private splashScreen: SplashScreen,
-        public util: UtilsService,
+        public utils: UtilsService,
         private menuCtrl: MenuController,
         private userService: UserService,
+        private modalController: ModalController,
         private authServ: AuthServiceService) {
     }
 
-    ngOnInit() {
-
-    }
+    ngOnInit() {}
 
     ionViewDidEnter() {
         this.menuCtrl.enable(false, 'start');
@@ -40,25 +39,25 @@ export class LoginPage implements OnInit {
         this.splashScreen.hide();
     }
 
+    onClickCloseModal() {
+        this.modalController.dismiss();
+    }
+
     signin() {
-        if (this.util.validateEmail(this.email) && this.password !== '') {
-            this.util.openLoader();
+        if (this.utils.validateEmail(this.email) && this.password !== '') {
+            this.utils.openLoader();
             this.authServ.login(this.email, this.password).then(
-                userData => {
-                    this.userService.updateMyDeviceToken(userData.id);
-                    this.util.navigate('home', false);
-                    // this.email = '';
-                    // this.password = '';
+                data => {
+                    this.utils.setUserInfoToLocalStorage(data);
+                    this.modalController.dismiss();
                 }
             ).catch(err => {
                 if (err) {
-                    this.util.presentToast(`${err}`, true, 'bottom', 2100);
-
+                    this.utils.presentToast(`${err}`, true, 'bottom', 2100);
                 }
-
-            }).then(el => this.util.closeLoading());
+            }).then(el => this.utils.closeLoading());
         } else {
-            this.util.presentToast('Please enter email and password', true, 'bottom', 2100);
+            this.utils.presentToast('Please enter email and password', true, 'bottom', 2100);
         }
     }
 
@@ -84,7 +83,7 @@ export class LoginPage implements OnInit {
                 }, {
                     text: 'Ok',
                     handler: (res) => {
-                        const value = this.util.validateEmail(res.name1);
+                        const value = this.utils.validateEmail(res.name1);
                         this.authServ.forgotPassoword(res.name1);
                         return value;
 

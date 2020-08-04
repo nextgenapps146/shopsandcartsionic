@@ -103,7 +103,7 @@ ion-list.list1 {
 
 ion-list.list2 {
     ion-item {
-        padding: 10px;
+        padding: 10px 26px 10px 10px;
 
         ion-thumbnail {
             background-color: #eee;
@@ -116,10 +116,11 @@ ion-list.list2 {
         ion-label {
             h3 {
                 text-transform: capitalize;
-                margin-bottom: 2px;
+                margin-bottom: 6px;
             }
-            p {
-                font-size: 12px;
+            .text {
+                font-size: 11px;
+                color: #666;
             }
         }
 
@@ -149,6 +150,15 @@ ion-list.list2 {
     }
     .popover-content {
         width: 80%;
+    }
+}
+
+:root {
+    .popover-content {
+        width: 70%;
+        ion-label {
+            font-size: 13px;
+        }
     }
 }
 

@@ -31,8 +31,8 @@ export class StoreService {
         }
     }
 
-    public async getUserLocalStores() {
-        this.myStoreRef = this.Afs.collection('stores', ref => ref.where('city', '==', this.utils.userShoppingCity));
+    public async getUserLocalStores(city) {
+        this.myStoreRef = this.Afs.collection('stores', ref => ref.where('city', '==', city));
         return this.myStoreRef.snapshotChanges().pipe(
                 map(res => res.map(dataItems => {
                     const data: any = dataItems.payload.doc.data();

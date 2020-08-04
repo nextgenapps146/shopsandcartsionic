@@ -7,7 +7,7 @@ const routes: Routes = [
     {
         path: 'home',
         loadChildren: () => import('./modules/home/home.module').then(m => m.HomePageModule),
-        canActivate: [GuardsService]
+        // canActivate: [GuardsService]
     },
     { path: 'about-us', loadChildren: () => import('./modules/about-us/about-us.module').then(m => m.AboutUsPageModule) },
     { path: 'need-help', loadChildren: () => import('./modules/need-help/need-help.module').then(m => m.NeedHelpPageModule) },

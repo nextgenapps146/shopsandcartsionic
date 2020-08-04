@@ -1,26 +1,29 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuController } from '@ionic/angular';
+import { MenuController, ModalController } from '@ionic/angular';
 import { UtilsService } from '../../services/utils.service';
 import { AuthServiceService } from '../../services/Auth/auth-service.service';
 import { FirestoreService } from '../../services/firestore/firestore.service';
 import { UserService } from '../../services/user.service';
+
 @Component({
     selector: 'app-signup',
     templateUrl: './signup.page.html',
     styleUrls: ['./signup.page.scss'],
 })
+
 export class SignupPage implements OnInit {
 
-    first_name = '';
-    last_name = '';
     email = '';
     password = '';
+    confirmPassword = '';
+    disableBtn = true;
 
     constructor(
-        public util: UtilsService,
+        public utils: UtilsService,
         private fireStore: FirestoreService,
         private menuCtrl: MenuController,
         private userService: UserService,
+        private modalController: ModalController,
         private authServ: AuthServiceService) {
     }
 
@@ -32,24 +35,41 @@ export class SignupPage implements OnInit {
         this.menuCtrl.enable(false, 'end');
     }
 
-    signup() {
-        if (this.first_name !== '' && this.email !== '' && this.password !== '' && this.util.validateEmail(this.email)) {
-            this.authServ.createAccount(this.email, this.password, this.first_name).then(
-                data => {
-                    this.userService.updateMyDeviceToken(data.id);
-                    this.util.presentToast('Thanks for Signup', true, 'bottom', 2100);
+    onClickCloseModal() {
+        this.modalController.dismiss();
+    }
 
-                    this.util.navigate('', false);
+    signup() {
+        if (this.isValidated()) {
+            this.authServ.createAccount(this.email, this.password).then(
+                data => {
+                    this.utils.setUserInfoToLocalStorage(data);
+                    this.modalController.dismiss();
                 }
             ).catch(err => {
                 if (err) {
-                    this.util.presentToast(`${err}`, true, 'bottom', 2100);
-
+                    this.utils.presentToast(`${err}`, true, 'top', 2100);
                 }
             });
         } else {
-            this.util.presentToast('Wrong Input/Invalid Details', true, 'bottom', 2100);
+            this.utils.presentToast('Wrong Input/Invalid Details', true, 'bottom', 2100);
         }
+    }
+
+    enableSignup(e) {
+        const validate = this.isValidated();
+        this.disableBtn = !validate;
+    }
+
+    isValidated() {
+        let validated = false;
+        if (this.utils.validateEmail(this.email) && this.password &&
+            this.confirmPassword && this.password === this.confirmPassword) {
+            validated = true;
+        } else {
+            validated = false;
+        }
+        return validated;
     }
 
 }

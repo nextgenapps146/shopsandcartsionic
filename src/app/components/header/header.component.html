@@ -1,7 +1,8 @@
 <ion-header>
     <ion-toolbar class="toolbar-up" color="primary">
-        <ion-icon *ngIf="!showBackButton" slot="start" name="menu" (click)="openFirst()"></ion-icon>
-        <ion-icon *ngIf="showBackButton" slot="start" name="arrow-back" (click)="goBack()"></ion-icon>
+        <ion-icon *ngIf="!leftTopButton" slot="start" name="menu" (click)="openFirst()"></ion-icon>
+        <ion-icon *ngIf="leftTopButton === 'back'" slot="start" name="arrow-back" (click)="goBack()"></ion-icon>
+        <ion-icon *ngIf="leftTopButton === 'close'" slot="start" name="close" (click)="close()"></ion-icon>
         <div class="title">
             <div class="label" (click)="titleClick()">{{ title }}</div>
         </div>
@@ -12,6 +13,14 @@
         <ion-buttons *ngIf="showChatIcon" slot="end">
             <fa-icon slot="end" [icon]="['fas', 'comment-dots']"></fa-icon>
             <ion-badge color="danger">5</ion-badge>
+        </ion-buttons>
+        <ion-buttons *ngIf="showMessageIcon" slot="end" (click)="messageIconClick()">
+            <fa-icon slot="end" [icon]="['fas', 'comment']"></fa-icon>
+            <ion-badge color="danger">5</ion-badge>
+        </ion-buttons>
+        <ion-buttons *ngIf="showCartIcon" slot="end" (click)="cartIconClick()">
+            <ion-icon slot="end" name="cart"></ion-icon>
+            <ion-badge color="danger">{{ cartBadge }}</ion-badge>
         </ion-buttons>
         <ion-buttons *ngIf="showMoreIcon" slot="end" (click)="moreIconClick()">
             <fa-icon slot="end" [icon]="['fas', 'ellipsis-v']"></fa-icon>
@@ -26,5 +35,8 @@
                 [ngClass]="item.title === activeSegment ? 'active': ''"
                 [style.width.%]="segmentWidth">{{ item.title }}</div>
         </div>
+    </ion-toolbar>
+    <ion-toolbar color="primary" *ngIf="toolbar2 === 'subtotal'">
+        <ion-label slot="end" class="sub-total">Sub Total - {{ 2.99 | currency }}</ion-label>
     </ion-toolbar>
 </ion-header>

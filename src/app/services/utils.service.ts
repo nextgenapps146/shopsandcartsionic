@@ -13,16 +13,29 @@ export class UtilsService {
 
     userid: BehaviorSubject<string> = new BehaviorSubject<string>('');
     availableCities = ['Naperville', 'Schaumberg', 'Chicago', 'Plainfield', 'Aurora'];
+    defaultProfilePic = '../assets/images/user.png';
     userShoppingCity = '';
     userInfo: any = {
-        name: 'Welcome User',
-        profileimage: '../assets/images/user.png'
+        id: '',
+        firstname: '',
+        lastname: '',
+        picture: '../assets/images/user.png',
+        email: '',
+        phone: ''
     };
+    userShoppingStoreInfo: any = {};
     AddAdressBackUrl = '';
     storeInfo = null;
     storeProducts = [];
+    quantitiesAndProductsMap = {};
 
-    constructor(public loadingController: LoadingController, private fireAuth: AngularFireAuth, private router: Router, private toastController: ToastController, private nav: NavController, public alertController: AlertController) {
+    constructor(
+        public loadingController: LoadingController,
+        private fireAuth: AngularFireAuth,
+        private router: Router,
+        private toastController: ToastController,
+        private nav: NavController,
+        public alertController: AlertController) {
         this.getUserId();
     }
 
@@ -58,6 +71,15 @@ export class UtilsService {
         toast.present();
     }
 
+    setUserInfoToLocalStorage(data) {
+        this.userInfo.id = data.uid || this.userInfo.id;
+        this.userInfo.email = data.email || this.userInfo.email;
+        this.userInfo.picture = data.picture || this.defaultProfilePic;
+        this.userInfo.firstname = data.firstname || this.userInfo.firstname;
+        this.userInfo.lastname = data.lastname || this.userInfo.lastname;
+        this.userInfo.phone = data.phone || this.userInfo.phone;
+        localStorage.setItem('userInfo', JSON.stringify(this.userInfo));
+    }
 
     removeConform(): Promise<any> {
         return new Promise(async (resolve, reject) => {
@@ -94,6 +116,7 @@ export class UtilsService {
         });
         await loading.present();
     }
+
     async closeLoading() {
         return await this.loadingController.dismiss();
     }
@@ -147,7 +170,7 @@ export class UtilsService {
         return [
             { title: 'Home', url: '/home', icon: 'home' },
             { title: 'My Orders', url: '/home', icon: 'home' },
-            { title: 'My Addresses', url: '/my-account', icon: 'card'},
+            { title: 'My Addresses', url: '/my-account', icon: 'card' },
             { title: 'Offers', url: '/offers', icon: 'flame' },
             { title: 'Create Store', url: '/create-store', icon: 'cube' }
         ];
@@ -158,8 +181,7 @@ export class UtilsService {
             { title: 'About Us', url: '/about-us', icon: 'information-circle-outline', mode: 'ios' },
             { title: 'Rate Us', url: '/rate-us', icon: 'star-half', mode: 'ios' },
             { title: 'Share', url: '/share', icon: 'share', mode: 'md' },
-            { title: 'Need Help', url: '/need-help', icon: 'help-circle-outline', mode: 'ios' },
-            { title: 'Log out', url: '/login', icon: 'log-out', mode: 'md' }
+            { title: 'Need Help', url: '/need-help', icon: 'help-circle-outline', mode: 'ios' }
         ];
     }
 

@@ -1,14 +1,13 @@
-// .input {
-//     background-color: rgb(240, 240, 240);
-//     border: 1px solid rgb(210, 210, 210);
-//     border-radius: 9px;
-//     font-size: .9em !important;
-// }
+.input {
+    background-color: rgb(240, 240, 240);
+    border: 1px solid rgb(210, 210, 210);
+    border-radius: 9px;
+    font-size: .9em !important;
+}
 
 .title {
     font-size: 18px;
 }
-
 .logo {
     width: 1.25em !important;
 }
@@ -20,7 +19,6 @@
     justify-content: center;
     background: var(--ion-color-primary-tint, #4c8dff) !important;
 }
-
 ion-card{
     --background: #fff;
     margin: 20px;
@@ -60,4 +58,14 @@ ion-card{
     display: flex;
     flex-direction: column;
     justify-content: center;
+}
+ion-item {
+    margin-bottom: 5px;
+}
+
+.close-btn {
+    position: absolute;
+    ion-icon {
+        font-size: 35px;
+    }
 }

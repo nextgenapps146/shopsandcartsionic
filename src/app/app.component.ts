@@ -11,6 +11,8 @@ import { UtilsService } from './services/utils.service';
 import { FirebaseX } from '@ionic-native/firebase-x/ngx';
 import { CartService } from './services/CartServices/cart.service';
 import { UserService } from './services/user.service';
+import { LoginPage } from './modules/login/login.page';
+import { SignupPage } from './modules/signup/signup.page';
 
 @Component({
     selector: 'app-root',
@@ -39,63 +41,18 @@ export class AppComponent {
         private userService: UserService
     ) {
         this.initializeApp();
-        this.authService.userId.subscribe(filter => {
-            if (filter.$uid) {
-                this.getCurrentUserInfo(filter.$uid);
-            }
-        });
-        this.getUserShoppingCity();
-        // this.userDetails = {
-        //     profileUrl: 'assets/images/user.png',
-        //     name: ' Hey John Smith',
-        //     phoneNo: '+91-000-0000-0000',
-        //     location: 'jaipur'
-        // };
-        // this.userPersonalDetails = [
-        //     {
-        //         icons: 'assets/images/delivery-truck.png',
-        //         title: 'My Order',
-        //         url: '/order',
-        //         value: 'order'
-        //     },
-        //     {
-        //         icons: 'assets/images/card.png',
-        //         title: 'My Card',
-        //         url: '/my-account',
-        //         value: 'mycard'
-        //     },
-        //     {
-        //         icons: 'assets/images/placeholder.png',
-        //         title: 'My Address',
-        //         url: '/my-account',
-        //         value: 'MyAddress'
+        this.getUserInfoFromStorage();
+        // this.authService.userId.subscribe(filter => {
+        //     if (filter.$uid) {
+        //         this.getCurrentUserInfo(filter.$uid);
         //     }
-        // ];
-        // CartService.restoreCarts(); We will do it later
+        // });
     }
 
     initializeApp() {
         this.platform.ready().then(() => {
             this.statusBar.styleDefault();
             this.splashScreen.hide();
-        });
-    }
-
-    getCurrentUserInfo(id) {
-        this.userService.updateMyDeviceToken(id);
-        this.userService.getUserInfo(id).then((data) => {
-            data.subscribe(result => {
-                if (result.id) {
-                    this.utils.userInfo = result;
-                    this.utils.userInfo.profileimage = 'assets/images/user.png'; // temporary
-
-                    // update only if its device - check for is device
-                    this.userService.updateMyDeviceToken(id);
-                    this.initPush(id);
-                } else {
-                    // Navigate back to login screen -- something went wrong here
-                }
-            });
         });
     }
 
@@ -111,19 +68,14 @@ export class AppComponent {
         });
     }
 
-    navigatePage(pageUrl, value?) {
-        this.menuCtrl.toggle();
-        if (pageUrl === '/my-account') {
-            this.route.navigate([pageUrl, { title: value }]);
-        } else {
-            this.route.navigate([pageUrl]);
-        }
-    }
-
     userProfile() {
         this.menuCtrl.toggle();
-        this.route.navigate(['my-account', { title: 'profile' }]);
-
+        if (this.utils.userInfo.email === '') {
+            this.login();
+            // this.route.navigate(['login']);
+        } else {
+            this.route.navigate(['my-account', { title: 'profile' }]);
+        }
     }
 
     async redirectPage(pageUrl, rateUs) {
@@ -135,17 +87,70 @@ export class AppComponent {
             return await modal.present();
         } else if (pageUrl === '/share') {
             this.socialSharing.share();
+        } else if (pageUrl === '/logout') {
+            this.utils.userInfo = localStorage.removeItem('userInfo');
+            this.route.navigate(['/home']);
+            setTimeout(v => {
+                window.location.href = window.location.href;
+            }, 1000);
         } else {
             this.route.navigate([pageUrl]);
         }
     }
 
-    getUserShoppingCity() {
+    getUserInfoFromStorage() {
         this.utils.userShoppingCity = localStorage.getItem('shoppingCity');
+        this.utils.userInfo = JSON.parse(localStorage.getItem('userInfo')) || this.utils.userInfo;
+        this.route.navigate(['/home']);
     }
 
-    locationPage() {
-        this.menuCtrl.toggle();
-        this.route.navigate(['location']);
+    async login() {
+        const modal = await this.modalController.create({
+            component: LoginPage
+        });
+        modal.onDidDismiss().then((res) => {
+            if (res && res.data === 'signup') {
+                this.signup();
+            }
+        });
+        return await modal.present();
     }
+
+    async signup() {
+        const modal = await this.modalController.create({
+            component: SignupPage
+        });
+        modal.onDidDismiss().then((res) => {
+            if (res && res.data === 'login') {
+                this.signup();
+            }
+        });
+        return await modal.present();
+    }
+
+    // locationPage() {
+    //     this.menuCtrl.toggle();
+    //     this.route.navigate(['location']);
+    // }
+
+    // navigatePage(pageUrl, value?) {
+    //     this.menuCtrl.toggle();
+    //     if (pageUrl === '/my-account') {
+    //         this.route.navigate([pageUrl, { title: value }]);
+    //     } else {
+    //         this.route.navigate([pageUrl]);
+    //     }
+    // }
+
+    // Enable Later ---
+    // getCurrentUserInfo(id) {
+    //     this.userService.updateMyDeviceToken(id);
+    //     this.userService.getUserInfo(id).then((data) => {
+    //         data.subscribe(result => {
+    //             if (result.id) {
+    //                 this.utils.userInfo = result;
+    //             }
+    //         });
+    //     });
+    // }
 }

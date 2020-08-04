@@ -6,21 +6,23 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { ProductListPage } from './product-list.page';
+import { ComponentsModule } from '../../components/components.module';
 
 const routes: Routes = [
-  {
-    path: '',
-    component: ProductListPage
-  }
+    {
+        path: '',
+        component: ProductListPage
+    }
 ];
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    RouterModule.forChild(routes)
-  ],
-  declarations: [ProductListPage]
+    imports: [
+        ComponentsModule,
+        CommonModule,
+        FormsModule,
+        IonicModule,
+        RouterModule.forChild(routes)
+    ],
+    declarations: [ProductListPage]
 })
-export class ProductListPageModule {}
+export class ProductListPageModule { }

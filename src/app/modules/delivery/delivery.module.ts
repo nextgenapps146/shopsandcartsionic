@@ -7,21 +7,25 @@ import { IonicModule } from '@ionic/angular';
 
 import { DeliveryPage } from './delivery.page';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { ComponentsModule } from '../../components/components.module';
+import { LocationPage } from '../location/location.page';
 const routes: Routes = [
-  {
-    path: '',
-    component: DeliveryPage
-  }
+    {
+        path: '',
+        component: DeliveryPage
+    }
 ];
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    FontAwesomeModule,
-    RouterModule.forChild(routes)
-  ],
-  declarations: [DeliveryPage]
+    imports: [
+        ComponentsModule,
+        CommonModule,
+        FormsModule,
+        IonicModule,
+        FontAwesomeModule,
+        RouterModule.forChild(routes)
+    ],
+    declarations: [DeliveryPage, LocationPage],
+    entryComponents: [LocationPage]
 })
-export class DeliveryPageModule {}
+export class DeliveryPageModule { }

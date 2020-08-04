@@ -8,23 +8,24 @@ import { IonicModule } from '@ionic/angular';
 import { CartPage } from './cart.page';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { LocationPage } from '../location/location.page';
+import { ComponentsModule } from '../../components/components.module';
 
 const routes: Routes = [
-  {
-    path: '',
-    component: CartPage
-  }
+    {
+        path: '',
+        component: CartPage
+    }
 ];
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    FontAwesomeModule,
-    RouterModule.forChild(routes)
-  ],
-  declarations: [CartPage, LocationPage],
-  entryComponents: [LocationPage]
+    imports: [
+        ComponentsModule,
+        CommonModule,
+        FormsModule,
+        IonicModule,
+        FontAwesomeModule,
+        RouterModule.forChild(routes)
+    ],
+    declarations: [CartPage]
 })
-export class CartPageModule {}
+export class CartPageModule { }

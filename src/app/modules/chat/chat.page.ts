@@ -10,21 +10,23 @@ import { ChatService } from '../../services/chat.service';
     templateUrl: './chat.page.html',
     styleUrls: ['./chat.page.scss'],
 })
+
 export class ChatPage implements OnInit {
+
     userId = this.utils.userInfo.id;
     users: any = [];
     messages: any = [];
     messagetime: any;
+
     constructor(
         public router: Router,
         public authService: AuthServiceService,
         public chatService: ChatService,
         public fsServices: FirestoreService,
         private utils: UtilsService) {
-
-        this.authService.userId.subscribe(filter => {
-            console.log(filter);
-        });
+        // this.authService.userId.subscribe(filter => {
+        //     console.log(filter);
+        // });
 
         this.chatService.getChatUsers(this.userId).then((users) => {
             users.subscribe(list => {
