@@ -1,5 +1,9 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { MenuController, NavController } from '@ionic/angular';
+import { MenuController, NavController, ModalController } from '@ionic/angular';
+import { LoginPage } from '../../modules/login/login.page';
+import { SignupPage } from '../../modules/signup/signup.page';
+import { UtilsService } from '../../services/utils.service';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-header',
@@ -48,10 +52,16 @@ export class HeaderComponent implements OnInit {
     @Input()
     leftTopButton: string;
 
+    @Input()
+    textRight: string;
+
     segmentWidth: number;
 
     constructor(
         private menuCtrl: MenuController,
+        private route: Router,
+        private modalController: ModalController,
+        private utils: UtilsService,
         private navCtrl: NavController) {
     }
 
@@ -95,11 +105,59 @@ export class HeaderComponent implements OnInit {
     }
 
     messageIconClick() {
-        this.headerEvent.emit({ name: 'message', type: 'click' });
+        this.checkPromtLogin({ name: 'message', type: 'click' });
     }
 
     cartIconClick() {
-        this.headerEvent.emit({ name: 'cart', type: 'click' });
+        if (this.page === 'delivery') {
+            this.checkPromtLogin({ name: 'cart', type: 'click' });
+        } else {
+            this.headerEvent.emit({ name: 'cart', type: 'click' });
+        }
+    }
+
+    searchPage(value) {
+        this.headerEvent.emit({ name: 'search', type: 'enter', item: value });
+    }
+
+    checkPromtLogin(eventObject) {
+        if (!this.utils.userInfo.email) {
+            this.login(eventObject);
+        } else {
+            this.headerEvent.emit(eventObject);
+        }
+    }
+
+    async login(eventObject) {
+        const modal = await this.modalController.create({
+            component: LoginPage
+        });
+        modal.onDidDismiss().then((res) => {
+            if (res) {
+                if (res.data === 'signup') {
+                    this.signup(eventObject);
+                } else if (res.data === 'loggedin' || res.data === 'signedin') {
+                    this.checkPromtLogin(eventObject);
+                }
+            }
+        });
+        return await modal.present();
+    }
+
+    async signup(eventObject) {
+        const modal = await this.modalController.create({
+            component: SignupPage
+        });
+        modal.onDidDismiss().then((res) => {
+            if (res) {
+                if (res.data === 'login') {
+                    this.signup(eventObject);
+                } else if (res.data === 'loggedin' || res.data === 'signedin') {
+                    this.checkPromtLogin(eventObject);
+                }
+            }
+        });
+        return await modal.present();
     }
 
 }

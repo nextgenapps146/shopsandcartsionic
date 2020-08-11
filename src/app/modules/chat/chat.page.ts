@@ -28,7 +28,7 @@ export class ChatPage implements OnInit {
         //     console.log(filter);
         // });
 
-        this.chatService.getChatUsers(this.userId).then((users) => {
+        this.chatService.getChatThreads(this.userId).then((users) => {
             users.subscribe(list => {
                 this.users = list;
                 for (let i = 0; i < this.users.length; i++) {

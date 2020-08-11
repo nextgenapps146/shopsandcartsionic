@@ -16,9 +16,9 @@ export class MyAddressComponent implements OnInit {
         public dataService: DataService,
         public route: Router,
         private addressService: AddressService) {
-        this.addressService.getUserAddress().then((data) => {
-            this.address = data;
-        });
+        // this.addressService.getUserAddress().then((data) => {
+        //     this.address = data;
+        // });
     }
 
     ngOnInit() { }

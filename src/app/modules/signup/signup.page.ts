@@ -36,7 +36,7 @@ export class SignupPage implements OnInit {
     }
 
     onClickCloseModal() {
-        this.modalController.dismiss();
+        this.modalController.dismiss('close');
     }
 
     signup() {
@@ -44,7 +44,7 @@ export class SignupPage implements OnInit {
             this.authServ.createAccount(this.email, this.password).then(
                 data => {
                     this.utils.setUserInfoToLocalStorage(data);
-                    this.modalController.dismiss();
+                    this.modalController.dismiss('signedin');
                 }
             ).catch(err => {
                 if (err) {

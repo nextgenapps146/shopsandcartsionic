@@ -58,6 +58,8 @@ export class LocationPage implements OnInit {
     handleHeaderEvents(event) {
         if (event.name === 'close') {
             this.modalCtrl.dismiss();
+        } else if (event.name === 'search') {
+            this.searchAddress(event.item);
         }
     }
 

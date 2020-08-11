@@ -9,13 +9,13 @@ import { UtilsService } from '../utils.service';
 import { FirestoreService } from '../firestore/firestore.service';
 import { UserService } from '../user.service';
 
-export class AuthInfo {
-    constructor(public $uid: string) { }
+// export class AuthInfo {
+//     constructor(public $uid: string) { }
 
-    isLoggedIn() {
-        return !!this.$uid;
-    }
-}
+//     isLoggedIn() {
+//         return !!this.$uid;
+//     }
+// }
 
 @Injectable({
     providedIn: 'root'
@@ -23,7 +23,7 @@ export class AuthInfo {
 
 export class AuthServiceService {
 
-    static UNKNOWN_USER = new AuthInfo(null);
+    // static UNKNOWN_USER = new AuthInfo(null);
     // public authInfo$: BehaviorSubject<AuthInfo> = new BehaviorSubject<AuthInfo>(AuthServiceService.UNKNOWN_USER);
     // userId = this.authInfo$.asObservable();
     constructor(

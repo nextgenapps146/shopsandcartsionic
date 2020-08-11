@@ -17,32 +17,27 @@ export class AddressService {
         ) { }
 
     // only add to local storage
-    public async addUserAddress(result) {
-        await this.utils.openLoader();
-        this.addrRef = this.Afs.collection('address');
-        await this.addrRef.add({ ...result, userid: this.utils.userInfo.id });
-        await this.utils.closeLoading();
+    public addUserAddress(userId, result, selected) {
+        const userAddresses = this.getUserAddress(userId);
+        if (result && result.fullAddress) {
+            userAddresses['items'].push(result);
+        }
+        userAddresses['selected'] = selected;
+        localStorage.setItem(userId + 'addresses', JSON.stringify(userAddresses));
     }
 
-    public async getUserAddress() {
-        this.addrRef = this.Afs.collection('address', ref => ref.where('userid', '==', this.utils.userInfo.id));
-        return this.addrRef.snapshotChanges().pipe(
-            map(res => res.map(dataItems => {
-                const data: any = dataItems.payload.doc.data();
-                const id = dataItems.payload.doc.id;
-                // this.UserAddress.push({ id, ...data });
-                return { id, ...data };
-            }))
-        );
+    public getUserAddress(userId) {
+        const defaultAddress = { items: [], selected: '' };
+        return JSON.parse(localStorage.getItem(userId + 'addresses')) || defaultAddress;
     }
 
-    public async getDeliveryAddress(address_id) {
-        this.addrRef = this.Afs.collection('address');
-        return this.addrRef.doc(address_id).snapshotChanges().pipe(
-            map((res: any) => {
-                const record = res.payload.data();
-                return record;
-            })
-        );
-    }
+    // public async getDeliveryAddress(address_id) {
+    //     this.addrRef = this.Afs.collection('address');
+    //     return this.addrRef.doc(address_id).snapshotChanges().pipe(
+    //         map((res: any) => {
+    //             const record = res.payload.data();
+    //             return record;
+    //         })
+    //     );
+    // }
 }

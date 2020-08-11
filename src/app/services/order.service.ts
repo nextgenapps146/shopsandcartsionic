@@ -57,7 +57,8 @@ export class OrderService {
     }
 
     public async getUserOrders(userId) {
-        this.ordersRef = this.Afs.collection<Order>('orders', ref => ref.where('customerid', '==', userId));
+        this.ordersRef = this.Afs.collection<Order>('orders',
+            ref => ref.where('customerid', '==', userId).where('deliverystatus', '==', 'nd'));
         return this.ordersRef.snapshotChanges().pipe(
             map(res => res.map(dataItems => {
                 const data: any = dataItems.payload.doc.data() as Order;
@@ -80,17 +81,46 @@ export class OrderService {
         );
     }
 
-    // Revisiting needed ----
-    public async createUserOrder(grandTotal, addCart, promoCode, selectedDay, selectedTime, address) {
-        this.ordersRef = this.Afs.collection('Orders');
+    public async placeOrder(randomNumber, record) {
         await this.utils.openLoader();
-        // if (Object.keys(promoCode).length) {
-        //     await this.ordersRef.add({ created: new Date(), total: grandTotal, products: addCart, promoCode, selectedDay, selectedTime, address, userid: this.utils.userInfo.id });
-        // } else {
-        //     await this.ordersRef.add({ created: new Date(), total: grandTotal, products: addCart, selectedDay, selectedTime, address, userid: this.utils.userInfo.id });
-        // }
+        this.ordersRef = this.Afs.collection('orders');
+        await this.utils.openLoader();
+        await this.ordersRef.doc(randomNumber).set(record);
         await this.utils.closeLoading();
     }
+
+    public saveOrderToStorage(userId, record, isUpdateFromDbRequired) {
+        let allOrders = {
+            orders: []
+        };
+        const savedOrders = this.getSavedOrders(userId);
+        if (savedOrders && savedOrders.orders) {
+            allOrders = savedOrders;
+        }
+        allOrders['isUpdateRequired'] = isUpdateFromDbRequired;
+        allOrders.orders.unshift(record);
+        localStorage.setItem(userId + 'orders', JSON.stringify(allOrders));
+    }
+
+    public getSavedOrders(userId) {
+        return JSON.parse(localStorage.getItem(userId + 'orders'));
+    }
+
+    public saveAllOrdersToStorage(userId, allOrders) {
+        localStorage.setItem(userId + 'orders', JSON.stringify(allOrders));
+    }
+
+    // // Revisiting needed ----
+    // public async createUserOrder(grandTotal, addCart, promoCode, selectedDay, selectedTime, address) {
+    //     this.ordersRef = this.Afs.collection('Orders');
+    //     await this.utils.openLoader();
+    //     // if (Object.keys(promoCode).length) {
+    //     //     await this.ordersRef.add({ created: new Date(), total: grandTotal, products: addCart, promoCode, selectedDay, selectedTime, address, userid: this.utils.userInfo.id });
+    //     // } else {
+    //     //     await this.ordersRef.add({ created: new Date(), total: grandTotal, products: addCart, selectedDay, selectedTime, address, userid: this.utils.userInfo.id });
+    //     // }
+    //     await this.utils.closeLoading();
+    // }
 
     // This is also in chat Service - i dont think we need in two places
     // public async sendNotificaion(record) {
@@ -142,14 +172,15 @@ export class OrderService {
 
 export interface Order {
     storeid: string;
-    customerid: string;
-    customername: string;
-    total: string;
-    status: string; // vlaue will be New when added first
-    transaction: any; // it is an array of object which contains these values { status , comment , time , username }
-    delivery_mode: string; // it can be value from in three three option - deliver, pick_up , curve_site
-    payment_mode: string;
-    created: Date; // it can be value of it =  online , cash_on_dlivery , pay_at_store
+    // storeid: string;
+    // customerid: string;
+    // customername: string;
+    // total: string;
+    // status: string; // vlaue will be New when added first
+    // transaction: any; // it is an array of object which contains these values { status , comment , time , username }
+    // delivery_mode: string; // it can be value from in three three option - deliver, pick_up , curve_site
+    // payment_mode: string;
+    // created: Date; // it can be value of it =  online , cash_on_dlivery , pay_at_store
 }
 
 export interface OrderItem {

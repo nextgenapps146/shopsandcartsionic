@@ -1,70 +1,36 @@
-<ion-header>
-  <ion-toolbar color="primary">
-    <ion-title class="title">{{sellername}}</ion-title>
-    <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
-    </ion-buttons>
-    <div slot="end" class="image_div">
-      <img src="assets/images/user.png" alt="" class="image">
-    </div>
-  </ion-toolbar>
-</ion-header>
+<app-header [title]="utils.userShoppingStoreInfo.name" page="chatroom" leftTopButton="back"
+    (headerEvent)="handleHeaderEvents($event)">
+</app-header>
 
 <ion-content>
-
-
-  <ng-container *ngFor="let message of messages">
-
-    <ion-row class="top_row"  *ngIf="message.senderid == userid">
-      <!-- <ion-col size="2">
-    <img  src="assets/images/user.png" alt="" class="image">
-  </ion-col> -->
-      <ion-col size="12">
-        <div style="width:50%;margin-left: 5%;">
-          <ion-item (click)="onChatroom()" lines=none class="itemm">
-            <ion-label>
-              <h2>{{message.message}}</h2>
-            </ion-label>
-
-          </ion-item>
+    <div class="messages-wrap">
+        <div *ngFor="let message of messages" class="message">
+            <div class="new-day" *ngIf="message.newChattingDay">{{ message.newChattingDay }}</div>
+            <div [ngClass]="message.senderid === userInfo.id ? 'first-user' : 'second-user'">
+                <span class="text">{{ message.message }}</span>
+                <span class="time">{{ message.time }}</span>
+            </div>
+            <!-- <div *ngIf="message.newday; else userMessage" class=""> {{ message.newday }}</div>
+            <ng-template #userMessage>
+                <div *ngIf="message.senderid === senderId; else secondUser" class="firstUser">
+                    <span class="text">{{ message.message }}</span>
+                    <span class="time">{{ message.time }}</span>
+                </div>
+                <ng-template #secondUser>
+                    <div class="secondUser">
+                        <span class="text">{{ message.message }}</span>
+                        <span class="time">{{ message.time}}</span>
+                    </div>
+                </ng-template>
+            </ng-template> -->
         </div>
-        <div>
-          <span class="time">{{message.messagetime}}</span>
-        </div>
-      </ion-col>
-    </ion-row>
-
-    <ion-row *ngIf="message.senderid != userid">
-      <ion-col size="5">
-      </ion-col>
-      <ion-col size="7">
-        <div>
-          <ion-item (click)="onChatroom()" lines=none class="msg">
-            <ion-label>
-              <h2>{{message.message}}</h2>
-            </ion-label>
-
-          </ion-item>
-        </div>
-        <div cass="time_div">
-          <span class="time">{{message.messagetime}}</span>
-        </div>
-      </ion-col>
-
-    </ion-row>
-  </ng-container>
-
-
+    </div>
 </ion-content>
 <ion-footer>
-  <ion-grid>
-    <ion-row>
-      <ion-col col-10>
-        <ion-input type="text" placeholder="Type a message" [(ngModel)]="message" name="message"></ion-input>
-      </ion-col>
-      <ion-col col-2  class="send">
-        <ion-icon (click)="sendMessage()" name="paper-plane"></ion-icon>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+    <ion-input slot="start" type="text" placeholder="Type a message" [(ngModel)]="newMessage" name="message"></ion-input>
+    <ion-buttons slot="end" (click)="sendMessage()">
+        <ion-button>
+            <ion-icon name='paper-plane'></ion-icon>
+        </ion-button>
+    </ion-buttons>
 </ion-footer>

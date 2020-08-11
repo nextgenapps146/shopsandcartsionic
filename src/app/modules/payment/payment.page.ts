@@ -49,38 +49,38 @@ export class PaymentPage implements OnInit {
     }
 
     async done() {
-        let address = {};
-        let promocode = {};
-        for (let i = 0; i < this.fsServices.UserAddress.length; i++) {
-            if (this.addressvalue === this.fsServices.UserAddress[i].id) {
-                address = this.fsServices.UserAddress[i];
-            }
-        }
-        if (this.fsServices.promoCodes.length) {
-            this.fsServices.promoCodes.forEach(offer => {
-                if (offer.code === this.appliedPromoCode) {
-                    promocode = offer;
-                }
-            });
-        }
-        this.orderService.createUserOrder(this.cart.grandTotal, this.cart.addCart, promocode, this.selectedDay, this.selectedTime, address)
-            .then(async () => {
-                const toast = await this.toastCtrl.create({
-                    message: 'Your order Successfully Complete',
-                    duration: 2000,
-                    position: 'top'
-                });
-                toast.present();
-                this.product.cartArray = this.cart.addCart;
-                this.cart.addCart.map((ele) => {
-                    ele.units = 0;
-                });
-                this.cart.addCart = [];
-                this.cart.productQty = 0;
-                this.cart.subTotal = 0;
-                this.cart.grandTotal = 0;
-                this.route.navigate(['home']);
-            });
+        // let address = {};
+        // let promocode = {};
+        // for (let i = 0; i < this.fsServices.UserAddress.length; i++) {
+        //     if (this.addressvalue === this.fsServices.UserAddress[i].id) {
+        //         address = this.fsServices.UserAddress[i];
+        //     }
+        // }
+        // if (this.fsServices.promoCodes.length) {
+        //     this.fsServices.promoCodes.forEach(offer => {
+        //         if (offer.code === this.appliedPromoCode) {
+        //             promocode = offer;
+        //         }
+        //     });
+        // }
+        // this.orderService.createUserOrder(this.cart.grandTotal, this.cart.addCart, promocode, this.selectedDay, this.selectedTime, address)
+        //     .then(async () => {
+        //         const toast = await this.toastCtrl.create({
+        //             message: 'Your order Successfully Complete',
+        //             duration: 2000,
+        //             position: 'top'
+        //         });
+        //         toast.present();
+        //         this.product.cartArray = this.cart.addCart;
+        //         this.cart.addCart.map((ele) => {
+        //             ele.units = 0;
+        //         });
+        //         this.cart.addCart = [];
+        //         this.cart.productQty = 0;
+        //         this.cart.subTotal = 0;
+        //         this.cart.grandTotal = 0;
+        //         this.route.navigate(['home']);
+        //     });
     }
 
     removePromoCode() {

@@ -40,37 +40,12 @@ export class StorePage implements OnInit {
                 this.storeId = params.storeId;
                 this.storeName = params.storeName;
                 this.getStoreInfo(this.storeId);
-                localStorage.setItem('sellerid', this.storeId);
-                this.cart.setCurrentStore(this.storeId);
-
-                let productQty = 0;
-                this.cart.addCart.map((el) => {
-                    productQty += el.units;
-                });
-                this.cart.productQty = productQty;
                 this.getStoreCategories(this.storeId);
             }
         });
     }
 
-    ngOnInit() {
-        // This needs to be moved to products page and category id needs to be sent with this
-        // this.storeProductService.getStoreProducts().then((data) => {
-        //     data.subscribe(list => {
-        //         for (let elc = 0; elc < (list || []).length; elc++) {
-        //             const product = list[elc];
-        //             const productunits = this.cart.addCart.find(el => el.id === product.id);
-        //             if (productunits) {
-        //                 (<any>list[elc]).units = productunits.units;
-        //             } else {
-        //                 (<any>list[elc]).units = 0;
-        //             }
-        //         }
-        //         this.storeProductsList = list;
-        //         console.log(list);
-        //     });
-        // });
-    }
+    ngOnInit() {}
 
     getStoreInfo(storeId) {
         this.storeService.getStoreInfo(storeId).then((data) => {
@@ -87,6 +62,50 @@ export class StorePage implements OnInit {
                 // this.myStore.categories = list;
             });
         });
+    }
+
+    handleHeaderEvents(event) {
+        if (event.name === 'cart' && this.qpMap['totalCart'] && this.qpMap['totalCart'] > 0) {
+            this.route.navigate(['cart']);
+        } else if (event.name === 'message') {
+            this.goToChatRoom();
+        }
+    }
+
+    goToChatRoom() {
+        const navigationExtras = {
+            queryParams: {
+                recipientName: this.storeName,
+                recipientId: this.storeId // seller id is the same as storeid
+            }
+        };
+        this.route.navigate(['chatroom'], navigationExtras);
+    }
+
+    cartPage() {
+        const navigationExtras = {
+            queryParams: {
+                storeid: this.storeId,
+                storeName: this.storeName
+            }
+        };
+        this.route.navigate(['cart'], navigationExtras);
+    }
+
+    handleCategoriesEvent(event) {
+        if (event.name === 'arrow-right') {
+            this.goToStoreProducts(event.item);
+        }
+    }
+
+    goToStoreProducts(category) {
+        const navigationExtras = {
+            queryParams: {
+                storeId: this.storeId,
+                categoryId: category.id
+            }
+        };
+        this.route.navigate(['product-list'], navigationExtras);
     }
 
     // I dont think we need to call this here - we only ceck and add when they click on it
@@ -167,42 +186,5 @@ export class StorePage implements OnInit {
     //     }
     //     this.cart.setCurrentStore(this.storeId);
     // }
-
-    onchatroom() {
-        // this.getChatUsers();
-        this.route.navigate(['chatroom'], { queryParams: { storeId: this.storeId }});
-    }
-
-    cartPage() {
-        const navigationExtras = {
-            queryParams: {
-                storeid: this.storeId,
-                storeName: this.storeName
-            }
-        };
-        this.route.navigate(['cart'], navigationExtras);
-    }
-
-    handleHeaderEvents(event) {
-        if (event.name === 'cart' && this.qpMap['totalCart'] && this.qpMap['totalCart'] > 0) {
-            this.route.navigate(['cart']);
-        }
-    }
-
-    handleCategoriesEvent(event) {
-        if (event.name === 'arrow-right') {
-            this.goToStoreProducts(event.item);
-        }
-    }
-
-    goToStoreProducts(category) {
-        const navigationExtras = {
-            queryParams: {
-                storeId: this.storeId,
-                categoryId: category.id
-            }
-        };
-        this.route.navigate(['product-list'], navigationExtras);
-    }
 
 }

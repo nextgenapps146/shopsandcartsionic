@@ -27,7 +27,7 @@
         </ion-buttons>
     </ion-toolbar>
     <ion-toolbar class="toolbar-down" color="primary" *ngIf="toolbar2 === 'search'">
-        <ion-searchbar color="light" md="ios" (click)="searchPage()"></ion-searchbar>
+        <ion-searchbar #q color="light" md="ios" (keyup.enter)="searchPage(q.value)"></ion-searchbar>
     </ion-toolbar>
     <ion-toolbar class="toolbar-segment" color="primary" *ngIf="toolbar2 === 'segment'">
         <div class="nav">
@@ -36,7 +36,7 @@
                 [style.width.%]="segmentWidth">{{ item.title }}</div>
         </div>
     </ion-toolbar>
-    <ion-toolbar color="primary" *ngIf="toolbar2 === 'subtotal'">
-        <ion-label slot="end" class="sub-total">Sub Total - {{ 2.99 | currency }}</ion-label>
+    <ion-toolbar color="primary" *ngIf="toolbar2 === 'text'">
+        <ion-label slot="end" class="sub-total" *ngIf="textRight">{{ textRight }}</ion-label>
     </ion-toolbar>
 </ion-header>

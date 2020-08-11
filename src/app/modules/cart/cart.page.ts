@@ -16,15 +16,15 @@ import { SignupPage } from '../../modules/signup/signup.page';
 })
 
 export class CartPage implements OnInit {
-    storeid: any;
-    storename: any;
-    selectedPaymentMode: any;
-    selectedAddress: any;
-    selecteddeliverymode: any;
-    addressvalue: any;
-    addressArray: any;
-    address: any;
-    addressList = [];
+    // storeid: any;
+    // storename: any;
+    // selectedPaymentMode: any;
+    // selectedAddress: any;
+    // selecteddeliverymode: any;
+    // addressvalue: any;
+    // addressArray: any;
+    // address: any;
+    // addressList = [];
 
     qpMap: any;
     storeInfo: any;
@@ -44,27 +44,27 @@ export class CartPage implements OnInit {
     ) {
         this.storeInfo = this.utils.userShoppingStoreInfo.name;
         this.qpMap = this.utils.quantitiesAndProductsMap;
-        if (this.qpMap && this.qpMap['totalCart']) {
-            this.getAddress();
-        }
+        // if (this.qpMap && this.qpMap['totalCart']) {
+        //     this.getAddress();
+        // }
     }
 
-    getAddress() {
-        this.addressService.getUserAddress().then((address) => {
-            address.subscribe((address) => {
-                address.forEach(element => {
-                    const addr = element.flatNumbers + ',' + element.street + ',' + element.locality;
-                    element = { ...element, fullAddress: addr };
-                });
-                address.unshift({ fullAddress: 'Add New Address', addressType: 'new' });
-                this.addressArray = address;
-            });
-        });
-    }
+    // getAddress() {
+    //     this.addressService.getUserAddress().then((address) => {
+    //         address.subscribe((address) => {
+    //             address.forEach(element => {
+    //                 const addr = element.flatNumbers + ',' + element.street + ',' + element.locality;
+    //                 element = { ...element, fullAddress: addr };
+    //             });
+    //             address.unshift({ fullAddress: 'Add New Address', addressType: 'new' });
+    //             this.addressArray = address;
+    //         });
+    //     });
+    // }
 
-    addAddress() {
-        this.route.navigate(['add-address']);
-    }
+    // addAddress() {
+    //     this.route.navigate(['add-address']);
+    // }
 
     ngOnInit() {
         // this.addCart();
@@ -73,12 +73,17 @@ export class CartPage implements OnInit {
 
     getItemsFromQpMap(qpMap) {
         this.cartItems = [];
-        const _instance = this;
+        const _instance = this,
+        ignoreFields = ['totalCart', 'items', 'totalItems', 'totalCharges'];
         Object.keys(qpMap).forEach(function (key) {
-            if (key !== 'totalCart') {
+            if (ignoreFields.indexOf(key) === -1) {
                 _instance.cartItems.push(qpMap[key]);
             }
         });
+        // putting these here so that it will be easy in delivery order object
+        this.qpMap['items'] = this.cartItems;
+        this.qpMap['totalItems'] = this.cartItems.length;
+        this.qpMap['totalCharges'] = 79.99;
     }
 
     enableItemModifying(product) {
@@ -99,20 +104,22 @@ export class CartPage implements OnInit {
     }
 
     updateCart(product, type) {
-        const orderQty = this.qpMap[product.id].orderQuantity;
-        if (type === 'add') {
-            // check for available quantity later from store
-            this.qpMap[product.id].orderQuantity = orderQty + 1;
-            product.orderQuantity = orderQty + 1;
-            this.qpMap['totalCart'] = this.qpMap['totalCart'] + 1;
-        } else if (type === 'remove') {
-            if (orderQty === 1) {
-                this.deleteProduct(product);
-            } else {
-                this.qpMap[product.id].orderQuantity = orderQty - 1;
-                product.orderQuantity = orderQty - 1;
+        if (this.qpMap[product.id]) {
+            const orderQty = this.qpMap[product.id].orderQuantity;
+            if (type === 'add') {
+                // check for available quantity later from store
+                this.qpMap[product.id].orderQuantity = orderQty + 1;
+                product.orderQuantity = orderQty + 1;
+                this.qpMap['totalCart'] = this.qpMap['totalCart'] + 1;
+            } else if (type === 'remove') {
+                if (orderQty === 1) {
+                    this.deleteProduct(product);
+                } else {
+                    this.qpMap[product.id].orderQuantity = orderQty - 1;
+                    product.orderQuantity = orderQty - 1;
+                }
+                this.qpMap['totalCart'] = this.qpMap['totalCart'] - 1;
             }
-            this.qpMap['totalCart'] = this.qpMap['totalCart'] - 1;
         }
     }
 
@@ -151,6 +158,22 @@ export class CartPage implements OnInit {
             }
         });
         return await modal.present();
+    }
+
+    handleHeaderEvents(event) {
+        if (event.name === 'message') {
+            this.goToChatRoom();
+        }
+    }
+
+    goToChatRoom() {
+        const navigationExtras = {
+            queryParams: {
+                senderId: this.utils.userInfo.id,
+                recepientId: this.storeInfo.id // seller id is the same as storeid
+            }
+        };
+        this.route.navigate(['chatroom'], navigationExtras);
     }
 
     // addCart() {

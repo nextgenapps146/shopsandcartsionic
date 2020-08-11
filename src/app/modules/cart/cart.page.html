@@ -1,8 +1,9 @@
 <app-header [title]="utils.userShoppingStoreInfo.name" page="cart" leftTopButton="back"
-    showMessageIcon=true showCartIcon=true
-    cartBadge="{{ qpMap['totalCart'] ? qpMap['totalCart'] : 0 }}" toolbar2="subtotal"
+    showMessageIcon=true
+    toolbar2="text" textRight="Subtotal - 2.99"
     (headerEvent)="handleHeaderEvents($event)">
 </app-header>
+
 <!--
 <ion-radio-group [(ngModel)]="selectedDeliveryMode">
     <ion-list class="check-list bgTransparent">
@@ -118,7 +119,7 @@
                 (click)="currentAddingItem.isItemAdding=false"></div>
             <div class="list-item" *ngFor="let product of cartItems;let i = index">
                 <ion-thumbnail class="flt-lt">
-                    <img [src]="product.images[0]">
+                    <img [src]="product.images && product.images[0]">
                 </ion-thumbnail>
                 <ion-label class="flt-lt" (click)="itemLabelClick(product)">
                     <h3><strong>{{ product.name }}</strong></h3>

@@ -11,7 +11,7 @@ import { LoadingController } from '@ionic/angular';
 
 export class UtilsService {
 
-    userid: BehaviorSubject<string> = new BehaviorSubject<string>('');
+    // userid: BehaviorSubject<string> = new BehaviorSubject<string>('');
     availableCities = ['Naperville', 'Schaumberg', 'Chicago', 'Plainfield', 'Aurora'];
     defaultProfilePic = '../assets/images/user.png';
     userShoppingCity = '';
@@ -23,6 +23,7 @@ export class UtilsService {
         email: '',
         phone: ''
     };
+    orderUserAddress: '';
     userShoppingStoreInfo: any = {};
     AddAdressBackUrl = '';
     storeInfo = null;
@@ -36,16 +37,16 @@ export class UtilsService {
         private toastController: ToastController,
         private nav: NavController,
         public alertController: AlertController) {
-        this.getUserId();
+        // this.getUserId();
     }
 
-    getUserId() {
-        this.fireAuth.auth.onAuthStateChanged(user => {
-            if (user && user.uid) {
-                this.userid.next(user.uid);
-            }
-        });
-    }
+    // getUserId() {
+    //     this.fireAuth.auth.onAuthStateChanged(user => {
+    //         if (user && user.uid) {
+    //             this.userid.next(user.uid);
+    //         }
+    //     });
+    // }
 
     navigate(link, forward?) {
         if (forward) {
@@ -72,7 +73,7 @@ export class UtilsService {
     }
 
     setUserInfoToLocalStorage(data) {
-        this.userInfo.id = data.uid || this.userInfo.id;
+        this.userInfo.id = data.uid || data.id || this.userInfo.id;
         this.userInfo.email = data.email || this.userInfo.email;
         this.userInfo.picture = data.picture || this.defaultProfilePic;
         this.userInfo.firstname = data.firstname || this.userInfo.firstname;
@@ -169,7 +170,7 @@ export class UtilsService {
     getAppPages() {
         return [
             { title: 'Home', url: '/home', icon: 'home' },
-            { title: 'My Orders', url: '/home', icon: 'home' },
+            { title: 'My Orders', url: '/order', icon: 'ios-albums' },
             { title: 'My Addresses', url: '/my-account', icon: 'card' },
             { title: 'Offers', url: '/offers', icon: 'flame' },
             { title: 'Create Store', url: '/create-store', icon: 'cube' }
@@ -183,6 +184,26 @@ export class UtilsService {
             { title: 'Share', url: '/share', icon: 'share', mode: 'md' },
             { title: 'Need Help', url: '/need-help', icon: 'help-circle-outline', mode: 'ios' }
         ];
+    }
+
+    getRandomNumber() {
+        return Math.random().toString(36).substr(2, 16);
+    }
+
+    getDisplayTime(dateString) {
+        const timeString = new Date(dateString).toLocaleTimeString(),
+        s = timeString.split(' '),
+        c = s[0].split(':'),
+        time = c[0] + ':' + c[1] + ' ' + s[1];
+        return time;
+    }
+
+    getCombinedChatIds(uid1, uid2) {
+        if (uid1 < uid2) {
+            return uid1 + uid2;
+        } else {
+            return uid2 + uid1;
+        }
     }
 
 }

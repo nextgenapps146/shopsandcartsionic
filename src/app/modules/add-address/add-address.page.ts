@@ -50,27 +50,27 @@ export class AddAddressPage implements OnInit {
         this.addresstype = item;
     }
 
-    async Continue() {
-        if (this.name && this.flatNumber && this.street && this.locality && this.title && this.addresstype) {
-            this.addressService.addUserAddress({
-                name: this.name, flatNumber: this.flatNumber, street: this.street, locality: this.locality, title: this.title, addresstype: this.addresstype
-            }).then(async () => {
-                const toast = await this.toastCtrl.create({
-                    message: 'Add new Address Successfully',
-                    duration: 2000,
-                    position: 'top'
-                });
-                toast.present();
-                this.route.navigate([this.utils.AddAdressBackUrl, { title: 'MyAddress' }]);
-            });
-        } else {
-            const toast = await this.toastCtrl.create({
-                message: 'All fields are required here',
-                duration: 2000,
-                position: 'top'
-            });
-            toast.present();
-        }
+    // async Continue() {
+    //     if (this.name && this.flatNumber && this.street && this.locality && this.title && this.addresstype) {
+    //         this.addressService.addUserAddress({
+    //             name: this.name, flatNumber: this.flatNumber, street: this.street, locality: this.locality, title: this.title, addresstype: this.addresstype
+    //         }).then(async () => {
+    //             const toast = await this.toastCtrl.create({
+    //                 message: 'Add new Address Successfully',
+    //                 duration: 2000,
+    //                 position: 'top'
+    //             });
+    //             toast.present();
+    //             this.route.navigate([this.utils.AddAdressBackUrl, { title: 'MyAddress' }]);
+    //         });
+    //     } else {
+    //         const toast = await this.toastCtrl.create({
+    //             message: 'All fields are required here',
+    //             duration: 2000,
+    //             position: 'top'
+    //         });
+    //         toast.present();
+    //     }
 
-    }
+    // }
 }

@@ -21,22 +21,23 @@
                 <ion-item>
                     <ion-input type="password" placeholder="Password" [(ngModel)]="password"></ion-input>
                 </ion-item>
-                <br/>
+                <br />
                 <ion-text color="medium" (click)="forgotPassword()">
                     <h6 ion-no-ion-margin text-end class="small">Forgot Password?</h6>
                 </ion-text>
-                <br/>
+                <br />
                 <ion-row>
                     <ion-col>
-                        <ion-button expand="block" (click)="signin()" color="undefined" class="btn-transition"><strong
+                        <ion-button expand="block" (click)="login()" color="undefined" class="btn-transition"><strong
                                 class="white">Sign In</strong></ion-button>
                     </ion-col>
                 </ion-row>
                 <div class="line"></div>
                 <ion-row>
                     <ion-col>
-                        <ion-button expand="block" fill="outline" color="undefined" (click)="modalController.dismiss('signup')"
-                            class="btn-color"><strong>New? Create an Account</strong></ion-button>
+                        <ion-button expand="block" fill="outline" color="undefined"
+                            (click)="modalController.dismiss('signup')" class="btn-color"><strong>New? Create an
+                                Account</strong></ion-button>
                     </ion-col>
                 </ion-row>
             </ion-card-content>

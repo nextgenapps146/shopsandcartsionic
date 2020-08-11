@@ -40,16 +40,16 @@ export class LoginPage implements OnInit {
     }
 
     onClickCloseModal() {
-        this.modalController.dismiss();
+        this.modalController.dismiss('close');
     }
 
-    signin() {
+    login() {
         if (this.utils.validateEmail(this.email) && this.password !== '') {
             this.utils.openLoader();
             this.authServ.login(this.email, this.password).then(
                 data => {
                     this.utils.setUserInfoToLocalStorage(data);
-                    this.modalController.dismiss();
+                    this.modalController.dismiss('loggedin');
                 }
             ).catch(err => {
                 if (err) {
