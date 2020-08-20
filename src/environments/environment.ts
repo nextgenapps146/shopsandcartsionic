@@ -3,17 +3,17 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false,
-  firebase:  {
-    apiKey: 'AIzaSyCoCPtMhJhMzqpMZesTFQ4IHivVPupVzos',
-    authDomain: 'gretello-dev.firebaseapp.com',
-    databaseURL: 'https://gretello-dev.firebaseio.com',
-    projectId: 'gretello-dev',
-    storageBucket: 'gretello-dev.appspot.com',
-    messagingSenderId: '811864497792',
-    appId: '1:811864497792:web:94d12b558e06003a331065',
-    measurementId: 'G-SZ48FEC0T9'
-  }
+    production: false,
+    firebase: {
+        apiKey: 'AIzaSyBC9-NGcvif5Hl-_2mwapfJl7C_v6YcgN0',
+        authDomain: 'gretello-dev.firebaseapp.com',
+        databaseURL: 'https://gretello-dev.firebaseio.com',
+        projectId: 'gretello-dev',
+        storageBucket: 'gretello-dev.appspot.com',
+        messagingSenderId: '811864497792',
+        appId: '1:811864497792:web:2bcd4e7b2365cadf331065',
+        measurementId: 'G-2S6CB9TNVP'
+    }
 };
 
 /*

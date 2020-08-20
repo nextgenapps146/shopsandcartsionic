@@ -1,0 +1,37 @@
+<ion-content *ngIf="item">
+    <div class="item">
+        <ion-slides pager>
+            <ion-slide *ngFor="let image of item.images; let i = index" class="relative">
+                <img alt="" [src]="image" />
+                <!-- <ion-icon name="trash" class="trash-icon" (click)="removeImage(i)"></ion-icon> -->
+            </ion-slide>
+        </ion-slides>
+        <div class="item-head">
+            <div class="name">
+                {{ item.name }}
+                <span class="quantity">1 kg</span>
+            </div>
+            <div class="price-container">
+                <span class="title">
+                    <span class="sale">${{ item.regularPrice }}</span>
+                    <span class="reg">${{ item.regularPrice }}</span>
+                    <span class="dis-per">25% OFF</span>
+                </span>
+                <span class="in-stock" *ngIf="item.instock">In Stock</span>
+                <span class="out-of-stock" *ngIf="!item.instock">Out of Stock</span>
+
+            </div>
+        </div>
+        <div class="detail">
+            <div class="sub-heading">
+                Product Detail
+            </div>
+            <div class="attributes">
+                <div class="key">Description</div>
+                <div class="value">{{ item.description }}</div>
+                <div class="key">Quantity</div>
+                <div class="value">{{ item.quantity }}</div>
+            </div>
+        </div>
+    </div>
+</ion-content>

@@ -1,0 +1,72 @@
+<ion-buttons slot="start" class="close-btn">
+    <ion-button transparent color="light" (click)="onClickCloseModal()">
+        <ion-icon name='close'></ion-icon>
+    </ion-button>
+</ion-buttons>
+<ion-content ion-no-padding>
+    <div class="main">
+        <div class="card">
+            <div class="fire-logo">
+                <img src="../../assets/imgs/icon.png" class="img-logo">
+            </div>
+            <div class="sub-heading">Sign In / Create Account</div>
+            <ion-item class="f-item" *ngIf="!authService.emailSent; else emailSent">
+                <ion-input type="text" placeholder="Enter a valid email"
+                    [(ngModel)]="email" name="email"></ion-input>
+            </ion-item>
+            <ng-template #emailSent>
+                <div>{{ authService.emailSent }}</div>
+            </ng-template>
+            <br/>
+            <ion-button expand="block" (click)="login()" color="undefined" class="btn-transition"><strong
+                class="white">{{ !authService.emailSent ? 'Sign In' : 'Resend Email Link' }}</strong></ion-button>
+        </div>
+    </div>
+</ion-content>
+
+<!-- <ion-buttons slot="start" class="close-btn">
+    <ion-button transparent color="light" (click)="onClickCloseModal()">
+        <ion-icon name='close'></ion-icon>
+    </ion-button>
+</ion-buttons>
+<ion-content ion-no-padding>
+    <div class="main">
+        <ion-card ion-no-ion-margin class="card card-css">
+            <ion-card-content>
+                <ion-row class="row">
+                    <div class="fire-logo">
+                        <img src="../../assets/imgs/icon.png" class="img-logo">
+                        <ion-text>
+                            <h2 ion-no-ion-margin ion-margin-vertical text-center>Sign In</h2>
+                        </ion-text>
+                    </div>
+                </ion-row>
+                <ion-item class="f-item">
+                    <ion-input type="text" placeholder="Email" [(ngModel)]="email" name="email"></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-input type="password" placeholder="Password" [(ngModel)]="password"></ion-input>
+                </ion-item>
+                <br />
+                <ion-text color="medium" (click)="forgotPassword()">
+                    <h6 ion-no-ion-margin text-end class="small">Forgot Password?</h6>
+                </ion-text>
+                <br />
+                <ion-row>
+                    <ion-col>
+                        <ion-button expand="block" (click)="login()" color="undefined" class="btn-transition"><strong
+                                class="white">Sign In</strong></ion-button>
+                    </ion-col>
+                </ion-row>
+                <div class="line"></div>
+                <ion-row>
+                    <ion-col>
+                        <ion-button expand="block" fill="outline" color="undefined"
+                            (click)="modalController.dismiss('signup')" class="btn-color"><strong>New? Create an
+                                Account</strong></ion-button>
+                    </ion-col>
+                </ion-row>
+            </ion-card-content>
+        </ion-card>
+    </div>
+</ion-content> -->

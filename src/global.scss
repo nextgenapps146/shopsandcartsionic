@@ -13,16 +13,6 @@
 @import url("https://fonts.googleapis.com/css?family=Nunito");
 // @import url('https://fonts.googleapis.com/css?family=Abel');
 
-/**
- * Ionic 4  Grocery Complete Platform(https://store.enappd.com/product/ionic-4-grocery-app-and-admin-dashboard)
- *
- * Copyright © 2019-present Enappd. All rights reserved.
- *
- * This source code is licensed as per the terms found in the
- * LICENSE.md file in the root directory of this source .
- *
- */
-
 .flt-lt {
     float: left;
 }
@@ -113,7 +103,7 @@ ion-list.list1 {
 
 ion-list.list2 {
     ion-item {
-        padding: 10px;
+        padding: 10px 26px 10px 10px;
 
         ion-thumbnail {
             background-color: #eee;
@@ -126,10 +116,11 @@ ion-list.list2 {
         ion-label {
             h3 {
                 text-transform: capitalize;
-                margin-bottom: 2px;
+                margin-bottom: 6px;
             }
-            p {
-                font-size: 12px;
+            .text {
+                font-size: 11px;
+                color: #666;
             }
         }
 
@@ -153,46 +144,64 @@ ion-list.list2 {
     }
 }
 
-ion-searchbar {
-    margin: 0;
-}
-
-.searchbar-input-container {
-    border-radius: 0px !important;
-    margin: 0px 6px 7px;
-}
-
-ion-toolbar {
-    --min-height: 45px;
-}
-
-ion-button.icon-btn {
-    height: 28px;
-}
-
-ion-menu-button {
-    height: 45px;
-}
-
-ion-searchbar {
-    padding-top: 0;
-    padding-bottom: 0;
-    height: 45px;
-}
-
-.dFlexRow {
-    display: flex;
-    flex-direction: column;
-}
-
-.dFlexRow.headerSection {
-    ion-note {
-        font-size: 10px;
-        margin-top: 4px;
+.overlay-popover {
+    ion-backdrop {
+        opacity: 0.9 !important;
     }
-
-    .flex ion-label {
-        font-size: 16px;
-        line-height: 16px;
+    .popover-content {
+        width: 80%;
     }
 }
+
+:root {
+    .popover-content {
+        width: 70%;
+        ion-label {
+            font-size: 13px;
+        }
+    }
+}
+
+// ion-searchbar {
+//     margin: 0;
+// }
+
+// .searchbar-input-container {
+//     border-radius: 0px !important;
+//     margin: 0px 6px 7px;
+// }
+
+// ion-toolbar {
+//     --min-height: 45px;
+// }
+
+// ion-button.icon-btn {
+//     height: 28px;
+// }
+
+// ion-menu-button {
+//     height: 45px;
+// }
+
+// ion-searchbar {
+//     padding-top: 0;
+//     padding-bottom: 0;
+//     height: 45px;
+// }
+
+// .dFlexRow {
+//     display: flex;
+//     flex-direction: column;
+// }
+
+// .dFlexRow.headerSection {
+//     ion-note {
+//         font-size: 10px;
+//         margin-top: 4px;
+//     }
+
+//     .flex ion-label {
+//         font-size: 16px;
+//         line-height: 16px;
+//     }
+// }

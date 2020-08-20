@@ -1,28 +1,21 @@
-/**
- * Ionic 4  Grocery Complete Platform(https://store.enappd.com/product/ionic-4-grocery-app-and-admin-dashboard)
- *
- * Copyright © 2019-present Enappd. All rights reserved.
- *
- * This source code is licensed as per the terms found in the
- * LICENSE.md file in the root directory of this source .
- *
- */
-
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { UtilsServiceService } from '../../services/Utils/utils-service.service';
+import { UtilsService } from '../../services/utils.service';
+
 @Component({
   selector: 'check-delivery',
   templateUrl: './check-delivery.component.html',
   styleUrls: ['./check-delivery.component.scss'],
 })
 export class CheckDeliveryComponent implements OnInit {
+
   public cashDeliveryToggle: boolean;
   public freeShippingToggle: boolean;
   public deliveryDaysToggle: boolean;
   public pinCode = '';
   product: any = {};
-  constructor(private activeRoute: ActivatedRoute, public utils: UtilsServiceService) {
+
+  constructor(private activeRoute: ActivatedRoute, public utils: UtilsService) {
     this.cashDeliveryToggle = false;
     this.freeShippingToggle = false;
     this.deliveryDaysToggle = false;

@@ -1,0 +1,42 @@
+<ion-header>
+    <ion-toolbar class="toolbar-up" color="primary">
+        <ion-icon *ngIf="!leftTopButton" slot="start" name="menu" (click)="openFirst()"></ion-icon>
+        <ion-icon *ngIf="leftTopButton === 'back'" slot="start" name="arrow-back" (click)="goBack()"></ion-icon>
+        <ion-icon *ngIf="leftTopButton === 'close'" slot="start" name="close" (click)="close()"></ion-icon>
+        <div class="title">
+            <div class="label" (click)="titleClick()">{{ title }}</div>
+        </div>
+        <ion-buttons *ngIf="showOrdersIcon" slot="end" (click)="ordersIconClick()">
+            <fa-icon slot="end" [icon]="['fas', 'shopping-cart']"></fa-icon>
+            <ion-badge color="danger">3</ion-badge>
+        </ion-buttons>
+        <ion-buttons *ngIf="showChatIcon" slot="end">
+            <fa-icon slot="end" [icon]="['fas', 'comment-dots']"></fa-icon>
+            <ion-badge color="danger">5</ion-badge>
+        </ion-buttons>
+        <ion-buttons *ngIf="showMessageIcon" slot="end" (click)="messageIconClick()">
+            <fa-icon slot="end" [icon]="['fas', 'comment']"></fa-icon>
+            <ion-badge color="danger">5</ion-badge>
+        </ion-buttons>
+        <ion-buttons *ngIf="showCartIcon" slot="end" (click)="cartIconClick()">
+            <ion-icon slot="end" name="cart"></ion-icon>
+            <ion-badge color="danger">{{ cartBadge }}</ion-badge>
+        </ion-buttons>
+        <ion-buttons *ngIf="showMoreIcon" slot="end" (click)="moreIconClick()">
+            <fa-icon slot="end" [icon]="['fas', 'ellipsis-v']"></fa-icon>
+        </ion-buttons>
+    </ion-toolbar>
+    <ion-toolbar class="toolbar-down" color="primary" *ngIf="toolbar2 === 'search'">
+        <ion-searchbar #q color="light" md="ios" (keyup.enter)="searchPage(q.value)" (ionClear)="searchClear()"></ion-searchbar>
+    </ion-toolbar>
+    <ion-toolbar class="toolbar-segment" color="primary" *ngIf="toolbar2 === 'segment'">
+        <div class="nav">
+            <div class="nav-item" *ngFor="let item of segmentItems" (click)="segmentClick(item)"
+                [ngClass]="item.title === activeSegment ? 'active': ''"
+                [style.width.%]="segmentWidth">{{ item.title }}</div>
+        </div>
+    </ion-toolbar>
+    <ion-toolbar color="primary" *ngIf="toolbar2 === 'text'">
+        <ion-label slot="end" class="sub-total" *ngIf="textRight">{{ textRight }}</ion-label>
+    </ion-toolbar>
+</ion-header>

@@ -1,13 +1,3 @@
-/**
- * Ionic 4  Grocery Complete Platform(https://store.enappd.com/product/ionic-4-grocery-app-and-admin-dashboard)
- *
- * Copyright © 2019-present Enappd. All rights reserved.
- *
- * This source code is licensed as per the terms found in the
- * LICENSE.md file in the root directory of this source .
- *
- */
-
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -45,25 +35,25 @@ export class CartService {
         this.orderComplete = [];
     }
 
-    setCurrentStore(store_id) {
-        CartService.current_store_id = store_id;
-        const store_index = CartService.getCurrentStoreCartIndex();
-        if (store_index >= 0) {
-            this.addCart = CartService.storeCarts[store_index].items;
-        } else {
-            this.addCart = new CartArray();
-        }
-        this.addCart.map((el) => {
-            const total = el.units * el.salePrice;
-            this.subTotal = total;
-            this.deliveryCharge = el.deliveryCharge
-                ? this.deliveryCharge + el.deliveryCharge
-                : this.deliveryCharge;
-            this.grandTotal += this.subTotal + this.deliveryCharge;
-            this.totalSave += el.units * (parseInt(el.regularPrice) - el.salePrice);
-        });
-        // localStorage.setItem('STORECARTS', JSON.stringify(CartService.storeCarts)); We ill do it later
-    }
+    // setCurrentStore(store_id) {
+    //     CartService.current_store_id = store_id;
+    //     const store_index = CartService.getCurrentStoreCartIndex();
+    //     if (store_index >= 0) {
+    //         this.addCart = CartService.storeCarts[store_index].items;
+    //     } else {
+    //         this.addCart = new CartArray();
+    //     }
+    //     this.addCart.map((el) => {
+    //         const total = el.units * el.salePrice;
+    //         this.subTotal = total;
+    //         this.deliveryCharge = el.deliveryCharge
+    //             ? this.deliveryCharge + el.deliveryCharge
+    //             : this.deliveryCharge;
+    //         this.grandTotal += this.subTotal + this.deliveryCharge;
+    //         this.totalSave += el.units * (parseInt(el.regularPrice) - el.salePrice);
+    //     });
+    //     // localStorage.setItem('STORECARTS', JSON.stringify(CartService.storeCarts)); We ill do it later
+    // }
 
     removeCurrentStore() {
         const store_index = CartService.getCurrentStoreCartIndex();

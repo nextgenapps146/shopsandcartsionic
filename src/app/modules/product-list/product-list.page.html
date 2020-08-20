@@ -1,0 +1,13 @@
+<app-header [title]="utils.userShoppingStoreInfo.name" page="store" leftTopButton="back"
+    showMessageIcon=true
+    showCartIcon=true cartBadge="{{ qpMap['totalCart'] ? qpMap['totalCart'] : 0 }}"
+    toolbar2="search"
+    (headerEvent)="handleHeaderEvents($event)">
+</app-header>
+
+<ion-content>
+    <div *ngIf="!storeProductsList || storeProductsList.length === 0" class="message-to-user">
+        This Store does not have any products.</div>
+
+    <app-products [list]="storeProductsList" showAddToCartBtn=true (productsEvent)="handleProductsEvent($event)"></app-products>
+</ion-content>

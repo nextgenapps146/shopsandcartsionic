@@ -1,0 +1,58 @@
+<app-header title="Orders" page="order"
+    toolbar2="text" textRight="Total Orders Placed {{ allOrders.length }}"
+    (headerEvent)="handleHeaderEvents($event)">
+</app-header>
+<ion-content>
+    <ion-list class="list2">
+        <br>
+        <ion-item class="product-item" *ngFor="let order of allOrders">
+            <ion-label>
+                <h3><strong>{{ order.storename }}</strong></h3>
+                <div class="text">Order Placed Date{{ order.orderplaceddate }}</div>
+                <div class="text">Order Status - {{ order.status }}</div>
+            </ion-label>
+            <ion-icon slot="end" name="arrow-forward"></ion-icon>
+        </ion-item>
+    </ion-list>
+</ion-content>
+<!-- <ion-header>
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title class="title-ios" ion-text-capitalize>My Order</ion-title>
+    </ion-toolbar>
+</ion-header>
+<ion-content>
+
+    <div class="order-div" *ngIf="orders.length==0">
+        <img src="assets/imgs/pixel2.jpeg" alt="image">
+        <br>
+        <div class="cartTextSection" text-center>
+            <h3>You have no past orders</h3>
+            <p>Lets get you started</p>
+            <ion-button color="primary" (click)="startShopping()">Start shopping </ion-button>
+        </div>
+    </div>
+    <ion-list ion-ion-margin-top *ngIf="orders">
+        <ion-card *ngFor="let order of orders" ion-no-padding class="cardSection" (click)="onOrderItem(order)">
+            <div class="productSection">
+                <div class="productTitle pRelative order-summary" class="order_div">
+                    <div ion-ion-margin-top ion-padding-top>
+                        <ion-row class="h6">Store Name: {{order.storename}}</ion-row>
+                        <ion-row class="h6" style=" float: right;padding-right: 5%;">
+                            <ion-col size="6">
+                                <ion-row class="pay">
+                                    <div class="paymentmode">{{order.selectedpaymentmode}}</div>
+                                </ion-row>
+                            </ion-col>
+                        </ion-row>
+                        <ion-row class="h6" style="padding-bottom: 5%;">Grand Total : {{order.total}} $ /
+                            {{orders.length}} items</ion-row>
+                    </div>
+                </div>
+            </div>
+        </ion-card>
+    </ion-list>
+
+</ion-content> -->

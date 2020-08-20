@@ -1,26 +1,14 @@
-<ion-card class="contentSection" [ngClass]="{'minheight': cardContentToggle, 'carminHeight': !cardContentToggle}" id="accordian">
-    <ion-card-header (click)="toggleAccordian()" [ngClass]="{'textColorWhite': cardContentToggle, 'textColorBlack': !cardContentToggle}"
-        class="pRelative">
-        <div>
-            <div class="discountSection">
-                <ion-label ion-text-uppercase>{{label}}</ion-label>
-            </div>
-            <img class="sideImg" src="{{image}}" alt="">
-        </div>
-        <div class="pRelative">
-            <ion-buttons class="iconBtn">
-                <ion-icon *ngIf="!accordianExpandable" name="arrow-down" mode="ios" class="icons" color="primary" style="    ion-ion-margin-top: 5px;"></ion-icon>
-                <ion-icon *ngIf="accordianExpandable" name="arrow-up" mode="ios" class="icons whiteColor" color="light"
-                    style="    ion-ion-margin-top: 5px;"></ion-icon>
-            </ion-buttons>
-        </div>
-        <div class="titleSection">
-            <b><span class="title">{{title}}</span></b>
-            <br>
-            <span class="des">{{desc}}</span>
-        </div>
-    </ion-card-header>
-    <ion-card-content #cardContent *ngIf="cardContentToggle" ion-ion-margin-bottom ion-no-ion-margin ion-no-padding>
-        <ng-content></ng-content>
-    </ion-card-content>
-</ion-card>
+<ion-list>
+    <ion-item *ngFor="let item of list">
+        <ion-thumbnail slot="start">
+            <img alt="" [src]="item.images[0]">
+        </ion-thumbnail>
+        <ion-label (click)="rightArrowClick(item)">
+            <h4>Up To 20% OFF</h4>
+            <h2><strong>{{ item.name }}</strong></h2>
+            <p>{{ item.description }}</p>
+        </ion-label>
+        <ion-icon class="round-icon-btn" slot="end"
+            name="arrow-forward" (click)="rightArrowClick(item)"></ion-icon>
+    </ion-item>
+</ion-list>

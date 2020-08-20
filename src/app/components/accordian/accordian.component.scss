@@ -1,50 +1,36 @@
-/**
- * Ionic 4  Grocery Complete Platform(https://store.enappd.com/product/ionic-4-grocery-app-and-admin-dashboard)
- *
- * Copyright © 2019-present Enappd. All rights reserved.
- *
- * This source code is licensed as per the terms found in the
- * LICENSE.md file in the root directory of this source .
- *
- */
-
-
-.contentSection{
-    
+.contentSection {
     margin: 8px;
     margin: 8px;
-    
-  }
-.card-header{
+}
+.card-header {
     background-color: white;
-    color:rgb(12, 11, 11);
+    color: rgb(12, 11, 11);
 }
-.card-content{
+.card-content {
 }
-.sideImg{
-  height:100px;
-  width:100px;
-  float: left;
-  // margin-top: 40px;
+.sideImg {
+    height: 100px;
+    width: 100px;
+    float: left;
+    // margin-top: 40px;
 }
-.title{
-  margin-top:20px;
-  margin-left:16px;
-  font-size: 22px;
+.title {
+    margin-top: 20px;
+    margin-left: 16px;
+    font-size: 22px;
 }
-.colorChange{
-  background-color: var(--ion-color-primary)
-}
-
-.labels{
-  margin-left:7px;
+.colorChange {
+    background-color: var(--ion-color-primary);
 }
 
-.des{
-  margin-left:16px;
-  font-size: 18px;
+.labels {
+    margin-left: 7px;
 }
 
+.des {
+    margin-left: 16px;
+    font-size: 18px;
+}
 
 .discountSection {
     background: #15bf15;
@@ -57,31 +43,31 @@
     // left: 5px;
 }
 
-.iconBtn{
+.iconBtn {
     position: absolute;
     right: -10px;
-    top:10px;
-    .icons{
-        float:right;
+    top: 10px;
+    .icons {
+        float: right;
         font-size: 24px;
-            margin-top: 10px;
-            margin-left: 10px;
-            margin-right: 0px;
-            zoom:1.5;
+        margin-top: 10px;
+        margin-left: 10px;
+        margin-right: 0px;
+        zoom: 1.5;
     }
 }
 
-.minheight{
-    background:var(--ion-color-primary);
+.minheight {
+    background: var(--ion-color-primary);
     scroll-behavior: smooth;
 }
-.carminHeight{
+.carminHeight {
     // min-height: 150px;
     background: #fff;
     padding-bottom: 16px;
 }
 
-.titleSection{
+.titleSection {
     white-space: nowrap;
     width: 60%;
     overflow: hidden;
@@ -89,16 +75,15 @@
     margin-top: 20px;
 }
 
-.textColorWhite{
-    color:#fff;
-    color:var(--ion-color-light)
+.textColorWhite {
+    color: #fff;
+    color: var(--ion-color-light);
 }
-.textColorBlack{
+.textColorBlack {
     color: #000;
-    color:var(--ion-color-dark)
+    color: var(--ion-color-dark);
 }
 
-.accordingContentSection{
-    margin:0 3px;
+.accordingContentSection {
+    margin: 0 3px;
 }
-

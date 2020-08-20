@@ -1,0 +1,110 @@
+.item {
+    overflow: hidden;
+    padding: 25px;
+
+    ion-slides {
+        margin: 5px auto 25px auto;
+        width: 220px;
+        display: block;
+        height: 220px;
+        position: relative;
+    }
+
+    .item-head {
+        border-bottom: 1px solid #999;
+        padding-bottom: 10px;
+        overflow: hidden;
+        margin-bottom: 25px;
+
+        .name {
+            font-size: 16px;
+
+            .quantity {
+                font-size: 14px;
+                color: #afafaf;
+                margin-left: 20px;
+            }
+        }
+
+        .price-container {
+            margin-top: 10px;
+            font-size: 20px;
+            font-weight: bold;
+            overflow: hidden;
+
+            .title {
+                color: #656464;
+                float: left;
+
+                .reg {
+                    color: #afafaf;
+                    text-decoration: line-through;
+                    margin-right: 10px;
+                    margin-left: 10px;
+                }
+
+                .sale {
+                    color: #333;
+                }
+
+                .dis-per {
+                    font-size: 12px;
+                    font-weight: bold;
+                    text-transform: uppercase;
+                    color: #f1a034;
+                    margin-bottom: 2px;
+                    margin-top: 10px;
+                }
+            }
+
+            .in-stock {
+                float: right;
+                font-weight: bold;
+                text-transform: uppercase;
+                font-size: 14px;
+                color: #333;
+                margin-top: 7px;
+            }
+
+            .out-of-stock {
+                float: right;
+                font-weight: bold;
+                text-transform: uppercase;
+                font-size: 14px;
+                color: #999;
+                margin-top: 7px;
+            }
+        }
+    }
+
+    .detail {
+        margin-bottom: 25px;
+
+        .sub-heading {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 25px;
+        }
+
+        .attributes  {
+            overflow: hidden;
+            line-height: 15px;
+            display: grid;
+            grid-template-columns: 25% 80%;
+            color: #656464;
+
+            .key {
+                font-size: 12px;
+                font-weight: bold;
+                margin-bottom: 10px;
+
+            }
+
+            .value {
+                font-size: 11px;
+                margin-bottom: 10px;
+
+            }
+        }
+    }
+}
