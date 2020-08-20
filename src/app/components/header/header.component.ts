@@ -120,6 +120,10 @@ export class HeaderComponent implements OnInit {
         this.headerEvent.emit({ name: 'search', type: 'enter', item: value });
     }
 
+    searchClear() {
+        this.headerEvent.emit({ name: 'search-clear', type: 'clear' });
+    }
+
     checkPromtLogin(eventObject) {
         if (!this.utils.userInfo.email) {
             this.login(eventObject);

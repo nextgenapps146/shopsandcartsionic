@@ -12,7 +12,7 @@ import { LoadingController } from '@ionic/angular';
 export class UtilsService {
 
     // userid: BehaviorSubject<string> = new BehaviorSubject<string>('');
-    availableCities = ['Naperville', 'Schaumberg', 'Chicago', 'Plainfield', 'Aurora'];
+    availableCities = ['Naperville', 'Schaumberg', 'Chicago', 'Plainfield', 'Aurora', 'Bolingbrook'];
     defaultProfilePic = '../assets/images/user.png';
     userShoppingCity = '';
     userInfo: any = {

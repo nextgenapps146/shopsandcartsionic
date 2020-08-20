@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuController, ModalController } from '@ionic/angular';
 import { UtilsService } from '../../services/utils.service';
-import { AuthServiceService } from '../../services/Auth/auth-service.service';
+import { AuthServiceService } from '../../services/auth-service.service';
 import { FirestoreService } from '../../services/firestore/firestore.service';
 import { UserService } from '../../services/user.service';
 
@@ -39,22 +39,22 @@ export class SignupPage implements OnInit {
         this.modalController.dismiss('close');
     }
 
-    signup() {
-        if (this.isValidated()) {
-            this.authServ.createAccount(this.email, this.password).then(
-                data => {
-                    this.utils.setUserInfoToLocalStorage(data);
-                    this.modalController.dismiss('signedin');
-                }
-            ).catch(err => {
-                if (err) {
-                    this.utils.presentToast(`${err}`, true, 'top', 2100);
-                }
-            });
-        } else {
-            this.utils.presentToast('Wrong Input/Invalid Details', true, 'bottom', 2100);
-        }
-    }
+    // signup() {
+    //     if (this.isValidated()) {
+    //         this.authServ.createAccount(this.email, this.password).then(
+    //             data => {
+    //                 this.utils.setUserInfoToLocalStorage(data);
+    //                 this.modalController.dismiss('signedin');
+    //             }
+    //         ).catch(err => {
+    //             if (err) {
+    //                 this.utils.presentToast(`${err}`, true, 'top', 2100);
+    //             }
+    //         });
+    //     } else {
+    //         this.utils.presentToast('Wrong Input/Invalid Details', true, 'bottom', 2100);
+    //     }
+    // }
 
     enableSignup(e) {
         const validate = this.isValidated();

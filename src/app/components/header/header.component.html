@@ -6,7 +6,7 @@
         <div class="title">
             <div class="label" (click)="titleClick()">{{ title }}</div>
         </div>
-        <ion-buttons *ngIf="showOrdersIcon" slot="end">
+        <ion-buttons *ngIf="showOrdersIcon" slot="end" (click)="ordersIconClick()">
             <fa-icon slot="end" [icon]="['fas', 'shopping-cart']"></fa-icon>
             <ion-badge color="danger">3</ion-badge>
         </ion-buttons>
@@ -27,7 +27,7 @@
         </ion-buttons>
     </ion-toolbar>
     <ion-toolbar class="toolbar-down" color="primary" *ngIf="toolbar2 === 'search'">
-        <ion-searchbar #q color="light" md="ios" (keyup.enter)="searchPage(q.value)"></ion-searchbar>
+        <ion-searchbar #q color="light" md="ios" (keyup.enter)="searchPage(q.value)" (ionClear)="searchClear()"></ion-searchbar>
     </ion-toolbar>
     <ion-toolbar class="toolbar-segment" color="primary" *ngIf="toolbar2 === 'segment'">
         <div class="nav">

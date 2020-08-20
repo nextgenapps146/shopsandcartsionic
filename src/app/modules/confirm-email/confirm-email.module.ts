@@ -1,14 +1,17 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-
+import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
-
-import { StorePageRoutingModule } from './store-routing.module';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-
-import { StorePage } from './store.page';
+import { ConfirmEmailPage } from './confirm-email.page';
 import { ComponentsModule } from '../../components/components.module';
+
+const routes: Routes = [
+    {
+        path: '',
+        component: ConfirmEmailPage
+    }
+];
 
 @NgModule({
     imports: [
@@ -16,9 +19,8 @@ import { ComponentsModule } from '../../components/components.module';
         CommonModule,
         FormsModule,
         IonicModule,
-        FontAwesomeModule,
-        StorePageRoutingModule
+        RouterModule.forChild(routes)
     ],
-    declarations: [StorePage]
+    declarations: [ConfirmEmailPage]
 })
-export class StorePageModule { }
+export class ConfirmEmailPageModule { }

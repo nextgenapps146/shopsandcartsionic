@@ -1,18 +1,19 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Platform, ModalController, MenuController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { Router } from '@angular/router';
 import { RateUsPage } from './modules/rate-us/rate-us.page';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
-import { AuthServiceService } from './services/Auth/auth-service.service';
+import { AuthServiceService } from './services/auth-service.service';
 import { FirestoreService } from './services/firestore/firestore.service';
 import { UtilsService } from './services/utils.service';
 import { FirebaseX } from '@ionic-native/firebase-x/ngx';
-import { CartService } from './services/CartServices/cart.service';
 import { UserService } from './services/user.service';
 import { LoginPage } from './modules/login/login.page';
 import { SignupPage } from './modules/signup/signup.page';
+import { Observable } from 'rxjs';
+import { AngularFireAuth } from '@angular/fire/auth';
 
 @Component({
     selector: 'app-root',
@@ -20,13 +21,19 @@ import { SignupPage } from './modules/signup/signup.page';
     styleUrls: ['app.component.scss']
 })
 
-export class AppComponent {
+export class AppComponent implements OnInit {
+
+    uid: string;
+    userEmail: string;
+
+    user: Observable<any>;
 
     public appPages = this.utils.getAppPages();
     public otherPages = this.utils.getOtherPages();
     public userPersonalDetails: Array<any>;
 
     constructor(
+        private fireAuth: AngularFireAuth,
         private platform: Platform,
         private splashScreen: SplashScreen,
         private statusBar: StatusBar,
@@ -40,13 +47,32 @@ export class AppComponent {
         private firebase: FirebaseX,
         private userService: UserService
     ) {
-        this.initializeApp();
-        this.getUserInfoFromStorage();
         // this.authService.userId.subscribe(filter => {
         //     if (filter.$uid) {
         //         this.getCurrentUserInfo(filter.$uid);
         //     }
         // });
+        this.user = this.fireAuth.authState;
+        this.uid = localStorage.getItem('uid');
+    }
+
+    ngOnInit() {
+        if (this.uid) {
+            this.getUserInfoFromStorage({ uid: this.uid });
+        } else {
+            this.user.subscribe(result => {
+                if (result && result.uid) {
+                    this.uid = result.uid;
+                    this.utils.userInfo.id = result.uid;
+                    this.utils.userInfo.email = result.email;
+                    localStorage.setItem('uid', result.uid);
+                    this.getUserInfoFromStorage(result);
+                }
+            });
+        }
+        this.utils.userShoppingCity = localStorage.getItem('shoppingCity');
+        this.getUserInfoFromStorage(null);
+        this.initializeApp();
     }
 
     initializeApp() {
@@ -72,7 +98,6 @@ export class AppComponent {
         this.menuCtrl.toggle();
         if (this.utils.userInfo.email === '') {
             this.login();
-            // this.route.navigate(['login']);
         } else {
             this.route.navigate(['my-account', { title: 'profile' }]);
         }
@@ -88,8 +113,7 @@ export class AppComponent {
         } else if (pageUrl === '/share') {
             this.socialSharing.share();
         } else if (pageUrl === '/logout') {
-            this.utils.userInfo = localStorage.removeItem('userInfo');
-            this.route.navigate(['/home']);
+            this.authService.logout();
             setTimeout(v => {
                 window.location.href = window.location.href;
             }, 1000);
@@ -98,9 +122,11 @@ export class AppComponent {
         }
     }
 
-    getUserInfoFromStorage() {
-        this.utils.userShoppingCity = localStorage.getItem('shoppingCity');
-        this.utils.userInfo = JSON.parse(localStorage.getItem('userInfo')) || this.utils.userInfo;
+    getUserInfoFromStorage(result) {
+        if (result && result.uid) {
+            const userInfokey = result.uid + 'info';
+            this.utils.userInfo = JSON.parse(localStorage.getItem(userInfokey)) || this.utils.userInfo;
+        }
         this.route.navigate(['/home']);
     }
 
@@ -110,23 +136,23 @@ export class AppComponent {
         });
         modal.onDidDismiss().then((res) => {
             if (res && res.data === 'signup') {
-                this.signup();
+                // this.signup();
             }
         });
         return await modal.present();
     }
 
-    async signup() {
-        const modal = await this.modalController.create({
-            component: SignupPage
-        });
-        modal.onDidDismiss().then((res) => {
-            if (res && res.data === 'login') {
-                this.signup();
-            }
-        });
-        return await modal.present();
-    }
+    // async signup() {
+    //     const modal = await this.modalController.create({
+    //         component: SignupPage
+    //     });
+    //     modal.onDidDismiss().then((res) => {
+    //         if (res && res.data === 'login') {
+    //             this.signup();
+    //         }
+    //     });
+    //     return await modal.present();
+    // }
 
     // locationPage() {
     //     this.menuCtrl.toggle();

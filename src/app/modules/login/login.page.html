@@ -5,6 +5,32 @@
 </ion-buttons>
 <ion-content ion-no-padding>
     <div class="main">
+        <div class="card">
+            <div class="fire-logo">
+                <img src="../../assets/imgs/icon.png" class="img-logo">
+            </div>
+            <div class="sub-heading">Sign In / Create Account</div>
+            <ion-item class="f-item" *ngIf="!authService.emailSent; else emailSent">
+                <ion-input type="text" placeholder="Enter a valid email"
+                    [(ngModel)]="email" name="email"></ion-input>
+            </ion-item>
+            <ng-template #emailSent>
+                <div>{{ authService.emailSent }}</div>
+            </ng-template>
+            <br/>
+            <ion-button expand="block" (click)="login()" color="undefined" class="btn-transition"><strong
+                class="white">{{ !authService.emailSent ? 'Sign In' : 'Resend Email Link' }}</strong></ion-button>
+        </div>
+    </div>
+</ion-content>
+
+<!-- <ion-buttons slot="start" class="close-btn">
+    <ion-button transparent color="light" (click)="onClickCloseModal()">
+        <ion-icon name='close'></ion-icon>
+    </ion-button>
+</ion-buttons>
+<ion-content ion-no-padding>
+    <div class="main">
         <ion-card ion-no-ion-margin class="card card-css">
             <ion-card-content>
                 <ion-row class="row">
@@ -43,4 +69,4 @@
             </ion-card-content>
         </ion-card>
     </div>
-</ion-content>
+</ion-content> -->

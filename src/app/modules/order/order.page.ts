@@ -20,8 +20,6 @@ export class OrderPage implements OnInit {
     isUpdateRequired: boolean;
 
     constructor(
-        public products: ProductsService,
-        public fsServices: FirestoreService,
         public utils: UtilsService,
         private orderService: OrderService,
         private route: Router) {
@@ -46,7 +44,6 @@ export class OrderPage implements OnInit {
             } else {
                 this.allOrders = this.savedOrders;
             }
-
         }
     }
 

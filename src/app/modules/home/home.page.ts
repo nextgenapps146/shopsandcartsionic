@@ -9,7 +9,7 @@ import { SearchPage } from '../search/search.page';
 import { FirestoreService } from '../../services/firestore/firestore.service';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { UtilsService } from '../../services/utils.service';
-import { AuthServiceService } from '../../services/Auth/auth-service.service';
+import { AuthServiceService } from '../../services/auth-service.service';
 import { SelectLocationComponent } from '../../components/select-location/select-location.component';
 import { StoreService } from '../../services/store.service';
 

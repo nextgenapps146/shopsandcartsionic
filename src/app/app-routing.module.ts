@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { GuardsService } from './services/guards/guards.service';
+import { GuardsService } from './services/guards.service';
 
 const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -31,6 +31,7 @@ const routes: Routes = [
     { path: 'my-account', loadChildren: () => import('./modules/my-account/my-account.module').then(m => m.MyAccountPageModule) },
     { path: 'my-card', loadChildren: () => import('./modules/my-card/my-card.module').then(m => m.MyCardPageModule) },
     { path: 'signup', loadChildren: () => import('./modules/signup/signup.module').then(m => m.SignupPageModule) },
+    { path: 'confirm-email', loadChildren: () => import('./modules/confirm-email/confirm-email.module').then(m => m.ConfirmEmailPageModule)},
     {
         path: 'store',
         loadChildren: () => import('./modules/store/store.module').then(m => m.StorePageModule)

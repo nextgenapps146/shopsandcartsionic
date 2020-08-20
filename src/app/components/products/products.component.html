@@ -1,7 +1,7 @@
 <div class="product-list">
     <div class="item" *ngFor="let item of list">
         <span (click)="handleItemClick(item)">
-            <h4>25% OFF</h4>
+            <div class="p-off">25% OFF</div>
             <div class="image-container">
                 <img alt="" [src]="item.images[0]">
             </div>

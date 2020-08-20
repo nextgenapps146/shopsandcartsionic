@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { ChatroomPageRoutingModule } from './chatroom-routing.module';
 import { ChatroomPage } from './chatroom.page';
-import { ComponentsModule } from 'src/app/components/components.module';
+import { ComponentsModule } from '../../components/components.module';
 import { DatePipe } from '@angular/common';
 
 @NgModule({

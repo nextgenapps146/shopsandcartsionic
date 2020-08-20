@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FirestoreService } from '../../services/firestore/firestore.service';
-import { AuthServiceService } from '../../services/Auth/auth-service.service';
+import { AuthServiceService } from '../../services/auth-service.service';
 import { UtilsService } from '../../services/utils.service';
 import { ChatService } from '../../services/chat.service';
 

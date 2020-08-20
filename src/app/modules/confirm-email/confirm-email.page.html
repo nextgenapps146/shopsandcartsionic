@@ -1,0 +1,8 @@
+<app-header title="Email Confirm" page="email-confirm"
+    (headerEvent)="handleHeaderEvents($event)">
+</app-header>
+<ion-content>
+    <div *ngIf="emailVerified" class="message-to-user">
+        You have succesfully Signed In. Please Refresh your screen or app.
+    </div>
+</ion-content>

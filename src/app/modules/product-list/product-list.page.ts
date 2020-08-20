@@ -3,7 +3,7 @@ import { DataService } from '../../services/DataServices/data.service';
 import { CartService } from '../../services/CartServices/cart.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FirestoreService } from '../../services/firestore/firestore.service';
-import { StoreProductService } from 'src/app/services/store-product.service';
+import { StoreProductService } from '../../services/store-product.service';
 import { UtilsService } from '../../services/utils.service';
 
 @Component({
