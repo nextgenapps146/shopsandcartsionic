@@ -1,0 +1,25 @@
+name: CI
+
+on:
+  push:
+    branches:
+    - develop
+
+jobs:
+  firebase-deploy:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - uses: actions/setup-node@v1
+      with:
+        node-version: '10.x'
+    - run: npm install -g @ionic/cli
+    - run: npm install
+    - run: ionic build
+    - uses: w9jds/firebase-action@develop
+      with:
+        args: deploy --only hosting:devgretello-retail
+      env:
+        FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
