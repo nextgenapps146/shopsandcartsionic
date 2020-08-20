@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "site": "gretello-user",
+    "site": "devgretello-retail",
     "public": "www",
     "ignore": [
       "firebase.json",
