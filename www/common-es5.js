@@ -403,40 +403,506 @@ var findCheckedOption = function (el, tagName) {
 
 /***/ }),
 
-/***/ "./src/app/services/ProductService/products.service.ts":
-/*!*************************************************************!*\
-  !*** ./src/app/services/ProductService/products.service.ts ***!
-  \*************************************************************/
-/*! exports provided: ProductsService */
+/***/ "./node_modules/raw-loader/index.js!./src/app/modules/issue/issue.page.html":
+/*!*************************************************************************!*\
+  !*** ./node_modules/raw-loader!./src/app/modules/issue/issue.page.html ***!
+  \*************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<ion-header>\n  <ion-toolbar color=\"primary\">\n    <ion-title class=\"title-ios\" ion-text-capitalize>{{title}}</ion-title>\n    <ion-buttons slot=\"end\">\n      <ion-icon name=\"close\" slot=\"icon-only\" (click)=\"dismiss()\" class=\"white\" ion-margin></ion-icon>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n  <ion-item lines=\"none\" class=\"card\" padding>\n    <ion-col>\n      <div ion-ion-margin-bottom *ngFor=\"let question of que; let i = index\">\n        <ion-text>\n          <h5 class=\"que\" ion-no-ion-margin><strong>{{question}}</strong></h5>\n        </ion-text>\n        <ion-text>\n          <h5 class=\"ans\" ion-no-ion-margin>{{ans[i]}}</h5>\n        </ion-text>\n      </div>\n    </ion-col>\n  </ion-item>\n</ion-content>"
+
+/***/ }),
+
+/***/ "./node_modules/raw-loader/index.js!./src/app/modules/search/search.page.html":
+/*!***************************************************************************!*\
+  !*** ./node_modules/raw-loader!./src/app/modules/search/search.page.html ***!
+  \***************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<ion-header mode=\"ios\">\n  <ion-toolbar mode=\"ios\" color=\"primary\">\n    <ion-buttons slot=\"start\" (click)=\"dismiss()\">\n      <ion-icon name=\"arrow-round-back\" slot=\"icon-only\" class=\"white\" ion-margin></ion-icon>\n    </ion-buttons>\n    <ion-searchbar md=\"ios\" color=\"light\" class=\"\" (ionChange)=\"searchResult($event)\"></ion-searchbar>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n  <div class=\"colorWhite dFlexJustifyContentSpaceBt\" ion-padding-top *ngIf=\"RecentHistory\">\n    <div class=\"white primaryColorSection\">Recent Search</div>\n    <div class=\"white primaryColorSection\" (click)=\"clearHistory()\">\n      <ion-ripple-effect></ion-ripple-effect> Clear History\n    </div>\n  </div>\n  <ion-list *ngIf=\"SearchResult\">\n    <ion-item lines=\"none\" *ngFor=\"let result of SearchResult | async\" (click)=\"viewProduct(result)\">\n      <img [src]=\"result.images[0]\" class=\"search-image\">\n      <div class=\"dFlex\">\n        <ion-label>{{result.name}}</ion-label> &nbsp;\n        <ion-label slots=\"end\">{{result.salePrice}}</ion-label>\n        <!-- <ion-label color=\"primary\">{{history.category}}</ion-label> -->\n      </div>\n    </ion-item>\n  </ion-list>\n  <ion-list>\n    <ion-item lines=\"none\" *ngFor=\"let history of fsServices.recentSearches\">\n      <ion-icon name=\"time\" slot=\"start\"></ion-icon>\n      <div class=\"dFlex\">\n        <ion-label>{{history}}</ion-label>\n      </div>\n    </ion-item>\n  </ion-list>\n\n  <!-- <div class=\"colorWhite\" *ngIf=\"RecentHistory\" ion-padding-top ion-padding-start ion-ion-margin-top>\n    <div class=\"white\">Trending Search</div>\n  </div> -->\n  <!-- <ion-list>\n    <ion-item lines=\"none\" *ngFor=\"let history of RecentHistory\">\n      <ion-icon name=\"trending-up\" slot=\"start\"></ion-icon>\n      <div class=\"dFlex\">\n        <ion-label>{{history.productName}}</ion-label>\n      </div>\n    </ion-item>\n  </ion-list> -->\n\n\n</ion-content>"
+
+/***/ }),
+
+/***/ "./src/app/modules/issue/issue.page.scss":
+/*!***********************************************!*\
+  !*** ./src/app/modules/issue/issue.page.scss ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL21vZHVsZXMvaXNzdWUvaXNzdWUucGFnZS5zY3NzIn0= */"
+
+/***/ }),
+
+/***/ "./src/app/modules/issue/issue.page.ts":
+/*!*********************************************!*\
+  !*** ./src/app/modules/issue/issue.page.ts ***!
+  \*********************************************/
+/*! exports provided: IssuePage */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ProductsService", function() { return ProductsService; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "IssuePage", function() { return IssuePage; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/**
- * Ionic 4  Grocery Complete Platform(https://store.enappd.com/product/ionic-4-grocery-app-and-admin-dashboard)
- *
- * Copyright © 2019-present Enappd. All rights reserved.
- *
- * This source code is licensed as per the terms found in the
- * LICENSE.md file in the root directory of this source .
- *
- */
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
 
 
-var ProductsService = /** @class */ (function () {
-    function ProductsService() {
-        this.cartArray = [];
+
+var IssuePage = /** @class */ (function () {
+    function IssuePage(modalController, params) {
+        var e_1, _a;
+        this.modalController = modalController;
+        this.params = params;
+        this.que = [];
+        this.ans = [];
+        this.questions = params.get('value');
+        this.title = params.get('title');
+        try {
+            for (var _b = tslib__WEBPACK_IMPORTED_MODULE_0__["__values"](this.questions), _c = _b.next(); !_c.done; _c = _b.next()) {
+                var i = _c.value;
+                this.que.push(Object.keys(i));
+                this.ans.push(Object.values(i));
+            }
+        }
+        catch (e_1_1) { e_1 = { error: e_1_1 }; }
+        finally {
+            try {
+                if (_c && !_c.done && (_a = _b.return)) _a.call(_b);
+            }
+            finally { if (e_1) throw e_1.error; }
+        }
     }
-    ProductsService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    IssuePage.prototype.ngOnInit = function () {
+    };
+    IssuePage.prototype.dismiss = function () {
+        this.modalController.dismiss();
+    };
+    IssuePage.ctorParameters = function () { return [
+        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ModalController"] },
+        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["NavParams"] }
+    ]; };
+    IssuePage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-issue',
+            template: __webpack_require__(/*! raw-loader!./issue.page.html */ "./node_modules/raw-loader/index.js!./src/app/modules/issue/issue.page.html"),
+            styles: [__webpack_require__(/*! ./issue.page.scss */ "./src/app/modules/issue/issue.page.scss")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ModalController"],
+            _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["NavParams"]])
+    ], IssuePage);
+    return IssuePage;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/modules/search/search.page.scss":
+/*!*************************************************!*\
+  !*** ./src/app/modules/search/search.page.scss ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "ion-item {\n  border-bottom: 1px solid #eaeaea;\n}\n\n.search-image {\n  width: 38px;\n  margin-right: 17px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9zYW50b3NoYi9Eb2N1bWVudHMvbmV4dGdlbmFwcHMvZ3JldGVsbG8tbW9iaWxlL3NyYy9hcHAvbW9kdWxlcy9zZWFyY2gvc2VhcmNoLnBhZ2Uuc2NzcyIsInNyYy9hcHAvbW9kdWxlcy9zZWFyY2gvc2VhcmNoLnBhZ2Uuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLGdDQUFBO0FDQ0o7O0FEQ0E7RUFDSSxXQUFBO0VBQ0Esa0JBQUE7QUNFSiIsImZpbGUiOiJzcmMvYXBwL21vZHVsZXMvc2VhcmNoL3NlYXJjaC5wYWdlLnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyJpb24taXRlbXtcbiAgICBib3JkZXItYm90dG9tOiAxcHggc29saWQgI2VhZWFlYTtcbn1cbi5zZWFyY2gtaW1hZ2V7XG4gICAgd2lkdGg6IDM4cHg7XG4gICAgbWFyZ2luLXJpZ2h0OiAxN3B4O1xufSIsImlvbi1pdGVtIHtcbiAgYm9yZGVyLWJvdHRvbTogMXB4IHNvbGlkICNlYWVhZWE7XG59XG5cbi5zZWFyY2gtaW1hZ2Uge1xuICB3aWR0aDogMzhweDtcbiAgbWFyZ2luLXJpZ2h0OiAxN3B4O1xufSJdfQ== */"
+
+/***/ }),
+
+/***/ "./src/app/modules/search/search.page.ts":
+/*!***********************************************!*\
+  !*** ./src/app/modules/search/search.page.ts ***!
+  \***********************************************/
+/*! exports provided: SearchPage */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SearchPage", function() { return SearchPage; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
+/* harmony import */ var _services_firestore_firestore_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../services/firestore/firestore.service */ "./src/app/services/firestore/firestore.service.ts");
+/* harmony import */ var _services_utils_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../services/utils.service */ "./src/app/services/utils.service.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+
+
+
+
+
+
+// import { Searchbar } from '@ionic/angular';
+var SearchPage = /** @class */ (function () {
+    function SearchPage(modalController, fsServices, util, route) {
+        this.modalController = modalController;
+        this.fsServices = fsServices;
+        this.util = util;
+        this.route = route;
+        this.RecentHistory = [{ productName: 'Apple', category: 'Fruits' }, { productName: 'Apple', category: 'Fruits' }, { productName: 'Apple', category: 'Fruits' }];
+    }
+    SearchPage.prototype.ngOnInit = function () {
+    };
+    SearchPage.prototype.searchResult = function (eve) {
+        if (eve.detail.value !== '') {
+            // this.fsServices.searchProducts(eve.detail.value).then((data) => {
+            //     this.SearchResult = data;
+            // });
+        }
+    };
+    SearchPage.prototype.viewProduct = function (product) {
+        this.modalController.dismiss();
+        if (this.fsServices.recentSearches.indexOf(product.name) === -1) {
+            this.fsServices.recentSearches.push(product.name);
+        }
+        this.route.navigate(['view-product', { product: JSON.stringify(product) }]);
+    };
+    SearchPage.prototype.dismiss = function () {
+        this.modalController.dismiss();
+    };
+    SearchPage.prototype.clearHistory = function () {
+        this.RecentHistory = [];
+        this.fsServices.recentSearches = [];
+    };
+    SearchPage.ctorParameters = function () { return [
+        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ModalController"] },
+        { type: _services_firestore_firestore_service__WEBPACK_IMPORTED_MODULE_3__["FirestoreService"] },
+        { type: _services_utils_service__WEBPACK_IMPORTED_MODULE_4__["UtilsService"] },
+        { type: _angular_router__WEBPACK_IMPORTED_MODULE_5__["Router"] }
+    ]; };
+    SearchPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-search',
+            template: __webpack_require__(/*! raw-loader!./search.page.html */ "./node_modules/raw-loader/index.js!./src/app/modules/search/search.page.html"),
+            styles: [__webpack_require__(/*! ./search.page.scss */ "./src/app/modules/search/search.page.scss")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ModalController"],
+            _services_firestore_firestore_service__WEBPACK_IMPORTED_MODULE_3__["FirestoreService"],
+            _services_utils_service__WEBPACK_IMPORTED_MODULE_4__["UtilsService"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_5__["Router"]])
+    ], SearchPage);
+    return SearchPage;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/services/address.service.ts":
+/*!*********************************************!*\
+  !*** ./src/app/services/address.service.ts ***!
+  \*********************************************/
+/*! exports provided: AddressService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AddressService", function() { return AddressService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_fire_firestore__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/fire/firestore */ "./node_modules/@angular/fire/firestore/index.js");
+/* harmony import */ var _utils_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./utils.service */ "./src/app/services/utils.service.ts");
+
+
+
+
+var AddressService = /** @class */ (function () {
+    function AddressService(Afs, utils) {
+        this.Afs = Afs;
+        this.utils = utils;
+    }
+    // only add to local storage
+    AddressService.prototype.addUserAddress = function (userId, result, selected) {
+        var userAddresses = this.getUserAddress(userId);
+        if (result && result.fullAddress) {
+            userAddresses['items'].push(result);
+        }
+        userAddresses['selected'] = selected;
+        localStorage.setItem(userId + 'addresses', JSON.stringify(userAddresses));
+    };
+    AddressService.prototype.getUserAddress = function (userId) {
+        var defaultAddress = { items: [], selected: '' };
+        return JSON.parse(localStorage.getItem(userId + 'addresses')) || defaultAddress;
+    };
+    AddressService.ctorParameters = function () { return [
+        { type: _angular_fire_firestore__WEBPACK_IMPORTED_MODULE_2__["AngularFirestore"] },
+        { type: _utils_service__WEBPACK_IMPORTED_MODULE_3__["UtilsService"] }
+    ]; };
+    AddressService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
             providedIn: 'root'
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
-    ], ProductsService);
-    return ProductsService;
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_2__["AngularFirestore"],
+            _utils_service__WEBPACK_IMPORTED_MODULE_3__["UtilsService"]])
+    ], AddressService);
+    return AddressService;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/services/order.service.ts":
+/*!*******************************************!*\
+  !*** ./src/app/services/order.service.ts ***!
+  \*******************************************/
+/*! exports provided: OrderService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "OrderService", function() { return OrderService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_fire_firestore__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/fire/firestore */ "./node_modules/@angular/fire/firestore/index.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+/* harmony import */ var _utils_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./utils.service */ "./src/app/services/utils.service.ts");
+
+
+
+
+
+var OrderService = /** @class */ (function () {
+    function OrderService(Afs, utils) {
+        this.Afs = Afs;
+        this.utils = utils;
+    }
+    OrderService.prototype.updateStatus = function (status, orderid) {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        this.ordersRef = this.Afs.collection('orders');
+                        return [4 /*yield*/, this.ordersRef.doc(orderid).update({ status: status })];
+                    case 1:
+                        _a.sent();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    OrderService.prototype.getOrderItems = function (itemid) {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
+                this.orderItemsRef = this.Afs.collection('orderitems', function (ref) { return ref.where('orderid', '==', itemid); });
+                return [2 /*return*/, this.orderItemsRef.snapshotChanges().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (res) { return res.map(function (dataItems) {
+                        var data = dataItems.payload.doc.data(), id = dataItems.payload.doc.id;
+                        return tslib__WEBPACK_IMPORTED_MODULE_0__["__assign"]({}, data, { id: id });
+                    }); }))];
+            });
+        });
+    };
+    OrderService.prototype.getOrder = function (orderid) {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
+                this.ordersRef = this.Afs.collection('orders');
+                return [2 /*return*/, this.ordersRef.doc(orderid).snapshotChanges().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (res) {
+                        var record = res.payload.data();
+                        return record;
+                    }))];
+            });
+        });
+    };
+    OrderService.prototype.addOrder = function (record) {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        this.ordersRef = this.Afs.collection('orders');
+                        return [4 /*yield*/, this.ordersRef.add(record).then(function (doc) {
+                                return doc.id;
+                            })];
+                    case 1: return [2 /*return*/, _a.sent()];
+                }
+            });
+        });
+    };
+    OrderService.prototype.addOrderItem = function (record) {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        this.orderItemsRef = this.Afs.collection('orderitems');
+                        return [4 /*yield*/, this.orderItemsRef.add(record)];
+                    case 1: return [2 /*return*/, _a.sent()];
+                }
+            });
+        });
+    };
+    OrderService.prototype.getUserOrders = function (userId) {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
+                this.ordersRef = this.Afs.collection('orders', function (ref) { return ref.where('customerid', '==', userId).where('deliverystatus', '==', 'nd'); });
+                return [2 /*return*/, this.ordersRef.snapshotChanges().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (res) { return res.map(function (dataItems) {
+                        var data = dataItems.payload.doc.data();
+                        var id = dataItems.payload.doc.id;
+                        // this.UserOrders.push({ id, ...data });
+                        return tslib__WEBPACK_IMPORTED_MODULE_0__["__assign"]({ id: id }, data);
+                    }); }))];
+            });
+        });
+    };
+    OrderService.prototype.getOrdersItem = function (itemid) {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
+                this.orderItemsRef = this.Afs.collection('orderitems', function (ref) { return ref.where('orderid', '==', itemid); });
+                return [2 /*return*/, this.orderItemsRef.snapshotChanges().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (res) { return res.map(function (dataItems) {
+                        var data = dataItems.payload.doc.data();
+                        // const id = dataItems.payload.doc.id;
+                        return tslib__WEBPACK_IMPORTED_MODULE_0__["__assign"]({}, data);
+                    }); }))];
+            });
+        });
+    };
+    OrderService.prototype.placeOrder = function (randomNumber, record) {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.utils.openLoader()];
+                    case 1:
+                        _a.sent();
+                        this.ordersRef = this.Afs.collection('orders');
+                        return [4 /*yield*/, this.utils.openLoader()];
+                    case 2:
+                        _a.sent();
+                        return [4 /*yield*/, this.ordersRef.doc(randomNumber).set(record)];
+                    case 3:
+                        _a.sent();
+                        return [4 /*yield*/, this.utils.closeLoading()];
+                    case 4:
+                        _a.sent();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    OrderService.prototype.saveOrderToStorage = function (userId, record, isUpdateFromDbRequired) {
+        var allOrders = {
+            orders: []
+        };
+        var savedOrders = this.getSavedOrders(userId);
+        if (savedOrders && savedOrders.orders) {
+            allOrders = savedOrders;
+        }
+        allOrders['isUpdateRequired'] = isUpdateFromDbRequired;
+        allOrders.orders.unshift(record);
+        localStorage.setItem(userId + 'orders', JSON.stringify(allOrders));
+    };
+    OrderService.prototype.getSavedOrders = function (userId) {
+        return JSON.parse(localStorage.getItem(userId + 'orders'));
+    };
+    OrderService.prototype.saveAllOrdersToStorage = function (userId, allOrders) {
+        localStorage.setItem(userId + 'orders', JSON.stringify(allOrders));
+    };
+    OrderService.ctorParameters = function () { return [
+        { type: _angular_fire_firestore__WEBPACK_IMPORTED_MODULE_2__["AngularFirestore"] },
+        { type: _utils_service__WEBPACK_IMPORTED_MODULE_4__["UtilsService"] }
+    ]; };
+    OrderService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+            providedIn: 'root'
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_2__["AngularFirestore"],
+            _utils_service__WEBPACK_IMPORTED_MODULE_4__["UtilsService"]])
+    ], OrderService);
+    return OrderService;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/services/store.service.ts":
+/*!*******************************************!*\
+  !*** ./src/app/services/store.service.ts ***!
+  \*******************************************/
+/*! exports provided: StoreService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "StoreService", function() { return StoreService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_fire_firestore__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/fire/firestore */ "./node_modules/@angular/fire/firestore/index.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+/* harmony import */ var _utils_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./utils.service */ "./src/app/services/utils.service.ts");
+
+
+
+
+
+var StoreService = /** @class */ (function () {
+    function StoreService(Afs, utils) {
+        this.Afs = Afs;
+        this.utils = utils;
+    }
+    StoreService.prototype.getStoreInfo = function (userId) {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
+                if (userId) {
+                    this.myStoreRef = this.Afs.collection('stores');
+                    return [2 /*return*/, this.myStoreRef.doc(userId).snapshotChanges().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (res) {
+                            var result = res.payload.data();
+                            if (result) {
+                                result.id = res.payload.id;
+                            }
+                            return result;
+                        }))];
+                }
+                return [2 /*return*/];
+            });
+        });
+    };
+    StoreService.prototype.getUserLocalStores = function (city) {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
+                this.myStoreRef = this.Afs.collection('stores', function (ref) { return ref.where('city', '==', city); });
+                return [2 /*return*/, this.myStoreRef.snapshotChanges().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (res) { return res.map(function (dataItems) {
+                        var data = dataItems.payload.doc.data();
+                        var id = dataItems.payload.doc.id;
+                        // this.storesNearBy.push({ id, ...data });
+                        return tslib__WEBPACK_IMPORTED_MODULE_0__["__assign"]({ id: id }, data);
+                    }); }))];
+            });
+        });
+    };
+    StoreService.prototype.createStore = function (userId, result) {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        this.myStoreRef = this.Afs.collection('stores');
+                        return [4 /*yield*/, this.utils.openLoader()];
+                    case 1:
+                        _a.sent();
+                        return [4 /*yield*/, this.myStoreRef.doc(userId).set(tslib__WEBPACK_IMPORTED_MODULE_0__["__assign"]({}, result)).then(function (snapshot) {
+                                console.log(snapshot);
+                            })];
+                    case 2:
+                        _a.sent();
+                        return [4 /*yield*/, this.utils.closeLoading()];
+                    case 3:
+                        _a.sent();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    StoreService.ctorParameters = function () { return [
+        { type: _angular_fire_firestore__WEBPACK_IMPORTED_MODULE_2__["AngularFirestore"] },
+        { type: _utils_service__WEBPACK_IMPORTED_MODULE_4__["UtilsService"] }
+    ]; };
+    StoreService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+            providedIn: 'root'
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_2__["AngularFirestore"],
+            _utils_service__WEBPACK_IMPORTED_MODULE_4__["UtilsService"]])
+    ], StoreService);
+    return StoreService;
 }());
 
 
