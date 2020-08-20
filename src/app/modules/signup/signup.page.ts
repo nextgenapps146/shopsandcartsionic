@@ -39,23 +39,6 @@ export class SignupPage implements OnInit {
         this.modalController.dismiss('close');
     }
 
-    // signup() {
-    //     if (this.isValidated()) {
-    //         this.authServ.createAccount(this.email, this.password).then(
-    //             data => {
-    //                 this.utils.setUserInfoToLocalStorage(data);
-    //                 this.modalController.dismiss('signedin');
-    //             }
-    //         ).catch(err => {
-    //             if (err) {
-    //                 this.utils.presentToast(`${err}`, true, 'top', 2100);
-    //             }
-    //         });
-    //     } else {
-    //         this.utils.presentToast('Wrong Input/Invalid Details', true, 'bottom', 2100);
-    //     }
-    // }
-
     enableSignup(e) {
         const validate = this.isValidated();
         this.disableBtn = !validate;

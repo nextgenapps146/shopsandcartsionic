@@ -49,16 +49,6 @@ export class HomePage implements OnInit {
         private geolocation: Geolocation,
         public utils: UtilsService
     ) {
-        // this.locationAddress = ' D-Block,Malviya Nagar,jaipur ';
-        // this.prodoctSlides = ['assets/imgs/b1.jpg', 'assets/imgs/b2.jpg', 'assets/imgs/b3.png', 'assets/imgs/b4.jpg'];
-
-        // this.fsServices.getProducts().then((data) => {
-        //     this.products = data;
-        // });
-
-        // this.fsServices.getCategoriesHomePage().then((data) => {
-        //     this.categoryItems = data;
-        // });
 
     }
 

@@ -17,36 +17,6 @@ import { StorageService } from '../../services/storage.service';
 })
 
 export class DeliveryPage implements OnInit {
-    // @ViewChild('slides', { static: true }) slides: IonSlides;
-    // public address;
-    // public Time;
-    // public DeliveryMode;
-    // public PaymentMode;
-    // public Days;
-    // public CurrentIndex = 0;
-    // slideOpts = {
-    //     effect: 'flip',
-    // };
-    // public SlideIndex: any = 0;
-    // selectedTime: any = '6AM - 9AM';
-    // selectedDeliveryMode: any;
-    // selectedPaymentMode: any;
-    // addressvalue: any;
-    // addressList = [];
-    // selectedDay: any = 'Sunday';
-    // addressArray;
-    // paymentmode: any;
-    // storename: any;
-    // customername: any;
-    // data = [];
-    // storeid: any;
-
-    // isDeliver = true;
-    // isPickup = false;
-    // isCurve = false;
-
-    // itemId: any;
-    // deliveryAddress: any;
 
     addressArray: any;
     qpMap: any;
@@ -76,20 +46,6 @@ export class DeliveryPage implements OnInit {
             this.getAddress();
             this.prepareOrderObject();
         }
-
-        // this.Days = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
-        // this.Time = [
-        //     '6AM - 9AM',
-        //     '10AM - 1PM',
-        //     '4PM - 7PM',
-        //     '8PM - 11PM',
-        //     '9AM - 4PM',
-        // ];
-        // this.DeliveryMode = ['Deliver', 'Pickup', 'Curve site'];
-        // this.PaymentMode = ['Online', 'Cash on dlivery', 'Pay at store'];
-        // this.utils.AddAdressBackUrl = '/delivery';
-        // this.customername = this.utils.userInfo.username;
-        // this.getCartData();
     }
 
     ngOnInit() { }
@@ -223,122 +179,4 @@ export class DeliveryPage implements OnInit {
         };
         this.route.navigate(['chatroom'], navigationExtras);
     }
-
-    // async getCartData() {
-    //     await this.router.queryParams.subscribe((params) => {
-    //         if (params && params.storeid && params.storename) {
-    //             this.storeid = params.storeid;
-    //             this.storename = params.storename;
-    //             this.selectedDeliveryMode = params.selecteddeliverymode;
-    //             this.selectedPaymentMode = params.selectedpaymentmode;
-    //             this.addressvalue = params.addressvalue;
-    //         }
-    //     });
-
-    //     await this.getDeliveryAddress();
-
-    // }
-
-    // addAddress() {
-    //     this.route.navigate(['add-address']);
-    // }
-
-    // slideTap(index) {
-    //     this.CurrentIndex = index;
-    //     this.SlideIndex = index;
-    //     this.slides.slideTo(index, 200);
-    // }
-
-    // slideChanged() {
-    //     this.slides.getActiveIndex().then((res) => {
-    //         this.CurrentIndex = res;
-    //         this.SlideIndex = res;
-    //     });
-    // }
-
-    // checkDeliveryMode(deliveryMode) {
-    //     this.isDeliver = false;
-    //     this.isPickup = false;
-    //     this.isCurve = false;
-    //     if (deliveryMode === 'Deliver') {
-    //         this.isDeliver = true;
-    //     }
-    //     if (deliveryMode === 'Pickup') {
-    //         this.isPickup = true;
-    //     }
-    //     if (deliveryMode === 'Curve site') {
-    //         this.isCurve = true;
-    //     }
-    // }
-
-    // getDeliveryAddress() {
-    //     this.addressService.getDeliveryAddress(this.addressvalue).then((address) => {
-    //         address.subscribe((address) => {
-    //             this.address = address;
-    //             if (this.address) {
-    //                 this.deliveryAddress = this.address;
-    //             }
-    //         });
-    //     });
-    // }
-
-    // async paymentPage() {
-    //     if (this.selectedDeliveryMode && this.selectedPaymentMode && this.deliveryAddress) {
-    //         const record = {
-    //             addressvalue: this.address,
-    //             selecteddeliverymode: this.selectedDeliveryMode,
-    //             selectedpaymentmode: this.selectedPaymentMode,
-    //             storeid: this.storeid,
-    //             storename: this.storename,
-    //             customerid: this.utils.userInfo.id,
-    //             customername: this.utils.userInfo.username,
-    //             total: this.cart.grandTotal,
-    //             status: 'New',
-    //             created_date: new Date().getTime(),
-    //         };
-
-    //         const addedOrder = await this.orderService.addOrder(record);
-    //         this.itemId = addedOrder;
-
-    //         for (
-    //             let item_counter = 0;
-    //             item_counter < this.cart.addCart.length;
-    //             item_counter++
-    //         ) {
-    //             const data = {
-    //                 orderid: this.itemId,
-    //                 itemid: this.cart.addCart[item_counter].id,
-    //                 itenname: this.cart.addCart[item_counter].name,
-    //                 itemimage: this.cart.addCart[item_counter].images[0],
-    //                 quantity: this.cart.addCart[item_counter].units,
-    //                 amount: this.cart.addCart[item_counter].salePrice,
-    //             };
-    //             this.orderService.addOrderItem(data);
-    //         }
-    //         const dataPush = {
-    //             title: 'New order request',
-    //             body: 'You have ordered',
-    //             token: this.utils.userInfo.id, // it should be customer token
-    //             targetid: this.utils.userInfo.token, // it is customer id
-    //         };
-
-    //         this.chatService.sendNotificaion(dataPush);
-    //         this.utils.presentToast(
-    //             'You have ordered successfully',
-    //             true,
-    //             'top',
-    //             2100
-    //         );
-    //         this.cart.removeCurrentStore();
-    //         this.route.navigate(['home']);
-    //     } else {
-    //         this.utils.presentToast(
-    //             'All field is required here',
-    //             true,
-    //             'top',
-    //             2100
-    //         );
-    //     }
-
-    // }
 }
