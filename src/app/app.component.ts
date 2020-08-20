@@ -142,18 +142,6 @@ export class AppComponent implements OnInit {
         return await modal.present();
     }
 
-    // async signup() {
-    //     const modal = await this.modalController.create({
-    //         component: SignupPage
-    //     });
-    //     modal.onDidDismiss().then((res) => {
-    //         if (res && res.data === 'login') {
-    //             this.signup();
-    //         }
-    //     });
-    //     return await modal.present();
-    // }
-
     // locationPage() {
     //     this.menuCtrl.toggle();
     //     this.route.navigate(['location']);
