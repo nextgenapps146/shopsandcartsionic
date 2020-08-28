@@ -5,7 +5,7 @@
 export const environment = {
     production: false,
     firebase: {
-        apiKey: 'AIzaSyBC9-NGcvif5Hl-_2mwapfJl7C_v6YcgN0',
+        apiKey: 'AIzaSyBxBFcRYR7ilLfFz9acyY2VyBdq0G7du94',
         authDomain: 'gretello-dev.firebaseapp.com',
         databaseURL: 'https://gretello-dev.firebaseio.com',
         projectId: 'gretello-dev',

@@ -118,7 +118,7 @@ export class DeliveryPage implements OnInit {
             params['totalcharges'] = this.qpMap['totalCharges'];
             params['orderplaceddate'] = new Date().toLocaleString();
             params['customername'] = this.utils.userInfo.firstname + ' ' + this.utils.userInfo.lastname;
-            params['customerphone'] = this.utils.userInfo.phone;
+            params['customerphone'] = this.utils.userInfo.phone || '';
             params['customerid'] = this.utils.userInfo.id;
             params['storeid'] = this.storeInfo.id;
             params['storename'] = this.storeInfo.name;

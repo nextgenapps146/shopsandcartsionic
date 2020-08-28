@@ -13,6 +13,14 @@
 @import url("https://fonts.googleapis.com/css?family=Nunito");
 // @import url('https://fonts.googleapis.com/css?family=Abel');
 
+.ion-page {
+    max-width: 900px;
+}
+
+app-header {
+    background: #f53d3d;
+}
+
 .flt-lt {
     float: left;
 }

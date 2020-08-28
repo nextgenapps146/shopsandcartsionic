@@ -24,6 +24,8 @@ export class AuthServiceService {
 
     user: Observable<any>;
     emailSent = '';
+    // confirmEmailRedirect = 'https://devgretello.web.app/confirm-email';
+    confirmEmailRedirect = 'http://localhost:8100/confirm-email';
 
     constructor(
         private fireAuth: AngularFireAuth,
@@ -70,7 +72,7 @@ export class AuthServiceService {
         return new Promise<any>((resolve, reject) => {
             this.utils.openLoader();
             const params = {
-                url: 'http://localhost:8100/confirm-email',
+                url: this.confirmEmailRedirect,
                 handleCodeInApp: true
             };
             this.fireAuth.auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL).then(res => {
