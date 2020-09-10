@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ProductsService } from '../../services/ProductService/products.service';
 import { Router } from '@angular/router';
 import { FirestoreService } from '../../services/firestore/firestore.service';
 import { UtilsService } from '../../services/utils.service';

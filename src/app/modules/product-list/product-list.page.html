@@ -1,7 +1,5 @@
 <app-header [title]="utils.userShoppingStoreInfo.name" page="store" leftTopButton="back"
-    showMessageIcon=true
     showCartIcon=true cartBadge="{{ qpMap['totalCart'] ? qpMap['totalCart'] : 0 }}"
-    toolbar2="search"
     (headerEvent)="handleHeaderEvents($event)">
 </app-header>
 

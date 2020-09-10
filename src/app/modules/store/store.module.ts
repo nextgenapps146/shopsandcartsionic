@@ -4,7 +4,6 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { StorePageRoutingModule } from './store-routing.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { StorePage } from './store.page';
@@ -16,8 +15,7 @@ import { ComponentsModule } from '../../components/components.module';
         CommonModule,
         FormsModule,
         IonicModule,
-        FontAwesomeModule,
-        StorePageRoutingModule
+        FontAwesomeModule
     ],
     declarations: [StorePage]
 })

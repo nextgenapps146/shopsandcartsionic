@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../../services/DataServices/data.service';
-import { CartService } from '../../services/CartServices/cart.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FirestoreService } from '../../services/firestore/firestore.service';
 import { StoreProductService } from '../../services/store-product.service';
@@ -22,7 +21,6 @@ export class ProductListPage implements OnInit {
     constructor(
         public dataServ: DataService,
         private storeProductService: StoreProductService,
-        public cart: CartService,
         private route: Router,
         public fsServices: FirestoreService,
         private activatedRoute: ActivatedRoute,

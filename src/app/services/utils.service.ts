@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastController, NavController, AlertController } from '@ionic/angular';
-import { BehaviorSubject } from 'rxjs';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { LoadingController } from '@ionic/angular';
 
@@ -29,6 +28,10 @@ export class UtilsService {
     storeInfo = null;
     storeProducts = [];
     quantitiesAndProductsMap = {};
+    currentAddedItem: any;
+
+    // Seller Store ----
+    myStore: any = {};
 
     constructor(
         public loadingController: LoadingController,
@@ -180,8 +183,8 @@ export class UtilsService {
     getOtherPages() {
         return [
             { title: 'About Us', url: '/about-us', icon: 'information-circle-outline', mode: 'ios' },
-            { title: 'Rate Us', url: '/rate-us', icon: 'star-half', mode: 'ios' },
-            { title: 'Share', url: '/share', icon: 'share', mode: 'md' },
+            // { title: 'Rate Us', url: '/rate-us', icon: 'star-half', mode: 'ios' },
+            // { title: 'Share', url: '/share', icon: 'share', mode: 'md' },
             { title: 'Need Help', url: '/need-help', icon: 'help-circle-outline', mode: 'ios' }
         ];
     }
@@ -204,6 +207,19 @@ export class UtilsService {
         } else {
             return uid2 + uid1;
         }
+    }
+
+    handleOverlay(item) {
+        if (this.currentAddedItem) {
+            this.currentAddedItem.isAdding = false; // make the previous one false
+        }
+        this.currentAddedItem = item;
+        item.isAdding = true;
+    }
+
+    handleOverlayClick(item) {
+        item.isAdding = false;
+        this.currentAddedItem = null;
     }
 
 }

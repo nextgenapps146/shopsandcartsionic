@@ -3,7 +3,6 @@ import { Platform, ModalController, MenuController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { Router } from '@angular/router';
-import { RateUsPage } from './modules/rate-us/rate-us.page';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 import { AuthServiceService } from './services/auth-service.service';
 import { FirestoreService } from './services/firestore/firestore.service';
@@ -11,7 +10,6 @@ import { UtilsService } from './services/utils.service';
 import { FirebaseX } from '@ionic-native/firebase-x/ngx';
 import { UserService } from './services/user.service';
 import { LoginPage } from './modules/login/login.page';
-import { SignupPage } from './modules/signup/signup.page';
 import { Observable } from 'rxjs';
 import { AngularFireAuth } from '@angular/fire/auth';
 
@@ -104,13 +102,7 @@ export class AppComponent implements OnInit {
     }
 
     async redirectPage(pageUrl, rateUs) {
-        if (pageUrl === '/rate-us') {
-            const modal = await this.modalController.create({
-                component: RateUsPage,
-                cssClass: 'rateUs'
-            });
-            return await modal.present();
-        } else if (pageUrl === '/share') {
+         if (pageUrl === '/share') {
             this.socialSharing.share();
         } else if (pageUrl === '/logout') {
             this.authService.logout();

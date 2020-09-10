@@ -1,52 +1,55 @@
 <ion-app>
-    <ion-menu menu-id="first">
-        <ion-content>
-            <div class="userSection" ion-padding-top ion-padding-start (click)="userProfile()">
-                <ion-avatar slot="start">
-                    <img alt="" [src]="utils.userInfo.picture">
-                </ion-avatar>
-                <div ion-padding-start class="user_name">
-                    <ion-label>
-                        {{ utils.userInfo.firstname || 'Hi' }} {{ utils.userInfo.lastname || 'User' }}
-                        <ion-icon name="md-create"></ion-icon>
-                    </ion-label>
-                    <div class="email">{{ utils.userInfo.email || 'login' }}</div>
-                </div>
-            </div>
-            <ion-list class="appPageSection">
-                <br />
-                <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages">
-                    <ion-item [routerDirection]="'root'" [routerLink]="[p.url]" lines="none">
-                        <ion-icon slot="start" [name]="p.icon" color="primary" mode="ios"></ion-icon>
+    <ion-split-pane contentId="main-content">
+        <ion-menu menu-id="first" contentId="main-content" type="overlay">
+            <ion-content>
+                <!-- <div class="userSection" ion-padding-top ion-padding-start (click)="userProfile()">
+                    <ion-avatar slot="start">
+                        <img alt="" [src]="utils.userInfo.picture">
+                    </ion-avatar>
+                    <div ion-padding-start class="user_name">
                         <ion-label>
-                            {{p.title}}
+                            {{ utils.userInfo.firstname || 'Hi' }} {{ utils.userInfo.lastname || 'User' }}
+                            <ion-icon name="md-create"></ion-icon>
                         </ion-label>
-                    </ion-item>
-                </ion-menu-toggle>
-            </ion-list>
+                        <div class="email">{{ utils.userInfo.email || 'login' }}</div>
+                    </div>
+                </div> -->
+                <ion-list class="appPageSection">
+                    <ion-list-header>Inbox</ion-list-header>
+                    <ion-note (click)="sendEmail()">hi@ionicframework.com</ion-note>
+                    <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages">
+                        <ion-item [routerDirection]="'root'" [routerLink]="[p.url]" lines="none">
+                            <ion-icon slot="start" [name]="p.icon" color="primary" mode="ios"></ion-icon>
+                            <ion-label>
+                                {{p.title}}
+                            </ion-label>
+                        </ion-item>
+                    </ion-menu-toggle>
+                </ion-list>
 
-            <ion-list>
-                <div style="margin-bottom: 8px;">
-                    <ion-label ion-padding-start><b style="margin-left: 6%;">Others</b></ion-label>
-                </div>
-                <ion-menu-toggle auto-hide="false" *ngFor="let p of otherPages">
-                    <ion-item (click)="redirectPage(p.url)" lines="none">
-                        <ion-icon slot="start" [name]="p.icon" color="primary" [mode]="p.mode"></ion-icon>
-                        <ion-label>
-                            {{p.title}}
-                        </ion-label>
-                    </ion-item>
-                </ion-menu-toggle>
-                <ion-menu-toggle auto-hide="false" *ngIf="utils.userInfo.firstname">
-                    <ion-item (click)="redirectPage('/logout')" lines="none">
-                        <ion-icon slot="start" name="log-out" color="primary" mode="md"></ion-icon>
-                        <ion-label>
-                            Log out
-                        </ion-label>
-                    </ion-item>
-                </ion-menu-toggle>
-            </ion-list>
-        </ion-content>
-    </ion-menu>
-    <ion-router-outlet main></ion-router-outlet>
+                <ion-list>
+                    <div style="margin-bottom: 8px;">
+                        <ion-label ion-padding-start><b style="margin-left: 6%;">Others</b></ion-label>
+                    </div>
+                    <ion-menu-toggle auto-hide="false" *ngFor="let p of otherPages">
+                        <ion-item (click)="redirectPage(p.url)" lines="none">
+                            <ion-icon slot="start" [name]="p.icon" color="primary" [mode]="p.mode"></ion-icon>
+                            <ion-label>
+                                {{p.title}}
+                            </ion-label>
+                        </ion-item>
+                    </ion-menu-toggle>
+                    <ion-menu-toggle auto-hide="false" *ngIf="utils.userInfo.firstname">
+                        <ion-item (click)="redirectPage('/logout')" lines="none">
+                            <ion-icon slot="start" name="log-out" color="primary" mode="md"></ion-icon>
+                            <ion-label>
+                                Log out
+                            </ion-label>
+                        </ion-item>
+                    </ion-menu-toggle>
+                </ion-list>
+            </ion-content>
+        </ion-menu>
+        <ion-router-outlet main id="main-content"></ion-router-outlet>
+    </ion-split-pane>
 </ion-app>

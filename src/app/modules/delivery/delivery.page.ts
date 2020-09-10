@@ -3,7 +3,6 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { IonSlides, ModalController, AlertController } from '@ionic/angular';
 import { UtilsService } from '../../services/utils.service';
 import { FirestoreService } from '../../services/firestore/firestore.service';
-import { CartService } from '../../services/CartServices/cart.service';
 import { ChatService } from '../../services/chat.service';
 import { OrderService } from '../../services/order.service';
 import { AddressService } from '../../services/address.service';
@@ -31,7 +30,6 @@ export class DeliveryPage implements OnInit {
     constructor(
         private route: Router,
         private router: ActivatedRoute,
-        public cart: CartService,
         private chatService: ChatService,
         private orderService: OrderService,
         public utils: UtilsService,

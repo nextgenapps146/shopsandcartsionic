@@ -1,23 +1,23 @@
 <ion-header>
-  <ion-toolbar color="primary">
-    <ion-title class="title-ios" ion-text-capitalize>{{title}}</ion-title>
-    <ion-buttons slot="end">
-      <ion-icon name="close" slot="icon-only" (click)="dismiss()" class="white" ion-margin></ion-icon>
-    </ion-buttons>
-  </ion-toolbar>
+    <ion-toolbar color="primary">
+        <ion-title class="title-ios" ion-text-capitalize>{{title}}</ion-title>
+        <ion-buttons slot="end">
+            <ion-icon name="close" slot="icon-only" (click)="dismiss()" class="white" ion-margin></ion-icon>
+        </ion-buttons>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-item lines="none" class="card" padding>
-    <ion-col>
-      <div ion-ion-margin-bottom *ngFor="let question of que; let i = index">
-        <ion-text>
-          <h5 class="que" ion-no-ion-margin><strong>{{question}}</strong></h5>
-        </ion-text>
-        <ion-text>
-          <h5 class="ans" ion-no-ion-margin>{{ans[i]}}</h5>
-        </ion-text>
-      </div>
-    </ion-col>
-  </ion-item>
+    <ion-item lines="none" class="card" padding>
+        <ion-col>
+            <div ion-ion-margin-bottom *ngFor="let question of que; let i = index">
+                <ion-text>
+                    <h5 class="que" ion-no-ion-margin><strong>{{question}}</strong></h5>
+                </ion-text>
+                <ion-text>
+                    <h5 class="ans" ion-no-ion-margin>{{ans[i]}}</h5>
+                </ion-text>
+            </div>
+        </ion-col>
+    </ion-item>
 </ion-content>

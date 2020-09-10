@@ -7,7 +7,19 @@
     fa-icon {
         float: left;
         margin-right: 10px;
-        color: #f53d3d;
+        color: var(--ion-color-secondary-contrast);
+    }
+
+    ion-select {
+        font-size: 12px;
+    }
+
+    ion-label h3 {
+        font-size: 12px;
+    }
+
+    h5 {
+        font-size: 12px;
     }
 }
 
@@ -16,10 +28,16 @@ textarea {
     font-size: 13px;
     border: 1px solid #ddd;
     padding: 10px;
+    display: block;
 }
 
 .disable {
     opacity: 0.5;
+}
+
+.footerCartSection {
+    text-align: center;
+    font-size: 14px;
 }
 // .contentSection{
 //     background: red;

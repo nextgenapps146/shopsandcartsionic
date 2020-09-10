@@ -1,4 +1,4 @@
-<app-header [title]="storeName" page="store" showMessageIcon=true showCartIcon=true toolbar2="search"
+<app-header [title2]="storeName" page="store" showMessageIcon=true showCartIcon=true toolbar2="search2"
 (headerEvent)="handleHeaderEvents($event)">
 </app-header>
 
@@ -7,39 +7,3 @@
         This Store does not have any products to offer.</div>
     <app-categories [list]="storeCategoriesList" (categoriesEvent)="handleCategoriesEvent($event)"></app-categories>
 </ion-content>
-
-<!-- <ion-content>
-    <ion-item *ngIf="!storeProductsList || storeProductsList.length === 0">
-        <p>You do not have any products added to your store. Start adding new products or
-            add it from the marketplace and modify them.</p>
-    </ion-item>
-    <ion-list class="list1">
-        <ion-list-header>
-            <span calss="flt-lt">Available Products</span>
-        </ion-list-header>
-        <div class="overlay" *ngIf="currentAddingItem && currentAddingItem.isItemAdding"(click)="currentAddingItem.isItemAdding=false"></div>
-        <div class="list-item" *ngFor="let product of storeProductsList">
-            <ion-thumbnail class="flt-lt">
-                <img [src]="product.images[0]">
-            </ion-thumbnail>
-            <ion-label class="flt-lt">
-                <h3><strong>{{ product.name }}</strong></h3>
-                <p>$ {{ product.regularPrice }}</p>
-            </ion-label>
-            <div class="flt-rt">
-                <span class="flt-lt item-quantity-added" (click)="enableItemAdding(product)"
-                *ngIf="product.units && product.units > 0">{{ product.units }}</span>
-                <ion-icon class="round-icon-btn flt-lt item-add-initial"
-                *ngIf="!product.units"
-                name="ios-add-circle-outline" (click)="addToCart(product)"></ion-icon>
-            </div>
-            <div class="flt-rt add-to-cart-btns-wrap" [ngClass]="product.isItemAdding ? 'item-adding' : 'item-not-adding'">
-                <div class="item-adding-wrap">
-                    <ion-icon class="round-icon-btn flt-lt" name="ios-remove-circle-outline" (click)="updateCart(product.id,'remove', product)"></ion-icon>
-                    <span class="item-quantity flt-lt">{{ product.units }}</span>
-                    <ion-icon class="round-icon-btn flt-lt" name="ios-add-circle-outline" (click)="updateCart(product.id,'add', product)"></ion-icon>
-                </div>
-            </div>
-        </div>
-    </ion-list>
-</ion-content> -->

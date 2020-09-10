@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { CartService } from '../../services/CartServices/cart.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UtilsService } from '../../services/utils.service';
 
@@ -21,7 +20,6 @@ export class MyAccountPage implements OnInit {
     activeSegment = 'Profile';
 
     constructor(
-        public cart: CartService,
         private activeRoute: ActivatedRoute,
         private route: Router,
         public utils: UtilsService

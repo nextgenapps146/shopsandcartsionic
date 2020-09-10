@@ -6,23 +6,23 @@ import { IonicModule } from '@ionic/angular';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { CategoriesComponent } from './categories/categories.component';
 import { ProductsComponent } from './products/products.component';
-import { ProductDetailComponent } from './product-detail/product-detail.component';
 import { SelectLocationComponent } from './select-location/select-location.component';
+import { AddItemComponent } from './add-item/add-item.component';
 
 @NgModule({
     declarations: [
         HeaderComponent,
         CategoriesComponent,
         ProductsComponent,
-        ProductDetailComponent,
-        SelectLocationComponent
+        SelectLocationComponent,
+        AddItemComponent
     ],
     exports: [
         HeaderComponent,
         CategoriesComponent,
         ProductsComponent,
-        ProductDetailComponent,
-        SelectLocationComponent
+        SelectLocationComponent,
+        AddItemComponent
     ],
     imports: [
         FontAwesomeModule,

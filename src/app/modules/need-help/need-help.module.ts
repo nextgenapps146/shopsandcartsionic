@@ -7,21 +7,23 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { NeedHelpPage } from './need-help.page';
+import { ComponentsModule } from 'src/app/components/components.module';
 
 const routes: Routes = [
-  {
-    path: '',
-    component: NeedHelpPage
-  }
+    {
+        path: '',
+        component: NeedHelpPage
+    }
 ];
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    RouterModule.forChild(routes)
-  ],
-  declarations: [NeedHelpPage]
+    imports: [
+        ComponentsModule,
+        CommonModule,
+        FormsModule,
+        IonicModule,
+        RouterModule.forChild(routes)
+    ],
+    declarations: [NeedHelpPage]
 })
-export class NeedHelpPageModule {}
+export class NeedHelpPageModule { }

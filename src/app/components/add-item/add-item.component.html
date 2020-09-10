@@ -1,0 +1,22 @@
+<!-- <div *ngIf="qpMap && qpMap[item.id]; else showAddBtn" class="plus-minus-wrap">
+    <ion-icon class="minus flt-lt" name="remove-circle" (click)="addToStoreMinusBtnClick(item)"></ion-icon>
+    <span class="quantity">{{ orderQuantity }}</span>
+    <ion-icon class="plus flt-rt" name="add-circle" (click)="addToStorePlusBtnClick(item)"></ion-icon>
+</div>
+<ng-template #showAddBtn>
+    <div *ngIf="showAddToCartBtn" class="add-btn"
+        (click)="!item.isAdded && addToStoreBtnClick(item)">
+        <ion-icon class="plus flt-rt" name="add-circle"></ion-icon>
+    </div>
+</ng-template> -->
+<div class="item-adding-overlay" *ngIf="item.isAdding" (click)="utils.handleOverlayClick(item)"></div>
+<div class="add-btn" (click)="addBtnClick()" *ngIf="!item.isAdding">
+    <ion-icon name="ios-add-circle-outline" *ngIf="quantity === 0"></ion-icon>
+    <div class="order-quantity" *ngIf="quantity > 0">{{ quantity }}</div>
+</div>
+<div *ngIf="item.isAdding" class="plus-minus-wrap">
+    <ion-icon class="minus flt-lt" *ngIf="quantity == 1" name="trash" (click)="deleteBtnClick(item)"></ion-icon>
+    <ion-icon class="minus flt-lt" *ngIf="quantity > 1" name="remove" (click)="minusBtnClick(item)"></ion-icon>
+    <span class="quantity">{{ quantity }}</span>
+    <ion-icon class="plus flt-rt" name="add" (click)="plusBtnClick(item)"></ion-icon>
+</div>

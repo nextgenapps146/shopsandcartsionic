@@ -52,6 +52,29 @@ export class StoreService {
         await this.utils.closeLoading();
     }
 
+    public async updateStore(userId, result) {
+        this.myStoreRef = this.Afs.collection<Store>('stores');
+        await this.utils.openLoader();
+        await this.myStoreRef.doc(userId).update(result).then(snapshot => {
+            console.log(snapshot);
+        });
+        await this.utils.closeLoading();
+    }
+
+    // looking for distributors - for now bring everything up
+    // bring only if the user looking is not a distributor
+    public async getDistributors() {
+        this.myStoreRef = this.Afs.collection('stores', ref => ref.where('type', '==', 'd'));
+        return this.myStoreRef.snapshotChanges().pipe(
+            map(res => res.map(dataItems => {
+                const data: any = dataItems.payload.doc.data();
+                const id = dataItems.payload.doc.id;
+                // this.storesNearBy.push({ id, ...data });
+                return { id, ...data };
+            }))
+        );
+    }
+
 }
 
 export interface Store {

@@ -1,14 +1,12 @@
-<app-header title="Cart" page="delivery" leftTopButton="back"
-    toolbar2="text" textRight="Total - $79.99"
+<app-header page="delivery" leftTopButton="back" textRight="Total - $79.99"
     (headerEvent)="handleHeaderEvents($event)">
 </app-header>
 <ion-content>
-    <ion-list class="list2 cart-page-list">
-        <br />
+    <ion-list class="cart-page-list">
         <ion-item>
             <ion-label>
                 <fa-icon [icon]="['fas', 'shopping-basket']"></fa-icon>
-                <h3>Goods Delivery</h3>
+                <h5>Goods Delivery</h5>
             </ion-label>
             <ion-select placeholder="Select One" interface="popover" [(ngModel)]="selectedDelivery"
                 (ionChange)="deliveryChange()">

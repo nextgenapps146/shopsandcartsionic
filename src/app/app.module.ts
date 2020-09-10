@@ -1,7 +1,6 @@
 import { NgModule, } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
-import { CommonModule } from '@angular/common';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
@@ -30,7 +29,6 @@ import { ComponentsModule } from './components/components.module';
 import { SelectLocationComponent } from './components/select-location/select-location.component';
 import { UserService } from './services/user.service';
 import { LoginPageModule } from './modules/login/login.module';
-import { SignupPageModule } from './modules/signup/signup.module';
 
 @NgModule({
     declarations: [
@@ -47,7 +45,6 @@ import { SignupPageModule } from './modules/signup/signup.module';
     ],
     imports: [
         LoginPageModule,
-        SignupPageModule,
         ComponentsModule,
         BrowserModule,
         AngularFireModule.initializeApp(environment.firebase),

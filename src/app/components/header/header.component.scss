@@ -1,9 +1,19 @@
 .toolbar-up {
-    padding: 0 12px;
+    padding: 12px 12px 0 12px;
 }
 
 .toolbar-down {
     padding: 0 10px 10px 10px;
+
+    &.search2 {
+        padding: 0 10px;
+        margin-top: -15px;
+
+        .title .label {
+            font-size: 15px;
+            font-weight: bold;
+        }
+    }
 }
 
 ion-searchbar {
@@ -18,13 +28,14 @@ ion-searchbar {
 }
 
 ion-buttons {
-    padding: 0 8px 0 15px;
+    padding: 0 8px 0 10px;
     ion-badge {
         position: absolute;
-        right: -7px;
-        top: 1px;
+        right: -5px;
+        top: 2px;
         background-color: transparent;
-        font-size: 11px;
+        font-size: 9px;
+        color: var(--ion-color-secondary-contrast);
     }
     ion-icon {
         margin-left: 0;
@@ -32,16 +43,16 @@ ion-buttons {
 }
 
 ion-button.icon-btn {
-    height: 28px;
+    height: 22px;
 }
 
 ion-toolbar {
     fa-icon {
-        font-size: 25px;
+        font-size: 20px;
     }
 
     ion-icon {
-        font-size: 28px;
+        font-size: 22px;
     }
 
     .title {
@@ -49,14 +60,19 @@ ion-toolbar {
 
         .label {
             float: left;
-            line-height: 28px;
             margin-left: 5px;
+            font-size: 14px;
         }
     }
 
-    .sub-total {
+    .sub-total, .text-right {
         padding-right: 15px;
         font-size: 14px;
+        font-weight: bold;
+    }
+
+    .text-right {
+        font-size: 12px;
         font-weight: bold;
     }
 }

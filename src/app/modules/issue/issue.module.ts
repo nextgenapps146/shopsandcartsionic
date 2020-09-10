@@ -8,19 +8,19 @@ import { IonicModule } from '@ionic/angular';
 import { IssuePage } from './issue.page';
 
 const routes: Routes = [
-  {
-    path: '',
-    component: IssuePage
-  }
+    {
+        path: '',
+        component: IssuePage
+    }
 ];
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    RouterModule.forChild(routes)
-  ],
-  declarations: []
+    imports: [
+        CommonModule,
+        FormsModule,
+        IonicModule,
+        RouterModule.forChild(routes)
+    ],
+    declarations: []
 })
-export class IssuePageModule {}
+export class IssuePageModule { }

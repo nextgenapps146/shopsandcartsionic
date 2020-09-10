@@ -7,7 +7,6 @@ import { IonicModule } from '@ionic/angular';
 
 import { CartPage } from './cart.page';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { LocationPage } from '../location/location.page';
 import { ComponentsModule } from '../../components/components.module';
 
 const routes: Routes = [

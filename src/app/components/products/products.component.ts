@@ -18,38 +18,12 @@ export class ProductsComponent implements OnInit {
     @Output()
     productsEvent: EventEmitter<any> = new EventEmitter();
 
-    qpMap = {};
-
     constructor(private utils: UtilsService) { }
 
-    ngOnInit() {
-        this.qpMap = this.utils.quantitiesAndProductsMap;
-    }
-
-    addToStoreBtnClick(item) {
-        const info = { ...item, orderQuantity: 1 };
-        this.qpMap[item.id] = info;
-        this.qpMap['totalCart'] = this.qpMap['totalCart'] ? this.qpMap['totalCart'] + 1 : 1;
-        this.productsEvent.emit({ name: 'add-cart', type: 'click', item });
-    }
-
-    addToStorePlusBtnClick(item) {
-        this.qpMap[item.id].orderQuantity = this.qpMap[item.id].orderQuantity + 1;
-        this.qpMap['totalCart'] = this.qpMap['totalCart'] + 1;
-        this.productsEvent.emit({ name: 'add-cart-plus', type: 'click', item });
-    }
-
-    addToStoreMinusBtnClick(item) {
-        if (this.qpMap[item.id].orderQuantity === 1) {
-            delete this.qpMap[item.id];
-        } else {
-            this.qpMap[item.id].orderQuantity = this.qpMap[item.id].orderQuantity - 1;
-        }
-        this.qpMap['totalCart'] = this.qpMap['totalCart'] - 1;
-        this.productsEvent.emit({ name: 'add-cart-minus', type: 'click', item });
-    }
+    ngOnInit() {}
 
     handleItemClick(item) {
+        this.utils.handleOverlayClick(this.utils.currentAddedItem);
         this.productsEvent.emit({ name: 'item', type: 'click', item });
     }
 

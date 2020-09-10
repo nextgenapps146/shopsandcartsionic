@@ -1,14 +1,16 @@
-
-.cartItems{
+.cartItems {
     font-size: 14px;
 }
-.topTitle{
+
+.topTitle {
     font-size: 18px;
 }
-.cartTopSection{
+
+.cartTopSection {
     height: 100%;
 }
-.cartTextSection{
+
+.cartTextSection {
     align-items: center;
     height: 100%;
     display: flex;
@@ -16,102 +18,49 @@
     justify-content: center;
 }
 
-.cartIcon{
+.cartIcon {
     font-size: 30px;
 }
 
-.footerCartSection{
+.footerCartSection {
     display: flex;
     justify-content: space-between;
+    font-size: 14px;
 }
 
-.yourSaving{
-    border-top:1px solid #000;
+.yourSaving {
+    border-top: 1px solid #000;
 }
-.textPadding{
-    padding:10px;
 
-    h5{
+.textPadding {
+    padding: 10px;
+
+    h5 {
         color: #000;
         font-size: 16px;
     }
 }
 
-.contentSection{
-    background: #fff;
-    margin: 8px;
-  }
+ion-item {
+    margin-bottom: 25px;
 
-  .discountSection {
-    background: #15bf15;
-    color: #fff;
-    position: absolute;
-    padding: 4px 8px;
-    border-radius: 5px;
-    font-weight: bold;
-    margin-top: -5px;
-    left: 10px;
-
-    ion-label{
-        font-size: 14px;
-    }
-}
-.productSection{
-    display: flex;
-    align-items: center;
-    padding-bottom: 16px;
-    padding-top: 16px;
-}
-.imageSection{
-    width: 36%;
-    img{
-        // width: 65%;
+    .name {
+        font-size: 13px;
     }
 }
 
-.productTitle{
-    width: 40%;
-
-}
-.productCartSection{
-    width: 20%;
-}
-
-.segmentBtn{
-    min-width: 30px;
-    max-width: 40px;
-    height: 80px;
-}
-
-.removeBtn{
-    position: absolute;
-    top: 0;
-    right: 5px;
-}
-
-ion-segment{
-    align-items: center;
-    ion-text{
-    margin-top: 11px;
-    }
-}
-
-.cart-page-list2 {
-    .links-wrap {
-        margin-top: 25px;
-
-        .btn {
-            display: inline-block;
-            margin-right: 15px;
-            font-size: 14px;
-            fa-icon {
-                color: #f53d3d;
-                margin-right: 4px;
-                font-size: 12px;
-            }
-            .label {
-                color: #f53d3d;
-            }
+.links-wrap {
+    .btn {
+        display: inline-block;
+        margin-right: 15px;
+        font-size: 12px;
+        fa-icon {
+            color: var(--ion-color-secondary-contrast);
+            margin-right: 4px;
+            font-size: 12px;
+        }
+        .label {
+            color: var(--ion-color-secondary-contrast);
         }
     }
 }
@@ -123,7 +72,8 @@ ion-segment{
 .total-wrap {
     overflow: hidden;
     padding: 20px;
-    font-size: 14px;
+    font-size: 12px;
+    border-bottom: 1px solid #999;
 
     .item {
         display: block;
@@ -136,7 +86,7 @@ ion-segment{
         }
 
         &.savings {
-            color: #f53d3d;
+            color: var(--ion-color-secondary-contrast);
         }
     }
 }

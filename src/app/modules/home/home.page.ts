@@ -1,11 +1,8 @@
 import { Component, Input, ViewChild, OnInit } from '@angular/core';
 import { DataService } from '../../services/DataServices/data.service';
-import { CartService } from '../../services/CartServices/cart.service';
 import { HttpClient } from '@angular/common/http';
-import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { ModalController, IonSlides, MenuController, IonSelect, PopoverController } from '@ionic/angular';
-import { SearchPage } from '../search/search.page';
 import { FirestoreService } from '../../services/firestore/firestore.service';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { UtilsService } from '../../services/utils.service';
@@ -37,16 +34,12 @@ export class HomePage implements OnInit {
     public productList: Array<any>;
     constructor(
         public dataServ: DataService,
-        public cart: CartService,
         public http: HttpClient,
         private route: Router,
-        private modalController: ModalController,
         public fsServices: FirestoreService,
         private storeService: StoreService,
-        private menuCtrl: MenuController,
         public authService: AuthServiceService,
         public popoverController: PopoverController,
-        private geolocation: Geolocation,
         public utils: UtilsService
     ) {
 
@@ -113,61 +106,6 @@ export class HomePage implements OnInit {
         };
         this.route.navigate(['store'], navigationExtras);
     }
-
-    // slidesDidLoad() {
-    //     this.ionSlides.startAutoplay();
-    // }
-
-    // seeAllProduct() {
-    //     this.route.navigate(['product-list']);
-    // }
-
-    // addLocation() {
-    //     this.route.navigate(['location']);
-    // }
-
-    // goToProducts(title, product) {
-    //     this.route.navigate(['view-category-product', { categoryName: title.name, categoryId: title.id, product: JSON.stringify(product) }]);
-    // }
-
-    // async searchPage() {
-    //     const modal = await this.modalController.create({
-    //         component: SearchPage,
-    //     });
-    //     return await modal.present();
-    // }
-
-    // cartPage() {
-    //     this.route.navigate(['cart']);
-    // }
-
-    // async getGeoLocation(lat: number, lng: number) {
-    //     if (navigator.geolocation) {
-    //         const geocoder = await new google.maps.Geocoder();
-    //         const latlng = await new google.maps.LatLng(lat, lng);
-    //         const request = { latLng: latlng };
-
-    //         await geocoder.geocode(request, (results, status) => {
-    //             if (status === google.maps.GeocoderStatus.OK) {
-    //                 const result = results[0];
-    //                 const rsltAdrComponent = result.address_components;
-    //                 if (result != null) {
-
-    //                     if (rsltAdrComponent[0] != null) {
-    //                         this.locationAddress = rsltAdrComponent[0].long_name + ', ' + rsltAdrComponent[2].short_name + ', ' + rsltAdrComponent[1].short_name;
-    //                     }
-    //                     for (let i = 0; i < rsltAdrComponent.length; i++) {
-    //                         if (rsltAdrComponent[i].types && rsltAdrComponent[i].types.includes('locality')) {
-    //                             // this.utils.userCity = rsltAdrComponent[i].short_name;
-    //                         }
-    //                     }
-    //                 } else {
-    //                     // alert("No address available!");
-    //                 }
-    //             }
-    //         });
-    //     }
-    // }
 
     onChat() {
         this.route.navigate(['chat']);
