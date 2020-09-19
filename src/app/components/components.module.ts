@@ -8,6 +8,7 @@ import { CategoriesComponent } from './categories/categories.component';
 import { ProductsComponent } from './products/products.component';
 import { SelectLocationComponent } from './select-location/select-location.component';
 import { AddItemComponent } from './add-item/add-item.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
     declarations: [
@@ -15,14 +16,16 @@ import { AddItemComponent } from './add-item/add-item.component';
         CategoriesComponent,
         ProductsComponent,
         SelectLocationComponent,
-        AddItemComponent
+        AddItemComponent,
+        LoginComponent
     ],
     exports: [
         HeaderComponent,
         CategoriesComponent,
         ProductsComponent,
         SelectLocationComponent,
-        AddItemComponent
+        AddItemComponent,
+        LoginComponent
     ],
     imports: [
         FontAwesomeModule,

@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { AuthServiceService } from '../../services/auth-service.service';
 import { UserService } from '../../services/user.service';
+import { UtilsService } from 'src/app/services/utils.service';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-confirm-email',
@@ -14,8 +15,9 @@ export class ConfirmEmailPage implements OnInit {
     emailVerified = false;
 
     constructor(
-        private authService: AuthServiceService,
         private userService: UserService,
+        private utils: UtilsService,
+        private route: Router,
         private fireAuth: AngularFireAuth) {
         this.confirmSignIn(window.location.href);
     }
@@ -32,10 +34,19 @@ export class ConfirmEmailPage implements OnInit {
             this.emailVerified = true;
             localStorage.removeItem('emailForSignIn');
             this.fireAuth.auth.onAuthStateChanged(user => {
-                this.authService.user = this.fireAuth.authState;
-                this.userService.createUser(user.uid, { email, type: 's' });
+                // this.authService.user = this.fireAuth.authState;
+                this.processSuccessfulSignIn(user.uid, email);
+                this.userService.createUser(user.uid, { email });
+                this.route.navigate(['/home']);
             });
         }
+    }
+
+    processSuccessfulSignIn(uid, email) {
+        this.utils.uid = uid;
+        this.utils.userInfo.id = uid;
+        this.utils.userInfo.email = email;
+        localStorage.setItem('uid', uid);
     }
 }
 

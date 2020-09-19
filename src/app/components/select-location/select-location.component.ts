@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { PopoverController } from '@ionic/angular';
-import { UtilsService } from '../../services/utils.service';
 
 @Component({
     selector: 'app-select-location',
@@ -9,9 +8,10 @@ import { UtilsService } from '../../services/utils.service';
 })
 export class SelectLocationComponent implements OnInit {
 
+    availableCities = ['Naperville', 'Schaumberg', 'Chicago', 'Plainfield', 'Aurora', 'Bolingbrook'];
+
     constructor(
-        public popoverController: PopoverController,
-        public util: UtilsService) { }
+        public popoverController: PopoverController) { }
 
     ngOnInit() { }
 

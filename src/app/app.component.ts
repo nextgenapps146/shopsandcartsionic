@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Platform, ModalController, MenuController } from '@ionic/angular';
+import { Platform, ModalController, MenuController, PopoverController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { Router } from '@angular/router';
@@ -9,9 +9,10 @@ import { FirestoreService } from './services/firestore/firestore.service';
 import { UtilsService } from './services/utils.service';
 import { FirebaseX } from '@ionic-native/firebase-x/ngx';
 import { UserService } from './services/user.service';
-import { LoginPage } from './modules/login/login.page';
+// import { LoginPage } from './modules/login/login.page';
 import { Observable } from 'rxjs';
 import { AngularFireAuth } from '@angular/fire/auth';
+import { LoginComponent } from './components/login/login.component';
 
 @Component({
     selector: 'app-root',
@@ -21,7 +22,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 
 export class AppComponent implements OnInit {
 
-    uid: string;
+    // uid: string;
     userEmail: string;
 
     user: Observable<any>;
@@ -40,6 +41,7 @@ export class AppComponent implements OnInit {
         public menuCtrl: MenuController,
         private socialSharing: SocialSharing,
         public authService: AuthServiceService,
+        public popoverController: PopoverController,
         public fireStore: FirestoreService,
         public utils: UtilsService,
         private firebase: FirebaseX,
@@ -50,27 +52,31 @@ export class AppComponent implements OnInit {
         //         this.getCurrentUserInfo(filter.$uid);
         //     }
         // });
-        this.user = this.fireAuth.authState;
-        this.uid = localStorage.getItem('uid');
+        // this.user = this.fireAuth.authState;
+        this.utils.uid = localStorage.getItem('uid');
     }
 
     ngOnInit() {
-        if (this.uid) {
-            this.getUserInfoFromStorage({ uid: this.uid });
-        } else {
-            this.user.subscribe(result => {
-                if (result && result.uid) {
-                    this.uid = result.uid;
-                    this.utils.userInfo.id = result.uid;
-                    this.utils.userInfo.email = result.email;
-                    localStorage.setItem('uid', result.uid);
-                    this.getUserInfoFromStorage(result);
-                }
-            });
+        if (this.utils.uid) {
+            this.getUserInfoFromStorage(this.utils.uid);
         }
         this.utils.userShoppingCity = localStorage.getItem('shoppingCity');
-        this.getUserInfoFromStorage(null);
-        this.initializeApp();
+        // if (this.uid) {
+        //     this.getUserInfoFromStorage({ uid: this.uid });
+        // } else {
+        //     this.user.subscribe(result => {
+        //         if (result && result.uid) {
+        //             this.uid = result.uid;
+        //             this.utils.userInfo.id = result.uid;
+        //             this.utils.userInfo.email = result.email;
+        //             localStorage.setItem('uid', result.uid);
+        //             this.getUserInfoFromStorage(result);
+        //         }
+        //     });
+        // }
+        // this.utils.userShoppingCity = localStorage.getItem('shoppingCity');
+        // this.getUserInfoFromStorage(null);
+        // this.initializeApp();
     }
 
     initializeApp() {
@@ -94,18 +100,25 @@ export class AppComponent implements OnInit {
 
     userProfile() {
         this.menuCtrl.toggle();
-        if (this.utils.userInfo.email === '') {
-            this.login();
+        if (!this.utils.userInfo || this.utils.userInfo.email === '') {
+            this.presentLogin(null);
         } else {
             this.route.navigate(['my-account', { title: 'profile' }]);
         }
     }
 
-    async redirectPage(pageUrl, rateUs) {
-         if (pageUrl === '/share') {
+    redirectPage(pageUrl) {
+        if (pageUrl === '/share') {
             this.socialSharing.share();
+        } else if (pageUrl === '/create-store') {
+            if (this.utils.uid) {
+                this.route.navigate([pageUrl]);
+            } else {
+                // this.login();
+            }
         } else if (pageUrl === '/logout') {
-            this.authService.logout();
+            localStorage.removeItem('uid');
+            this.fireAuth.auth.signOut();
             setTimeout(v => {
                 window.location.href = window.location.href;
             }, 1000);
@@ -114,25 +127,41 @@ export class AppComponent implements OnInit {
         }
     }
 
-    getUserInfoFromStorage(result) {
-        if (result && result.uid) {
-            const userInfokey = result.uid + 'info';
+    getUserInfoFromStorage(uid) {
+        if (uid) {
+            const userInfokey = uid + 'info';
             this.utils.userInfo = JSON.parse(localStorage.getItem(userInfokey)) || this.utils.userInfo;
         }
-        this.route.navigate(['/home']);
     }
 
-    async login() {
-        const modal = await this.modalController.create({
-            component: LoginPage
+    async presentLogin(event: any) {
+        const popover = await this.popoverController.create({
+          component: LoginComponent,
+          event: event,
+          showBackdrop: true,
+          backdropDismiss: true
         });
-        modal.onDidDismiss().then((res) => {
-            if (res && res.data === 'signup') {
-                // this.signup();
-            }
+
+        popover.onDidDismiss().then((dataReturned) => {
+            // const email = dataReturned.data;
+            // this.utils.openLoader();
+            // this.authService.login(email).then(el => this.utils.closeLoading());
         });
-        return await modal.present();
+
+        return await popover.present();
     }
+
+    // async login() {
+    //     const modal = await this.modalController.create({
+    //         component: LoginPage
+    //     });
+    //     modal.onDidDismiss().then((res) => {
+    //         if (res && res.data === 'signup') {
+    //             // this.signup();
+    //         }
+    //     });
+    //     return await modal.present();
+    // }
 
     // locationPage() {
     //     this.menuCtrl.toggle();

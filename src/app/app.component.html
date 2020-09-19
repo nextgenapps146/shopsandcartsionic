@@ -16,7 +16,7 @@
                 </div> -->
                 <ion-list class="appPageSection">
                     <ion-list-header>Inbox</ion-list-header>
-                    <ion-note (click)="sendEmail()">hi@ionicframework.com</ion-note>
+                    <ion-note (click)="userProfile()">hi@ionicframework.com</ion-note>
                     <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages">
                         <ion-item [routerDirection]="'root'" [routerLink]="[p.url]" lines="none">
                             <ion-icon slot="start" [name]="p.icon" color="primary" mode="ios"></ion-icon>

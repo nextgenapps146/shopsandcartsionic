@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { AlertController, ModalController, NavController } from '@ionic/angular';
 import { UtilsService } from '../../services/utils.service';
 import { FirestoreService } from '../../services/firestore/firestore.service';
-import { LoginPage } from '../../modules/login/login.page';
+// import { LoginPage } from '../../modules/login/login.page';
 
 @Component({
     selector: 'app-cart',
@@ -105,23 +105,23 @@ export class CartPage implements OnInit {
 
     checkout() {
         if (!this.utils.userInfo.email) {
-            this.login();
+            // this.login();
         } else {
             this.route.navigate(['delivery']);
         }
     }
 
-    async login() {
-        const modal = await this.modalController.create({
-            component: LoginPage
-        });
-        modal.onDidDismiss().then((res) => {
-            if (res && res.data === 'signup') {
-                // this.signup();
-            }
-        });
-        return await modal.present();
-    }
+    // async login() {
+    //     const modal = await this.modalController.create({
+    //         component: LoginPage
+    //     });
+    //     modal.onDidDismiss().then((res) => {
+    //         if (res && res.data === 'signup') {
+    //             // this.signup();
+    //         }
+    //     });
+    //     return await modal.present();
+    // }
 
     handleHeaderEvents(event) {
         if (event.name === 'message') {

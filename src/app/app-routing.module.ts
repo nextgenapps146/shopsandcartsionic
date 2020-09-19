@@ -8,12 +8,14 @@ const routes: Routes = [
         loadChildren: () => import('./modules/home/home.module').then(m => m.HomePageModule),
         // canActivate: [GuardsService]
     },
+
+    { path: 'create-store', loadChildren: () => import('./modules/create-store/create-store.module').then(m => m.CreateStorePageModule) },
     { path: 'about-us', loadChildren: () => import('./modules/about-us/about-us.module').then(m => m.AboutUsPageModule) },
     { path: 'need-help', loadChildren: () => import('./modules/need-help/need-help.module').then(m => m.NeedHelpPageModule) },
     { path: 'issue', loadChildren: () => import('./modules/issue/issue.module').then(m => m.IssuePageModule) },
     { path: 'search', loadChildren: () => import('./modules/search/search.module').then(m => m.SearchPageModule) },
     { path: 'product-list', loadChildren: () => import('./modules/product-list/product-list.module').then(m => m.ProductListPageModule) },
-    { path: 'login', loadChildren: () => import('./modules/login/login.module').then(m => m.LoginPageModule) },
+    // { path: 'login', loadChildren: () => import('./modules/login/login.module').then(m => m.LoginPageModule) },
     { path: 'offers', loadChildren: () => import('./modules/offers/offers.module').then(m => m.OffersPageModule) },
     { path: 'order', loadChildren: () => import('./modules/order/order.module').then(m => m.OrderPageModule) },
     { path: 'cart', loadChildren: () => import('./modules/cart/cart.module').then(m => m.CartPageModule) },

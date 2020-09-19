@@ -10,8 +10,8 @@ import { LoadingController } from '@ionic/angular';
 
 export class UtilsService {
 
+    uid: any;
     // userid: BehaviorSubject<string> = new BehaviorSubject<string>('');
-    availableCities = ['Naperville', 'Schaumberg', 'Chicago', 'Plainfield', 'Aurora', 'Bolingbrook'];
     defaultProfilePic = '../assets/images/user.png';
     userShoppingCity = '';
     userInfo: any = {
@@ -43,14 +43,6 @@ export class UtilsService {
         // this.getUserId();
     }
 
-    // getUserId() {
-    //     this.fireAuth.auth.onAuthStateChanged(user => {
-    //         if (user && user.uid) {
-    //             this.userid.next(user.uid);
-    //         }
-    //     });
-    // }
-
     navigate(link, forward?) {
         if (forward) {
             this.nav.navigateForward('/' + link);
@@ -59,10 +51,10 @@ export class UtilsService {
         }
     }
 
-    validateEmail(email) {
-        const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        return re.test(String(email).toLowerCase());
-    }
+    // validateEmail(email) {
+    //     const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    //     return re.test(String(email).toLowerCase());
+    // }
 
 
     async presentToast(messages?, showButton?, positions?, durations?) {
@@ -185,7 +177,7 @@ export class UtilsService {
             { title: 'About Us', url: '/about-us', icon: 'information-circle-outline', mode: 'ios' },
             // { title: 'Rate Us', url: '/rate-us', icon: 'star-half', mode: 'ios' },
             // { title: 'Share', url: '/share', icon: 'share', mode: 'md' },
-            { title: 'Need Help', url: '/need-help', icon: 'help-circle-outline', mode: 'ios' }
+            { title: 'Need Help', url: '/need-help', icon: 'help-circle-outline', mode: 'ios' },
         ];
     }
 

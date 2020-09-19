@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { MenuController, NavController, ModalController } from '@ionic/angular';
-import { LoginPage } from '../../modules/login/login.page';
+// import { LoginPage } from '../../modules/login/login.page';
 import { UtilsService } from '../../services/utils.service';
 import { Router } from '@angular/router';
 
@@ -127,27 +127,27 @@ export class HeaderComponent implements OnInit {
 
     checkPromtLogin(eventObject) {
         if (!this.utils.userInfo.email) {
-            this.login(eventObject);
+            // this.login(eventObject);
         } else {
             this.headerEvent.emit(eventObject);
         }
     }
 
-    async login(eventObject) {
-        const modal = await this.modalController.create({
-            component: LoginPage
-        });
-        modal.onDidDismiss().then((res) => {
-            if (res) {
-                if (res.data === 'signup') {
-                    // this.signup(eventObject);
-                } else if (res.data === 'loggedin' || res.data === 'signedin') {
-                    this.checkPromtLogin(eventObject);
-                }
-            }
-        });
-        return await modal.present();
-    }
+    // async login(eventObject) {
+    //     const modal = await this.modalController.create({
+    //         component: LoginPage
+    //     });
+    //     modal.onDidDismiss().then((res) => {
+    //         if (res) {
+    //             if (res.data === 'signup') {
+    //                 // this.signup(eventObject);
+    //             } else if (res.data === 'loggedin' || res.data === 'signedin') {
+    //                 this.checkPromtLogin(eventObject);
+    //             }
+    //         }
+    //     });
+    //     return await modal.present();
+    // }
 
     // async signup(eventObject) {
     //     const modal = await this.modalController.create({

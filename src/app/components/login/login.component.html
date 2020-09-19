@@ -1,0 +1,15 @@
+<ion-content>
+    <div class="error">{{ error }}</div>
+    <ion-list padding>
+        <ion-list-header>Create Account/Sign In</ion-list-header>
+        <ion-item class="f-item" *ngIf="emailSent === ''">
+            <ion-input type="email" placeholder="Enter a valid email"
+                [(ngModel)]="email" name="email"></ion-input>
+        </ion-item>
+        <div *ngIf="emailSent !== ''">{{ emailSent }}</div>
+    </ion-list>
+    <br/>
+    <ion-button expand="block" (click)="login()" color="primary">
+        <strong class="white">{{ emailSent === '' ? 'Sign In' : 'Resend Email Link' }}</strong>
+    </ion-button>
+</ion-content>

@@ -28,23 +28,17 @@ import { fas } from '@fortawesome/free-solid-svg-icons';
 import { ComponentsModule } from './components/components.module';
 import { SelectLocationComponent } from './components/select-location/select-location.component';
 import { UserService } from './services/user.service';
-import { LoginPageModule } from './modules/login/login.module';
+import { LoginComponent } from './components/login/login.component';
 
 @NgModule({
     declarations: [
         AppComponent
-        // IssuePage,
-        // SearchPage,
-        // RateUsPage
     ],
     entryComponents: [
-        SelectLocationComponent
-        // IssuePage,
-        // SearchPage,
-        // RateUsPage
+        SelectLocationComponent,
+        LoginComponent
     ],
     imports: [
-        LoginPageModule,
         ComponentsModule,
         BrowserModule,
         AngularFireModule.initializeApp(environment.firebase),

@@ -1,0 +1,83 @@
+<app-header title="Update Store Information" page="create-store"
+    (headerEvent)="handleHeaderEvents($event)"></app-header>
+
+<ion-content>
+    <div class="contentSection" padding>
+        <div class="image-edit"></div>
+        <div class="list">
+            <br/>
+            <div class="header">Basic Info</div>
+            <div class="item select-item">
+                <div class="label flt-lt">What type of store are you setting up?</div>
+                <ion-select class="flt-rt" [(ngModel)]="storeModel.type">
+                    <ion-select-option value=r>Retail</ion-select-option>
+                    <ion-select-option value=d>Distribution</ion-select-option>
+                </ion-select>
+            </div>
+            <div class="item select-item">
+                <div class="label flt-lt">What is the business category?</div>
+                <ion-select class="flt-rt" [(ngModel)]="storeModel.bizcat">
+                    <ion-select-option value=g>Grocery</ion-select-option>
+                    <ion-select-option value=r>Resturant</ion-select-option>
+                </ion-select>
+            </div>
+            <div class="item">
+                <div class="label">Enter or paste image url of the store (logo / store picture)</div>
+                <img class="image-edit" [src]="storeModel.image"  *ngIf="storeModel.image">
+                <ion-input class="width80" type="text" [(ngModel)]="storeModel.image" name="Store Logo"></ion-input>
+            </div>
+            <div class="header">General Information</div>
+            <div class="item">
+                <div class="label">Name of your store</div>
+                <ion-input type="text" [(ngModel)]="storeModel.name" name="Store Name"></ion-input>
+            </div>
+
+            <div class="item" (click)="addressChange()">
+                <div class="label">Address</div>
+                <div class="address">
+                    <div class="flt-lt" *ngIf="storeModel.city">
+                        <div>{{ storeModel.streetaddress }}</div>
+                        <div>{{ storeModel.city }}, {{ storeModel.state }} {{ storeModel.zipcode }}</div>
+                    </div>
+                    <ion-icon class="flt-rt" slot="end" name="create"></ion-icon>
+                </div>
+            </div>
+
+            <div class="item">
+                <div class="label">Additional Address Details (optional)</div>
+                <ion-input type="text" [(ngModel)]="storeModel.additionaladdress" name="Store Name"></ion-input>
+            </div>
+
+            <br/>
+            <div class="header">Pickup/Delivery Options</div>
+            <div class="item radio-item">
+                <div class="label flt-lt">
+                    Do you offer delivery services for your products?
+                </div>
+                <ion-toggle class="flt-rt" [(ngModel)]="storeModel.isdelivery"></ion-toggle>
+            </div>
+            <div class="item radio-item">
+                <div class="label flt-lt">Do you offer curb side pickup services for your products?</div>
+                <ion-toggle class="flt-rt" [(ngModel)]="storeModel.iscurbsidepickup"></ion-toggle>
+            </div>
+
+            <br/>
+            <div class="header">Payment Options</div>
+            <div class="item radio-item">
+                <div class="label flt-lt">Can the customers pay for your products online?</div>
+                <ion-toggle class="flt-rt" [(ngModel)]="storeModel.ispayonline"></ion-toggle>
+            </div>
+            <div class="item radio-item">
+                <div class="label flt-lt">Can your customers place orders without paying for them online.
+                    (Only pick this option if you know the customer)
+                </div>
+                <ion-toggle class="flt-rt" [(ngModel)]="storeModel.iscredit"></ion-toggle>
+            </div>
+        </div>
+        <br>
+        <ion-button expand="full" color="primary"
+            [attr.disabled]= "!storeModel.type || !storeModel.bizcat || !storeModel.name || !storeModel.streetaddress ? true : false" (click)="Continue()">Continue
+        </ion-button>
+        <br>
+    </div>
+</ion-content>

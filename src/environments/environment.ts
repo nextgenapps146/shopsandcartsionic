@@ -5,14 +5,23 @@
 export const environment = {
     production: false,
     firebase: {
-        apiKey: 'AIzaSyBxBFcRYR7ilLfFz9acyY2VyBdq0G7du94',
-        authDomain: 'gretello-dev.firebaseapp.com',
-        databaseURL: 'https://gretello-dev.firebaseio.com',
-        projectId: 'gretello-dev',
-        storageBucket: 'gretello-dev.appspot.com',
-        messagingSenderId: '811864497792',
-        appId: '1:811864497792:web:2bcd4e7b2365cadf331065',
-        measurementId: 'G-2S6CB9TNVP'
+        // apiKey: 'AIzaSyBxBFcRYR7ilLfFz9acyY2VyBdq0G7du94',
+        // authDomain: 'gretello-dev.firebaseapp.com',
+        // databaseURL: 'https://gretello-dev.firebaseio.com',
+        // projectId: 'gretello-dev',
+        // storageBucket: 'gretello-dev.appspot.com',
+        // messagingSenderId: '811864497792',
+        // appId: '1:811864497792:web:2bcd4e7b2365cadf331065',
+        // measurementId: 'G-2S6CB9TNVP'
+
+        apiKey: 'AIzaSyBABfXAn9k-cL-kC8SBKU_ZzeeBFK5gqVQ',
+        authDomain: 'shops-and-carts-dev.firebaseapp.com',
+        databaseURL: 'https://shops-and-carts-dev.firebaseio.com',
+        projectId: 'shops-and-carts-dev',
+        storageBucket: 'shops-and-carts-dev.appspot.com',
+        messagingSenderId: '875289276907',
+        appId: '1:875289276907:web:e8639690a4efb81eada9ae'
+
     }
 };
 

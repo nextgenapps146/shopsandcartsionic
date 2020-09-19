@@ -1,0 +1,125 @@
+.list {
+    padding: 20px;
+
+    .header {
+        font-size: 12px;
+        margin-bottom: 35px;
+        color: var(--ion-color-secondary-contrast);
+        font-weight: bold;
+    }
+    .item{
+        margin-bottom: 15px;
+        border-bottom: 1px solid #000;
+        position: relative;
+
+        ion-input  {
+            --padding-start: 0;
+        }
+
+        .label {
+            margin-bottom: 2px;
+            color: #999;
+            display: block;
+            font-size: 11px;
+        }
+        .address {
+            overflow: hidden;
+            min-height: 40px;
+        }
+        .image-edit {
+            position: absolute;
+            height: 40px;
+            width: 40px;
+            right: 1px;
+            top: 14px;
+        }
+        .width80 {
+            width: 80%
+        }
+    }
+
+    .select-item .label {
+        width: 60% !important;
+    }
+
+    .radio-item, .select-item  {
+        overflow: hidden;
+        padding-bottom: 7px;
+
+        .label {
+            font-size: 14px;
+            float: left;
+            width: 70%;
+            line-height: 20px;
+        }
+    }
+}
+
+.contentSection{
+    background: #fff;
+    height: 100%;
+}
+
+.radioSection{
+    padding-left:10px;
+}
+.f-nav{
+    display: flex;
+    justify-content: baseline
+}
+.f-form{
+    padding-top: 10px;
+    margin-left: 14px;
+}
+.flex{
+    display: flex
+}
+.f-gender{
+    margin-right:15px;
+    margin-left:3px;
+}
+.f-list{
+    margin-top:3px;
+}
+.f-item{
+    padding-left: 0px
+}
+
+.active{
+    --background:var(--ion-color-primary);
+    background:var(--ion-color-primary);
+}
+.btnOutline{
+    border:1px solid var(--ion-color-primary);
+    --border:1px solid var(--ion-color-primary);
+    border-radius: 5px;
+}
+.homeBtn{
+    max-width: 80px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding: 10px 16px;
+    justify-content: center;
+
+}
+
+.officeBtn{
+    margin-left: 10px;
+    max-width: 80px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding: 10px 16px;
+    justify-content: center;
+
+}
+.BtnSection{
+    display: flex;
+}
+.btnColorWhite{
+    color:#fff;
+}
+.btnColorBlack{
+    color:#000;
+}
