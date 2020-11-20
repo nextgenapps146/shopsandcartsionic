@@ -26,7 +26,12 @@
         <ion-buttons *ngIf="showMoreIcon" slot="end" (click)="moreIconClick()">
             <fa-icon slot="end" [icon]="['fas', 'ellipsis-v']"></fa-icon>
         </ion-buttons>
+
+        <ion-icon *ngIf="leftTopButton === 'modal-back'" slot="start" name="arrow-round-back" (click)="close()"></ion-icon>
+        <ion-input #q *ngIf="searchPrimary" (keyup.enter)="searchPage(q.value)" [placeholder]="searchPlaceholder"></ion-input>
+
     </ion-toolbar>
+
     <ion-toolbar class="toolbar-down" color="secondary" *ngIf="toolbar2 === 'search'">
         <ion-searchbar #q color="light" md="ios" (keyup.enter)="searchPage(q.value)" (ionClear)="searchClear()"></ion-searchbar>
     </ion-toolbar>

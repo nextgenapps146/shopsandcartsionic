@@ -57,6 +57,12 @@ export class HeaderComponent implements OnInit {
     @Input()
     textRight: string;
 
+    @Input()
+    searchPrimary: boolean;
+
+    @Input()
+    searchPlaceholder: string;
+
     segmentWidth: number;
 
     constructor(

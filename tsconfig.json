@@ -7,9 +7,6 @@
     "sourceMap": true,
     "declaration": false,
     "module": "esnext",
-    "types": [
-      "googlemaps"
-    ],
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,

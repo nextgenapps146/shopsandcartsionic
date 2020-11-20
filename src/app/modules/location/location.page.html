@@ -1,11 +1,11 @@
-<app-header title="Address" page="add-address" toolbar2="search" leftTopButton="close"
+<app-header searchPrimary="true" leftTopButton="modal-back" searchPlaceholder="Search Address"
     (headerEvent)="handleHeaderEvents($event)"></app-header>
 
 <ion-content ion-no-padding>
     <ion-list>
         <ion-item *ngFor="let address of possibleAddresses" (click)="addressSelect(address)">
             <ion-label>
-                <h3>{{ address.streetnumber }} {{ address.route }}</h3>
+                <h3>{{ address.streetaddress }}</h3>
                 <p>{{ address.city }}, {{ address.state }} {{ address.zipcode }}</p>
             </ion-label>
         </ion-item>

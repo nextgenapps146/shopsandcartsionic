@@ -46,7 +46,7 @@ export class CreateStorePage implements OnInit {
     }
 
     addAddress(address) {
-        this.storeModel.streetaddress = address.streetnumber + ' ' + address.route;
+        this.storeModel.streetaddress = address.streetaddress;
         this.storeModel.city = address.city;
         this.storeModel.state = address.state;
         this.storeModel.zipcode = address.zipcode;

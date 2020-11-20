@@ -3,21 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>875289276907-87bhgtd8lc47aspoq200ho1q52qveksi.apps.googleusercontent.com</string>
+	<string>769298931967-llfiv5ned7q4sovhmlhkkt4fubr87bg8.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.875289276907-87bhgtd8lc47aspoq200ho1q52qveksi</string>
+	<string>com.googleusercontent.apps.769298931967-llfiv5ned7q4sovhmlhkkt4fubr87bg8</string>
 	<key>API_KEY</key>
-	<string>AIzaSyDmf_2xAXluM_SI-TvtnllBd6_VTPa_r4I</string>
+	<string>AIzaSyC_cSLJhI4-5MJLg192unhcuamKHr0tTwk</string>
 	<key>GCM_SENDER_ID</key>
-	<string>875289276907</string>
+	<string>769298931967</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>com.nextgenapps.shopsandcarts</string>
 	<key>PROJECT_ID</key>
-	<string>shops-and-carts-dev</string>
+	<string>shops-and-carts-develop</string>
 	<key>STORAGE_BUCKET</key>
-	<string>shops-and-carts-dev.appspot.com</string>
+	<string>shops-and-carts-develop.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,8 +29,8 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:875289276907:ios:ad14e441aea3edafada9ae</string>
+	<string>1:769298931967:ios:a134a4df5a1b1c0e9f2cca</string>
 	<key>DATABASE_URL</key>
-	<string>https://shops-and-carts-dev.firebaseio.com</string>
+	<string>https://shops-and-carts-develop.firebaseio.com</string>
 </dict>
 </plist>

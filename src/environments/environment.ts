@@ -5,23 +5,17 @@
 export const environment = {
     production: false,
     firebase: {
-        // apiKey: 'AIzaSyBxBFcRYR7ilLfFz9acyY2VyBdq0G7du94',
-        // authDomain: 'gretello-dev.firebaseapp.com',
-        // databaseURL: 'https://gretello-dev.firebaseio.com',
-        // projectId: 'gretello-dev',
-        // storageBucket: 'gretello-dev.appspot.com',
-        // messagingSenderId: '811864497792',
-        // appId: '1:811864497792:web:2bcd4e7b2365cadf331065',
-        // measurementId: 'G-2S6CB9TNVP'
-
-        apiKey: 'AIzaSyBABfXAn9k-cL-kC8SBKU_ZzeeBFK5gqVQ',
-        authDomain: 'shops-and-carts-dev.firebaseapp.com',
-        databaseURL: 'https://shops-and-carts-dev.firebaseio.com',
-        projectId: 'shops-and-carts-dev',
-        storageBucket: 'shops-and-carts-dev.appspot.com',
-        messagingSenderId: '875289276907',
-        appId: '1:875289276907:web:e8639690a4efb81eada9ae'
-
+        apiKey: 'AIzaSyA8XPAhyF1r_dmQzZI_Zcnak0FMhobykzY',
+        authDomain: 'shops-and-carts-develop.firebaseapp.com',
+        databaseURL: 'https://shops-and-carts-develop.firebaseio.com',
+        projectId: 'shops-and-carts-develop',
+        storageBucket: 'shops-and-carts-develop.appspot.com',
+        messagingSenderId: '769298931967',
+        appId: '1:769298931967:web:7184803a90be9aff9f2cca',
+        measurementId: 'G-F3Y92CH14C'
+    },
+    mapbox: {
+        accessToken: 'pk.eyJ1IjoibmV4dGdlbmFwcHMxNDYiLCJhIjoiY2tmZWg3cnUyMDIyNzJzbzdjd3ZiYzdicSJ9.jmBf4BLUx5c_shUDIf5KUA'
     }
 };
 

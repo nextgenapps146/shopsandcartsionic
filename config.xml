@@ -2,7 +2,7 @@
 <widget id="com.nextgenapps.shopsandcarts" version="1.1.2" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Shops and Carts</name>
     <description>Grocery Shopping User App with admin panel</description>
-    <author email="nextgenapps146@gmail.com">CartsandShops</author>
+    <author email="nextgenapps146@gmail.com">ShopsandCarts</author>
     <content src="index.html" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
@@ -19,15 +19,6 @@
     <preference name="SplashShowOnlyFirstTime" value="false" />
     <preference name="SplashScreen" value="screen" />
     <preference name="SplashScreenDelay" value="3000" />
-    <plugin name="cordova-plugin-whitelist" spec="1.3.3" />
-    <plugin name="cordova-plugin-statusbar" spec="2.4.2" />
-    <plugin name="cordova-plugin-device" spec="2.0.2" />
-    <plugin name="cordova-plugin-splashscreen" spec="5.0.2" />
-    <plugin name="cordova-plugin-ionic-webview" spec="^3.0.0" />
-    <plugin name="cordova-plugin-ionic-keyboard" spec="^2.0.5" />
-    <plugin name="cordova-plugin-nativegeocoder" spec="3.1.3" />
-    <plugin name="cordova-plugin-x-socialsharing" spec="5.4.4" />
-    <plugin name="cordova-plugin-geolocation" spec="4.0.1" />
     <platform name="android">
         <preference name="loadUrlTimeoutValue" value="700000" />
         <resource-file src="google-services.json" target="app/google-services.json" />

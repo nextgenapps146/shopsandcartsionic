@@ -1,7 +1,8 @@
 {
-  "name": "cartsandshops",
+  "name": "shopsandcarts",
   "integrations": {
-    "cordova": {}
+    "cordova": {},
+    "capacitor": {}
   },
   "type": "angular"
 }
